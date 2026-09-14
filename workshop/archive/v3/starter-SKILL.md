@@ -1,8 +1,9 @@
 ---
 name: workshop-review
 description: Review a supplied Inspection Desk change against its specification and check evidence, returning supported findings for the stated acceptance path.
+disable-model-invocation: true
 context: fork
-agent: reviewer
+agent: report-investigator
 argument-hint: <path to review-context.md>
 ---
 
@@ -24,7 +25,7 @@ For a fixed evaluation case, the case ID and embedded specification, diff and su
 ## Procedure
 
 1. Confirm every listed path exists. If one is missing, stop and report which; do not guess its content.
-2. Read the specification and acceptance requirements supplied by the context file. For evaluation, read INPUTS.md and the named SPEC.md, source, diff and check records.
+2. Read the acceptance rules for the listed IDs in `workshop/acceptance.md` and the matching rows in the spec.
 3. Read the diff. For each acceptance ID, decide whether the changed code satisfies the rule, citing the
    diff hunk and the source line that establishes it.
 4. Read the check output. Report which relevant checks passed, failed or did not run. Do not treat a
@@ -51,6 +52,6 @@ Limits: <what this review could not establish>
 
 ## Team use
 
-Owner: workshop participant (replace with the responsible team role). Version: 0.1.1 runtime-compatible starter.
+Owner: workshop participant (replace with the responsible team role). Version: 0.1.0 starter.
 
 Invoke `/workshop-review <context file>` in a fresh session using repository-relative paths. The file must supply all inputs above. Preserve the initial skill before editing, compare it on both fixed cases in `workshop/skill-cases/`, and record why you changed or retained its instructions. Add a short version/change note when updating this shared procedure. No marketplace connection is needed.

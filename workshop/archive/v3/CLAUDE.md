@@ -7,7 +7,7 @@ TypeScript/React client, Express server, committed JSON fixtures and an in-memor
 - Prepare: `node --version`, `npm ci`, `npm run prepare:local`.
 - Run: `npm run dev` (API 4100, UI 5173).
 - Check: `npm run check -- --stage baseline`, `fast`, `m5`, `m6` or `evidence`.
-- Final order: exercise the reusable review skill on local work, select the final skill package in the portal, preview and submit. Keep the application, specification, plan and checks locally.
+- Final order: finish public documents → commit → run `npm run check -- --stage m6 --json .workshop-private/final-checks.json` → push/open the PR → submit that version and selected private evidence. Any public edit needs another commit and check run.
 
 ## Work area
 
@@ -24,4 +24,4 @@ Read and preserve the report service, builder, store, scheduler, shared types, f
 - Adapt `.claude/skills/workshop-review/SKILL.md`; supply its spec, target, diff and check inputs explicitly. Evaluate its output on the fixed cases before using it on the final change.
 - Keep this file, scoped instructions and agent/skill configuration concise and reusable. They are editable guidance, not security controls.
 - Maximum 500 added plus deleted code lines, including tests, styles and configuration. See `workshop/rules.md` for counting and editable paths.
-- Never put session exports, email addresses or private evidence in Git. Use `.workshop-private/` or an external folder for your own exercise records; they are not submitted.
+- Never put session exports, email addresses or private evidence in Git. Use `.workshop-private/` or an external folder and preview before uploading.

@@ -1,38 +1,26 @@
 # M6 · Final review and submit
 
-10 minutes · 5 practice points in the final assessment.
+10 minutes · local workshop exercise.
 
-A final claim is only useful when it describes the code version actually submitted.
+The review skill must stand on its own when used in a fresh session.
 
-Decision: Is this version ready, and can another engineer trace the change and repeat the review?
-
-Claude Code: Final review · current verification · reproducible handoff
+Decision: Can another engineer supply the inputs, run the review and understand what its evidence proves?
 
 ## Work
 
-1. Use the review skill on the final change. Fix, accept as unresolved or dispute findings with evidence. Stop remaining delegated work.
-2. Complete workshop/FINAL.md within 300 words and check all required public documents and instruction files. Commit the final public work.
-3. Run final checks on the clean commit into .workshop-private/final-checks.json. Push and open one PR. If public files change, commit and rerun.
-4. Export only selected workshop sessions, supplement missing tool results, preview/redact and submit the PR with one private packet. Confirm the suggested evidence index and missing-field note.
+1. Run the review skill on your local change. Check its findings and limitations. Stop unfinished specialist work.
+2. Keep the application, specification, plan and exercise notes locally. The 500-line limit remains an exercise constraint.
+3. Choose your final skill ZIP or self-contained SKILL.md in the portal. Inspect the file tree and readable files, then submit once. No repository, PR link or conversation upload is required.
+4. Check the receipt and evaluation status. A replacement preserves history. Review your score explanation and private feedback when the controlled evaluation completes.
 
-## Save
+## Keep locally or submit
 
-One final PR and one private packet, bound to the same commit. Corrections preserve the earlier receipt.
+One complete reusable review skill package: ZIP with optional supporting files, or self-contained SKILL.md.
 
-## Prompt
+## Claude Code prompt
 
-Review the final change against SPEC.md using the shared review skill. Verify findings and record supported dispositions, scope, readiness, usage/version notes and limits in workshop/FINAL.md. Finish public files before committing. Then run final checks on that clean version with output in ignored .workshop-private/. Report the actual commit and results privately. Stop unfinished delegated work. Do not claim readiness from stale checks.
+Review the local change against SPEC.md with the reusable review skill. Check its findings and limitations. Exercise it on a correct and a faulty example. Finish the SKILL.md instructions so another engineer can supply the target, specification, diff and check results in a fresh session. Stop unfinished work. I will preview and submit only that review skill package in the portal.
 
-## Check and grade
+## Check
 
-`npm run check -- --stage m6 --json .workshop-private/final-checks.json`
-
-See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
-
-<details><summary>Optional hints</summary>
-
-Do not write a document that requires its own future SHA. Commit public work before running final checks into ignored storage.
-
-If grading is pending at closing, your receipt remains available. Final results and approved feedback are released after assessment resolves; no delivery deadline has been agreed.
-
-</details>
+Run your local application checks and invoke /workshop-review with explicit inputs; submit only the skill package.

@@ -19,7 +19,7 @@ the current code: that is the open defect in the report-generation ticket.
 
 ## Current ticket
 
-Open `product-handoff/report-progress.html` and read its user journey and product brief, then `workshop/product-decisions.md` and `workshop/acceptance.md`. Complete SPEC.md, PLAN.md and the investigation/evaluation/final files in `workshop/`. Save exercise work locally; submit only the final reusable review SKILL.md through the portal.
+Open `product-handoff/report-progress.html` and read its user journey and product brief, then `workshop/product-decisions.md` and `workshop/acceptance.md`. Complete SPEC.md, PLAN.md and the investigation/evaluation/final files in `workshop/`. Save intermediate work locally; submit one final PR and one private evidence packet.
 
 ## Commands
 
@@ -61,4 +61,4 @@ multi-process safety, no authentication, no PDF output and no deployment path. T
 
 MIT. See `LICENSE`.
 
-Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [reusable review skill](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). The portal does not collect application changes, PR links, conversations or supporting files.
+Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [reusable review skill](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). Keep workshop exports outside Git and submit them privately through the portal.

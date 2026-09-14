@@ -1,144 +1,133 @@
-# Published grading criteria
+# Review skill package assessment
 
-One final assessment: 40 behavior + 60 Claude Code practice = 100 points. No peer, attendance, speed or command-count points.
+Version `inspection-desk-skill-4.1` · proposed for facilitator review · September 14, 2026.
 
-All required final checks must pass; the change must fit 500 code lines; practice must reach 30/60; no grade may remain pending. Ties share a place.
+Submit a ZIP containing one complete skill directory, including SKILL.md and any files it needs. A self-contained SKILL.md is also accepted. Supporting files are optional and earn no points merely for being present. The application and its 500-line limit remain local exercises. The scoring weights are proposed for this workshop.
 
-## Application behavior — 40 points
+| Criterion | Points | Units |
+| --- | ---: | --- |
+| Detects actual defects | 30 | retry, ui-state, variation |
+| Avoids unsupported findings on correct changes | 20 | correct |
+| Uses accurate, checkable evidence | 15 | correct, retry, ui-state, uncertain, variation |
+| Handles missing or conflicting evidence honestly | 15 | uncertain |
+| Recommends specific corrections within the requested scope | 10 | retry, ui-state, variation |
+| Provides clear, reusable inputs and instructions | 10 | skill |
 
-- AC-01 · Progress: 6 points. Applicable direct server and browser assertions must all pass.
-- AC-02 · One active attempt: 6 points. Applicable direct server and browser assertions must all pass.
-- AC-03 · Correct report: 8 points. Applicable direct server and browser assertions must all pass.
-- AC-04 · Failure and status-lookup recovery: 6 points. Applicable direct server and browser assertions must all pass.
-- AC-05 · Safe retry: 6 points. Applicable direct server and browser assertions must all pass.
-- AC-06 · Preserved contents and inspection separation: 8 points. Applicable direct server and browser assertions must all pass.
+## Fixed scoring rule
 
-## WF-M1-CONTEXT · Context, instructions and diagnosis — 5 points
+For each criterion, award zero=0, partial=0.5 or full=1 to every listed unit. Multiply the mean of its unit levels by its maximum. Add unrounded criterion points, then round the total to two decimals. All units and all five native case runs must resolve; evaluator failures never count as zero. Latest valid completed submission per participant ranks; a pending replacement suspends the previous rank. Equal totals share competition rank (1,1,3).
 
-Evidence: INVESTIGATION.md, applicable project instructions and selected session evidence.
+Participant omissions in an otherwise completed case are assessed against the criterion examples. Missing runtime inputs, timeouts, malformed grader output, unsupported grader citations or unresolved qualitative disagreement require attention and prevent a final score. Never invent a participant failure to complete a result.
 
-- Complete (5): Relevant inputs and instructions are used to verify a prototype/app discrepancy; the model/effort decision and its observed limit or result are explained.
-- Partial (2.5): A real discrepancy and relevant inputs are identified, but instruction use or the diagnosis is not fully checked.
-- Unsupported (0): Only file/model names or an unsupported diagnosis.
+The three defect units ask whether the actual break was found. Evidence asks whether the review supports its decisive claims. Corrections ask whether its proposed change would fix the break. These are distinct questions even when they refer to the same finding. Extra findings on faulty cases affect evidence and correction judgments; the 20-point restraint criterion uses only the correct case. Judge that choice during manual review.
 
-## WF-M2-CLARIFY · Resolve a consequential ambiguity — 4 points
+Length, command names, agent count, file existence, generic advice and claims of improvement earn no points. A reference to hooks, Plan Mode or subagents does not establish observed use. Valid JSON is not a correct review. A valid citation location is not proof that the cited text supports the claim.
 
-Evidence: The product question, shared answer and resulting SPEC.md requirement.
+## Detects actual defects — 30 points
 
-- Complete (4): A supported product answer changes an observable requirement, such as retrying the original snapshot.
-- Partial (2): A meaningful question and answer exist, but the change to the requirement is unclear.
-- Unsupported (0): A generic request for robustness with no resolved decision.
+Claude practice: Compare the change with explicit requirements.
 
-## WF-M2-ACCEPTANCE · Specify observable behavior — 4 points
+Assessed input/output: Actual reviews of the server, UI and changed-path cases.
 
-Evidence: SPEC.md and its journey/AC-01–06 mapping.
+Automatic checks: Match required units and validate cited excerpts.
 
-- Complete (4): Actions, inputs and observable outcomes cover all published cases, including failed status lookup and recovery.
-- Partial (2): Useful cases omit a required outcome.
-- Unsupported (0): Acceptance IDs or prototype screenshots without observable requirements.
+Qualitative judgment: Does the finding identify the actual broken behavior and its cause?
 
-## WF-M2-SCOPE · Define preservation and exclusions — 2 points
+- Zero: Misses the retry defect or names an unrelated issue.
+- Partial: Identifies the wrong retry response but does not explain the duplicate request condition.
+- Full: Explains that a reused retry receives 202 instead of 200, citing the handler and requirement.
 
-Evidence: SPEC.md boundaries and cited existing service behavior.
+Units: retry, ui-state, variation. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-- Complete (2): Original report contents and retry data are preserved; existing service ownership and excluded work are explicit.
-- Partial (1): Some preservation or scope rules are stated but a material boundary is missing.
-- Unsupported (0): An unbounded rewrite or no supported preservation rules.
+## Avoids unsupported findings on correct changes — 20 points
 
-## WF-M3-PLAN · Plan checked increments — 4 points
+Claude practice: Verify a concern before reporting a defect.
 
-Evidence: PLAN.md files, two increments, check mapping and additions/deletions estimate.
+Assessed input/output: Review of the correct change.
 
-- Complete (4): Server handlers/direct request checks precede UI integration/browser checks; both increments follow the spec and estimate all counted code within 500 lines.
-- Partial (2): A useful plan omits one material dependency, check or counted change.
-- Unsupported (0): A task list without a bounded implementation or verification path.
+Automatic checks: Check that the complete output is retained.
 
-## WF-M3-ASSIGN · Define the two agent assignments — 4 points
+Qualitative judgment: Are reported defects supported? Does the review distinguish limitations from failures?
 
-Evidence: Prepared specialist configurations and actual assignment prompts.
+- Zero: Declares the correct retry mapping broken, or supplies no review.
+- Partial: Avoids a false defect but gives only a vague pass without explaining what was checked.
+- Full: Explains the correct behavior with evidence and makes no unsupported defect claim.
 
-- Complete (4): Each independent investigation has relevant inputs, a narrow question, suitable tools/model, expected evidence and stopping conditions.
-- Partial (2): The tasks are bounded but one lacks a necessary input, capability restriction or return requirement.
-- Unsupported (0): Only agent invocation, agent count or an unrestricted instruction to build everything.
+Units: correct. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-## WF-M3-COORDINATE · Combine work in the right order — 4 points
+## Uses accurate, checkable evidence — 15 points
 
-Evidence: Returned findings and the main session synthesis reflected in PLAN.md.
+Claude practice: Inspect sources and connect evidence to claims.
 
-- Complete (4): Independent investigations run concurrently where permitted; dependencies are ordered and overlapping or conflicting findings are reconciled. A documented access fallback is equivalent.
-- Partial (2): Both findings return, but their dependencies or a meaningful overlap are not resolved.
-- Unsupported (0): Independent outputs are pasted together without a supported implementation decision.
+Assessed input/output: Decisive claims and citations in every case output.
 
-## WF-M3-CHECK · Verify delegated findings — 3 points
+Automatic checks: Validate source paths, lines and exact excerpts in grader judgments.
 
-Evidence: One source claim from each investigator and the engineer’s recorded check.
+Qualitative judgment: Do the participant references and reasoning support the claim? A real line alone is insufficient.
 
-- Complete (3): Both claims are checked and their acceptance, correction or rejection informs the plan.
-- Partial (1.5): One claim is verified or both are checked incompletely.
-- Unsupported (0): Delegated conclusions are accepted without evidence.
+- Zero: Invents test execution or supplies no checkable support.
+- Partial: Uses a relevant source but a decisive claim lacks a clear supporting location or explanation.
+- Full: Connects decisive claims to the supplied source or check record, with accurate locations and an explanation of what it proves.
 
-## WF-M4-REUSE · Make the review skill usable by the team — 5 points
+Units: correct, retry, ui-state, uncertain, variation. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-Evidence: Repository skill, brief use/version/owner notes and a fresh-session invocation.
+## Handles missing or conflicting evidence honestly — 15 points
 
-- Complete (5): The skill uses explicit inputs, no personal paths or hidden chat assumptions, and works in a fresh context; another engineer has concise usage and version information.
-- Partial (2.5): The skill is useful but its handoff or fresh-context use is incomplete.
-- Unsupported (0): A personal-only prompt or skill file with no demonstrated reuse.
+Claude practice: Separate observed results from assumptions.
 
-## WF-M4-REVIEW · Give the skill explicit review instructions — 5 points
+Assessed input/output: Review with an absent result and a check from a different revision.
 
-Evidence: Skill instructions, supplied spec/target/diff/check inputs and cited output.
+Automatic checks: Check complete input and output records.
 
-- Complete (5): The separate review receives the correct evidence and returns checked findings or a supported pass with limits; the engineer verifies a consequential result.
-- Partial (2.5): The review is useful but a material input or verification is missing.
-- Unsupported (0): Bare invocation, generic praise or an unverified defect claim.
+Qualitative judgment: Does the review identify both the missing check and stale/conflicting evidence without inventing a result?
 
-## WF-M4-IMPLEMENT · Control implementation scope — 5 points
+- Zero: Claims the submitted revision passes based on the stale report.
+- Partial: States that verification is incomplete but misses the revision mismatch or the absent result.
+- Full: Names both gaps, withholds a verified-pass claim, and asks for the precise checks on the current revision.
 
-Evidence: Server and UI diff, local increments and PLAN.md deviations.
+Units: uncertain. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-- Complete (5): Implementation follows the approved increments, reuses the prepared service and explains any necessary deviation; supplied checks remain intact.
-- Partial (2.5): Most work follows the plan but a material deviation is unexplained.
-- Unsupported (0): Unrelated edits, weakened checks or no supported connection to the plan.
+## Recommends specific corrections within the requested scope — 10 points
 
-## WF-M5-TEST · Prove the regression test detects its defect — 4 points
+Claude practice: Turn a verified finding into a bounded change.
 
-Evidence: The unchanged new server-request regression test and trusted correct/faulty/own results.
+Assessed input/output: Correction recommendations in the three faulty cases.
 
-- Complete (4): Correct code passes, the faulty code fails at the intended assertion, and the own-code result and coverage limits are explained.
-- Partial (2): Correct/faulty detection is established but the own-code result or coverage limit is not explained.
-- Unsupported (0): Both implementations fail, or the faulty run fails only at import, startup or timeout. Infrastructure errors remain pending rather than scored as participant failure.
+Automatic checks: Require one judgment for each case.
 
-## WF-M5-EVALUATE · Evaluate and improve the review skill — 3 points
+Qualitative judgment: Would the proposed fix address the actual failure without unrelated redesign?
 
-Evidence: EVALUATION.md plus retained initial/revised skill versions, fixed cases and actual outputs.
+- Zero: No fix, an incorrect fix, or a rewrite outside scope.
+- Partial: Suggests the right area but omits the condition or behavior to change.
+- Full: Specifies the small condition/state update needed and a relevant follow-up check.
 
-- Complete (3): Clean and faulty cases expose false findings or misses; a proposed instruction change is compared on the same cases/configuration and accepted or rejected with evidence. An adequate initial skill may be retained with supported reasons.
-- Partial (1.5): Both cases are assessed, but the before/after comparison or retention decision lacks a material control.
-- Unsupported (0): A self-improvement claim without executions, fabricated gains or a check that merely confirms the skill file exists.
+Units: retry, ui-state, variation. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-## WF-M5-HOOK · Prove automatic checking and its limits — 3 points
+## Provides clear, reusable inputs and instructions — 10 points
 
-Evidence: Hook event/filter/script and selected invocation, failure, correction/pass and unrelated-action evidence.
+Claude practice: Write a skill that works in a fresh Claude Code context.
 
-- Complete (3): The relevant event runs the intended check, feedback reaches Claude, correction passes, and scope/remaining behavioral checks are explained. Approved equivalent evidence has no feature-access penalty.
-- Partial (1.5): Real hook output is supplied, but the correction, scope check or coverage limit is missing.
-- Unsupported (0): Only a direct script run or an incorrect claim that PostToolUse reverses an edit or proves every behavior.
+Assessed input/output: Exact submitted skill package and outputs across the fixed cases.
 
-## WF-M6-VERIFY · Review and verify the final version — 3 points
+Automatic checks: Validate package format, paths, complete content, dependencies and actual native invocation separately from scoring.
 
-Evidence: FINAL.md, final skill output, supported dispositions and current trainer checks.
+Qualitative judgment: Can another user identify the required inputs, procedure, output and limits, including a changed path?
 
-- Complete (3): The engineer resolves or explains findings, checks the actual submitted version and reports readiness or a specific blocker accurately; unfinished agent work is stopped.
-- Partial (1.5): Current results exist but a material finding or limitation is not addressed.
-- Unsupported (0): A completion claim contradicted by results or based only on stale checks.
+- Zero: No usable review procedure, or depends on an unavailable private conversation.
+- Partial: Useful procedure with an ambiguous input or output; still tied to one example.
+- Full: Clear target/specification/diff/check inputs, repeatable review steps and output/limit instructions that work with the supplied package beyond the example. Optional files are neither required nor rewarded.
 
-## WF-M6-HANDOFF · Leave a reproducible handoff — 2 points
+Units: skill. Use the shared failure rule; retain all prior attempts and corrections. An omission in a successful review is assessed against these examples; a missing evaluator output prevents completion.
 
-Evidence: Final PR documents, skill usage notes and private receipt/evidence.
+## Worked arithmetic examples
 
-- Complete (2): A reviewer can trace requirements to changes and results, run the shared skill, and see scope and known limits without reconstructing private conversation history.
-- Partial (1): The handoff is usable but one required connection or usage detail is missing.
-- Unsupported (0): Missing or contradictory handoff with no reproducible evidence.
+These illustrate arithmetic, not actual scores or approved judgments.
 
-The model proposes levels, cited evidence and reasons. Server code calculates points. Confirmed missing practice receives zero; failed collection, execution or model assessment remains pending. File existence and invocation alone do not show understanding. Optional feature access never costs points.
+| Example | Calculation | Total |
+| --- | --- | ---: |
+| All units full | 30 + 20 + 15 + 15 + 10 + 10 | 100 |
+| Detection full/partial/zero; all others full | 30 × (1 + 0.5 + 0)/3 + 70 | 85 |
+| One correction partial; all others full | 90 + 10 × (1 + 1 + 0.5)/3 | 98.33 |
+| One native case times out | No final score; needs attention | — |
+
+Earlier example-specific partial-credit decisions do not approve this rubric. The public case categories and aggregation stay fixed for all participants; private answer keys remain with the trainer.

@@ -1,6 +1,6 @@
 # Submission rules
 
-Use the frozen starter shown in the portal. Work locally through six learning stages. Submit one complete skill package containing your reusable review procedure. Replacement submissions preserve history. No PR, application, plan, specification or conversation upload is required.
+Use the frozen starter shown in the portal. Save work locally through six learning stages. At the end, open one PR and submit its link with one private evidence packet. Corrections update the same PR and create a new receipt; earlier receipts and grades retain their exact code versions. No intermediate uploads or peer reviews are required.
 
 ## Editable and protected paths
 
@@ -35,10 +35,12 @@ Application code, tests, styles, automation and configuration count. Unknown fil
 
 Session exports and check outputs belong in ignored `.workshop-private/` or outside the repository; never commit them. The supplied prototype and configuration are already in the starter and consume no change budget unless edited; the prototype is protected.
 
-## Local exercise records and final skill
+## Documents and private evidence
 
-Keep the specification, plan, application, checks and practice notes locally. The 500-line application limit is a local exercise constraint, not competition eligibility. The application is not collected or independently graded in this competition.
+Investigation: 200 words. SPEC: 500. PLAN: 400. EVALUATION: 500 prose words, excluding result-table rows. FINAL: 300. Headings count; Markdown punctuation and HTML comments do not. Put command output in the private packet.
 
-Submit one UTF-8 SKILL.md, at most 32 KiB (32,768 bytes). Preview the exact content and submit. Use the supplied runtime inputs and read-only reviewer agent. The portal records its own case outputs; you do not upload logs or citation indexes.
+Attach at most eight private files: 1 MiB each, 4 MiB total. Preview and redact selected workshop sessions. Native exports can omit expanded tool results; add a selected supplementary file and explain missing evidence. Keep private sessions, email and other participants’ data out of public Git history.
 
-The new proposed assessment is inspection-desk-skill-4.0. See rubric.md and assessment-contract-v4.json. Older check contracts remain available for the local exercise and archived v3 records; their score weights do not govern this submission.
+Complete and commit public files first. Run final checks on the clean commit into ignored storage, push/open the PR, then submit the same code version and private evidence. Repeat checks after any public edit. A public document never needs to contain its own future commit ID.
+
+The trainer checks captured versions. A saved snapshot cannot prove that a temporary local edit never occurred. Session hashes establish integrity after receipt, not an independent record of every action.

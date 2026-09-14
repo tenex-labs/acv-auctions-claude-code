@@ -89,7 +89,7 @@ export function computeManifest() {
     if (!existsSync(full)) throw new Error(`protected file missing: ${rel}`);
     files[rel] = createHash('sha256').update(readFileSync(full)).digest('hex');
   }
-  return { contractVersion: 'inspection-desk-3.0', generatedAt: new Date().toISOString(), files };
+  return { contractVersion: 'inspection-desk-3.0', assessmentVersion: 'inspection-desk-skill-4.1', generatedAt: new Date().toISOString(), files };
 }
 
 const mode = process.argv[2];
