@@ -1,7 +1,7 @@
 {
   "contractVersion": "inspection-desk-3.0",
   "assessmentVersion": "inspection-desk-skill-4.1",
-  "generatedAt": "2026-09-14T23:42:57.207Z",
+  "generatedAt": "2026-09-14T23:56:43.433Z",
   "files": {
     ".claude/hooks/check-report-change.mjs": "fa64a4e162b000e427f66292ecf01c17d21a0732a9f941f8c200ccbe6d5ad6ba",
     ".claude/settings.json": "0242f9880f45e723c84853e909250c91636dfdea1b01d95f88b6ac5a1c8bb1a2",
@@ -59,7 +59,7 @@
     "workshop/product-decisions.md": "486b86f1602d5e58e730a47ee90514f6a2f2ff61a8187b64147208d6f9da2dd2",
     "workshop/review-instructions.md": "25f1f9561aa04df7508bdd337ea37d4a6d81420964e39d4fcc0252a870820be0",
     "workshop/rubric.md": "64423e0cdb3fdbdfa79f8d45852a2e35a2029c86988b0bcdcbb45598805abc3a",
-    "workshop/rules.md": "5d18f64df0b68ed2cad788a29f0d9435454dca58ff210c2869c6c7bfbfda15d7",
+    "workshop/rules.md": "91d1a2b1828df5c0e5d39ce74913ac4caa6445e6497dda07c301ba0e48d316d0",
     "workshop/skill-cases/README.md": "cc32fcbb0bf91ee991cde504841153703e66768b9472ce253616031c37626fc1",
     "workshop/skill-cases/clean.md": "6fa0550a6c1f9a29bd64fc872d067037430f4efe92486ab0b8bcf843f901f199",
     "workshop/skill-cases/faulty.md": "05c4431bc6d89fa3032d69c594b8e5b0ee11daa2b5b87780c11118e628daa6dd",

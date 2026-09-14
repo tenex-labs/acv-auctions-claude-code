@@ -41,4 +41,4 @@ Keep the specification, plan, application, checks and practice notes locally. Th
 
 Submit one UTF-8 SKILL.md, at most 32 KiB (32,768 bytes). Preview the exact content and submit. Use the supplied runtime inputs and read-only reviewer agent. The portal records its own case outputs; you do not upload logs or citation indexes.
 
-The new proposed assessment is inspection-desk-skill-4.0. See rubric.md and assessment-contract-v4.json. Older check contracts remain available for the local exercise and archived v3 records; their score weights do not govern this submission.
+The new proposed assessment is inspection-desk-skill-4.1. See rubric.md and assessment-contract-v4.json. Older check contracts remain available for the local exercise and archived v3 records; their score weights do not govern this submission.
