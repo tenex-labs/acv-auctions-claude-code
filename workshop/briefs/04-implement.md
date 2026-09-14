@@ -1,42 +1,38 @@
-# M4 — Implement the first increment and inspect a reusable review (20 minutes)
+# M4 · Implement and reuse
 
-**Claude Code capability:** a skill with explicit invocation and a separate execution context.
-`/workshop-review` runs with `context: fork` and the read-only investigator agent. It does **not** see
-your conversation; you supply the target, spec, diff and check evidence in a file.
+30 minutes · 15 practice points in the final assessment.
 
-**Opening:** Implement progress and correct completion. Use the supplied review skill to check your
-actual change against your specification.
+A review prompt tied to one conversation cannot reliably guide another engineer.
 
-## Do
+Decision: Which explicit inputs and instructions make this review procedure reusable?
 
-1. Implement increment A from `PLAN.md`: the three handlers in `src/server/routes/reports.ts` calling
-   the job service, the request functions in `reportApi.ts`, and the panel states `Requesting report…`,
-   `Report queued`, `Generating report…`, `Report ready` with `Open report`.
-2. Run `npm run check -- --stage m4 --json workshop/evidence/m4-check.json`. Correct using its output.
-3. Save the diff: `git diff <starter-sha> -- src > workshop/evidence/m4-diff.txt`.
-4. Write `workshop/evidence/m4-review-context.md` with: target (own increment, commit SHA), acceptance
-   IDs (AC-01–AC-03), spec path, diff path, source paths, check output path.
-5. Invoke `/workshop-review workshop/evidence/m4-review-context.md`. Read its most consequential
-   finding. Verify it against the code and the check output **before** changing anything. Correct if
-   justified; otherwise record why the finding is unsupported or the acceptance is supported.
+Claude Code: Repository skills · separate review context · team reuse
 
-## Submit
+## Work
 
-The first working increment, the check result, the review-context file and the **M4** entry in
-`EVIDENCE.md`. Commit and push.
+1. Implement increment A and run direct server checks. Inspect its diff before continuing.
+2. Implement increment B and run browser checks. Record necessary deviations from PLAN.md; preserve the prepared service and supplied checks.
+3. Adapt .claude/skills/workshop-review/SKILL.md. Require explicit inputs, source citations, supported passes and stated limits.
+4. Invoke the skill in a fresh review context, verify a consequential conclusion and save a bounded correction or supported limitation. Add concise use, owner and version notes.
 
-## How M4 is graded (5 method points)
+## Save
 
-| Level | Looks like |
-| --- | --- |
-| 0 | A bare skill invocation, or a review finding acted on without verification. |
-| 2.5 | Useful procedure use with material missing context or verification. |
-| 5 | Explicit context supplied, and a verified finding or a supported acceptance on the first increment. |
+Local implementation, new tests, adapted review skill and a checked fresh-context review. Save the initial skill for comparison.
 
-The application's behavior points are calculated separately from the submitted code. A correct first
-attempt does not require a manufactured defect.
+## Prompt
 
-## If you fall behind
+Implement PLAN.md one increment at a time, with one writer. Reuse the prepared service and run each increment’s checks. Then adapt .claude/skills/workshop-review/SKILL.md to review an explicit spec, target, diff and check outputs in a separate context. Require citations, supported passes and limitations. Show me a consequential conclusion to verify, and leave short usage, owner and version notes so another engineer can reuse it.
 
-The trainer can supply a private increment-A snapshot. Its hash and time are recorded; only your work
-after that point earns method credit.
+## Check and grade
+
+`npm run check -- --stage m5`
+
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
+
+<details><summary>Optional hints</summary>
+
+Use repository-relative paths and a context file another engineer can supply.
+
+A supported pass can earn full credit. Do not invent defects; verify the cited source before accepting a finding.
+
+</details>

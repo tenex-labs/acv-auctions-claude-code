@@ -13,7 +13,7 @@ unpublished requirement. Each case earns its points only when every assertion fo
 | AC-05 | 6 | Retry creates one new attempt (child) linked to the failed parent, using the parent's original inspection snapshot even if the inspection was revised. The UI follows the child, clears the old error, and shows the child's attempt number. Repeated and concurrent retry requests return the same child (200, reused). Retrying a pending, running, completed or legacy record returns 409 `RUN_NOT_RETRYABLE`; retrying while another attempt is active returns 409 `ACTIVE_RUN_EXISTS`; neither creates anything. A double-click on Retry sends one request. |
 | AC-06 | 8 | Modern and legacy documents are identical for the same snapshot and contain no run ID or generation time. Switching to another inspection never shows the previous inspection's attempt or report, even when a delayed status response arrives after navigation. |
 
-## HTTP contract for the three learner endpoints
+## HTTP contract for the three run-based endpoints
 
 | Method and path | Body | Success |
 | --- | --- | --- |
@@ -66,3 +66,7 @@ commit comes afterwards and never needs to contain its own SHA.
 Add `--json <path>` to write the machine-readable result. Exit 0 pass, 1 a check failed, 2 tooling problem.
 The public checks give feedback. The trainer reruns a private copy of the same checks on your captured
 commit; that private run is the official result.
+
+## Status lookup recovery (AC-04)
+
+The published browser suite also interrupts the status request for an active attempt. The panel must show `Could not check report status.` and enable `Check again`. A second failed lookup keeps that recovery action available. When the lookup succeeds, the panel shows the same attempt's current state and clears the lookup error. Checking again must not send Start or Retry, create another attempt, or open a different report. This case does not simulate report-generation failure.

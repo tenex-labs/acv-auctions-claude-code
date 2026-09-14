@@ -1,29 +1,27 @@
 # Inspection Desk
 
-Fictional vehicle-inspection report workbench. TypeScript, React + Vite (client), Express (server),
-Vitest + Playwright (checks). Node 24. In-memory sample data; restarting the API resets it.
+TypeScript/React client, Express server, committed JSON fixtures and an in-memory report service. Use Node 24. Browser reload retains server state; server restart resets it.
 
 ## Commands
 
-- `npm ci` then `npm run prepare:local` once. `npm run dev` starts API (4100) and UI (5173).
-- `npm run check -- --stage <baseline|fast|m1|m2|m3|m4|m5|m6|evidence>`; add `--json <path>` for a result file.
-- M6 order: commit code → `--stage m6 --json workshop/evidence/m6-check.json` → write the M6 evidence entry from that result → `--stage evidence` → commit.
-- `fast` has no browser and is what the PostToolUse hook runs after edits to report source files.
+- Prepare: `node --version`, `npm ci`, `npm run prepare:local`.
+- Run: `npm run dev` (API 4100, UI 5173).
+- Check: `npm run check -- --stage baseline`, `fast`, `m5`, `m6` or `evidence`.
+- Final order: finish public documents → commit → run `npm run check -- --stage m6 --json .workshop-private/final-checks.json` → push/open the PR → submit that version and selected private evidence. Any public edit needs another commit and check run.
 
-## Where things are
+## Work area
 
-- Learner area: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
-  `src/server/routes/reports.ts`, new tests under `tests/acceptance/` (new files only).
-- Prepared, read but do not change: `src/server/reports/reportJobs.ts` (job service: start/retry/get/list,
-  one active run per inspection, retry rules), `buildReport.ts`, `reportStore.ts`, `scheduler.ts`,
-  `legacyGenerate.ts`, `src/shared/reportTypes.ts`, `fixtures/`, `tests/service/`, `scripts/check.mjs`.
-- Assignment: `workshop/ticket.md`, `workshop/product-decisions.md`, `workshop/acceptance.md`, briefs in `workshop/briefs/`.
-- Your work record: `SPEC.md`, `PLAN.md`, `EVIDENCE.md` (keep the assignment there, not here).
+Read `product-handoff/`, `workshop/product-decisions.md` and `workshop/acceptance.md`. The prototype is simulated; the accepted requirements control.
 
-## Rules
+Implement `src/server/routes/reports.ts` first with direct request tests. Then connect `src/client/reports/ReportPanel.tsx` and `reportApi.ts`. New tests go in `tests/participant/`. Explain any other necessary source change in PLAN.md.
 
-- Report contents must not change. `buildReport.ts` defines them; `fixtures/expected-reports.json` is the oracle.
-- New route handlers call the job service. They never import `buildReport` or `ReportStore` (SYS-02).
-- Do not edit protected files (SYS-03). Add new test files instead of changing supplied ones.
-- Validate HTTP input at the boundary; a TypeScript cast is not validation.
-- Prefer small, reviewable changes; explain any change outside the learner area in PLAN.md.
+Read and preserve the report service, builder, store, scheduler, shared types, fixtures, old route and supplied checks. The exact protected list is `scripts/protected-manifest.json`.
+
+## Working method
+
+- Resolve product ambiguity before editing. Save the result in SPEC.md.
+- Use the two read-only specialists for independent questions; verify one claim from each and combine their findings in PLAN.md. Use one implementation writer.
+- Adapt `.claude/skills/workshop-review/SKILL.md`; supply its spec, target, diff and check inputs explicitly. Evaluate its output on the fixed cases before using it on the final change.
+- Keep this file, scoped instructions and agent/skill configuration concise and reusable. They are editable guidance, not security controls.
+- Maximum 500 added plus deleted code lines, including tests, styles and configuration. See `workshop/rules.md` for counting and editable paths.
+- Never put session exports, email addresses or private evidence in Git. Use `.workshop-private/` or an external folder and preview before uploading.

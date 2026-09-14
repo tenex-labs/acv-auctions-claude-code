@@ -1,49 +1,38 @@
-# M3 — Plan and delegate a bounded investigation (25 minutes)
+# M3 · Plan and coordinate
 
-**Claude Code capability:** Plan Mode; a subagent with its own tools, model and context; verifying a
-delegated finding before using it.
+25 minutes · 15 practice points in the final assessment.
 
-**Opening:** Plan the modernization before implementation. Reuse the supplied service, estimate the
-change and give a separate Claude assignment one question that improves the plan.
+Two useful investigations can still leave conflicting assumptions or dependent work unordered.
 
-## Do
+Decision: What can run independently, what must wait, and which findings survive verification?
 
-1. Enter Plan Mode. Starting prompt:
+Claude Code: Plan Mode · bounded subagents · result synthesis
 
-   > In Plan Mode, compare reusing reportJobs with replacing it. Use report-investigator for the narrow
-   > question: which inputs and tests define the report contents we must preserve? Supply explicit
-   > paths and require citations. Check the result. Plan two reviewable increments with acceptance
-   > checks and estimated changed-line ranges. Do not implement yet.
+## Work
 
-2. Inspect `.claude/agents/report-investigator.md` (`/agents`). It has Read, Grep and Glob only and no
-   shell. Give it the builder, fixture and test paths. Read its citations yourself; accept, correct or
-   reject its finding.
-3. Increment A: request/status/progress (AC-01–AC-03). Increment B: failure/retry plus a regression
-   case that exposes the stuck-state defect (AC-04–AC-06 as needed).
-4. Challenge any proposal to add a database, a queue, or a report redesign. The service already owns
-   run identity, the one-active-run rule and retry validation.
-5. Leave Plan Mode before authorizing edits. Complete `PLAN.md`. No application changes in this module.
+1. Enter Plan Mode. Assign service-contract and behavior-test separate read-only questions with inputs, tools/model, output requirements and stop conditions.
+2. Run independent investigations concurrently where permitted. Use the same assignments sequentially if access prevents concurrency.
+3. Verify one cited source claim from each. Resolve overlap or conflict and record how the findings change the plan.
+4. Write PLAN.md within 400 words: server handlers/direct request tests first, then UI/browser checks. Map AC-01–06 and estimate all added plus deleted code within 500 lines. Keep one implementation writer.
 
-## Submit
+## Save
 
-`PLAN.md` and the **M3** entry in `EVIDENCE.md` with the delegated question, tools, model, the
-returned finding and your decision about it. `npm run check -- --stage m3` verifies structure and that
-every AC maps to an increment, file and check.
+Local PLAN.md, two bounded assignments, returned findings and your verified synthesis.
 
-## How M3 is graded (10 method points)
+## Prompt
 
-| Level | Looks like |
-| --- | --- |
-| 0 | A screenshot of an agent invocation, or an unbounded implementation proposal. |
-| 5 | A useful plan and delegation with a material missing scope, check or source link. |
-| 10 | Bounded delegation with suitable tools/model, a verified finding, and a reasoned two-increment plan with acceptance/check mapping. |
+In Plan Mode, use .claude/agents/service-contract.md and behavior-test.md for two independent read-only investigations of SPEC.md. Give each permitted inputs, tools/model, a narrow question, cited output and a stop condition. Run concurrently if available; otherwise sequentially. Return one claim from each for me to verify. Reconcile the findings into PLAN.md: server handlers/direct request tests, then UI/browser checks; files, AC mapping and an additions-plus-deletions estimate below 500. Do not implement.
 
-Exact line estimates and fewer lines earn no bonus. A larger change can score fully when its scope is
-explained and split into checkable increments.
+## Check and grade
 
-## If you fall behind
+`npm run check -- --stage m3`
 
-Partial file map: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
-`src/server/routes/reports.ts`, a new test under `tests/acceptance/`. Investigator question: "Which
-file builds the report document and which test compares it with `fixtures/expected-reports.json`?"
-Record that these were supplied.
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
+
+<details><summary>Optional hints</summary>
+
+The service investigator can establish what handlers must pass through; the test investigator can map the user journey to checks.
+
+Name the dependency explicitly: the UI needs working start/status/retry responses. Do not count only net line growth.
+
+</details>

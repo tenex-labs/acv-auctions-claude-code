@@ -1,6 +1,6 @@
 /**
  * [SYS-03] Protected files must match the starter manifest in scripts/protected-manifest.json.
- * Learners may add tests; they may not change fixtures, expected reports, the lockfile, the supplied
+ * Contributors may add tests; they may not change fixtures, expected reports, the lockfile, the supplied
  * service or the check definitions. This public copy is feedback; the trainer's private manifest is authoritative.
  */
 import { createHash } from 'node:crypto';
@@ -25,7 +25,7 @@ describe('[SYS-03] protected file integrity', () => {
   it('[SYS-03] the manifest exists and names the contract', () => {
     expect(existsSync(manifestPath)).toBe(true);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as Manifest;
-    expect(manifest.contractVersion).toBe('inspection-desk-1.0');
+    expect(manifest.contractVersion).toBe('inspection-desk-3.0');
     expect(Object.keys(manifest.files).length).toBeGreaterThan(10);
   });
 

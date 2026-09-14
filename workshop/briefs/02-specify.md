@@ -1,44 +1,38 @@
-# M2 — Specify the result precisely (20 minutes)
+# M2 · Specify
 
-**Claude Code capability:** Claude-led clarification with `AskUserQuestion`, grounded in files and the
-shared product decisions; preserving the agreed result as task context in `SPEC.md`.
+20 minutes · 10 practice points in the final assessment.
 
-**Opening:** Use Claude to clarify the modernization request, then write an engineering specification
-another engineer can implement and test.
+The prototype leaves recovery, repeated requests and preserved data unresolved.
 
-## Do
+Decision: Which product answer changes an observable requirement?
 
-1. Read `workshop/ticket.md` and `workshop/product-decisions.md`.
-2. Ask Claude to find the consequential ambiguities **before** it drafts anything. Starting prompt:
+Claude Code: Clarification · durable task context
 
-   > Read the ticket, the observed defect and the product-decision sheet. Ask me about consequential
-   > unresolved requirements before drafting SPEC.md. Separate answers supported by those sources from
-   > unknowns. Make each acceptance case observable. Include what must remain unchanged and what this
-   > task excludes.
+## Work
 
-3. Answer only from the product-decision sheet. If a question is not answered there, it becomes an
-   open decision in the spec; do not invent a rule.
-4. Complete `SPEC.md`. Aim for about one page plus the acceptance table. Each AC row needs a concrete
-   example, an expected result and the check that will prove it.
-5. Correct the draft where it misses failure cases, preserved behavior or exclusions.
+1. Give Claude the investigation, journey, product decisions and acceptance rules. Ask it to surface a question that changes implementation.
+2. Answer from workshop/product-decisions.md. Record how the answer changes a requirement; name remaining unknowns.
+3. Write SPEC.md within 500 words. Cover direct server responses and visible AC-01–06 behavior, including failed status lookup.
+4. Define preserved data, service ownership and excluded work. Save the specification locally before implementation.
 
-## Submit
+## Save
 
-`SPEC.md` and the **M2** entry in `EVIDENCE.md` showing one material clarification or correction and
-its effect on the requirements. `npm run check -- --stage m2` verifies structure and unique IDs only.
+Local SPEC.md and the clarification exchange. Show the question, supported answer and changed requirement.
 
-## How M2 is graded (10 method points)
+## Prompt
 
-| Level | Looks like |
-| --- | --- |
-| 0 | "Make retry robust" plus a generated document with no checked clarification. |
-| 5 | A supported clarification captured in the session, but failure/preservation rules materially incomplete. |
-| 10 | Product answers translated into precise failure/retry rules, preserved behavior, exclusions and observable acceptance cases. |
+Read workshop/INVESTIGATION.md, product-handoff/USER-JOURNEY.md, workshop/product-decisions.md and workshop/acceptance.md. Ask me about a consequential ambiguity using AskUserQuestion if available. Resolve it from the shared product answers, then draft SPEC.md within 500 words. Cover AC-01–06 in UI and server behavior, preserved contents and exclusions. Show which requirement the answer changed. Do not implement.
 
-Wording does not need to match the trainer's answer. A complete copied answer without evidence of a
-checked decision cannot earn full credit.
+## Check and grade
 
-## If you fall behind
+`npm run check -- --stage m2`
 
-The facilitator will publish any missing product answer to everyone. Correct your spec afterwards;
-nothing is revealed only in grading.
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
+
+<details><summary>Optional hints</summary>
+
+Ask what Retry uses if an inspection changes after failure.
+
+Use an action, input and observable result for each case. “Support retry” does not define duplicate handling.
+
+</details>

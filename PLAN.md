@@ -1,32 +1,24 @@
-# Plan: two reviewable increments
+# Implementation plan
 
-<!--
-Complete this outline in M3 using Plan Mode. No application changes belong in this phase.
-The m3 check verifies structure: sections present, every AC mapped to an increment/file/check,
-estimate ranges present, subagent fields filled and cited paths existing.
--->
+## Increment A
 
-## Kind of change
+<!-- At most 400 words total. Server handlers and direct request tests: files, intended change, checks and stop condition. -->
 
-<!-- Defect correction / new behavior / restructuring / repeated change / prototype — and what that implies for verification. -->
+## Increment B
 
-## Alternatives considered
+<!-- UI integration and browser checks: files, dependence on A and stop condition. -->
 
-<!-- At least: reuse the prepared job service vs. replace it. Say why the chosen approach wins against the actual code. -->
+## Agent assignments
 
-## Increment A — start work and show progress (M4)
+<!-- Two questions: service contract and behavior/test coverage. For each, name inputs, tools/model, expected output and stop condition. Keep full prompts and outputs private. -->
 
-<!-- Ordered changes, files, and the check that proves it: npm run check -- --stage m4 -->
+## Verified findings and synthesis
 
-## Increment B — recover from failure (M5)
-
-<!-- Ordered changes, files, the regression case that exposes the stuck-state defect, and the check: npm run check -- --stage m5 -->
+<!-- Check one source claim from each specialist. Resolve overlap/conflict and explain the effect on the increments. Record concurrency or an access fallback. -->
 
 ## Acceptance mapping
 
-<!-- Columns: ID | Increment (A or B) | File(s) | Check (test or command). -->
-
-| ID | Increment | File(s) | Check |
+| ID | Increment | Files | Check |
 | --- | --- | --- | --- |
 | AC-01 | | | |
 | AC-02 | | | |
@@ -37,20 +29,8 @@ estimate ranges present, subagent fields filled and cited paths existing.
 
 ## Change estimate
 
-<!-- Ranges, not exact numbers. Estimation accuracy is unscored; the reasoning is. -->
+<!-- Estimate additions plus deletions for application, tests, styles, automation and instruction code/configuration. Total must fit 500. -->
 
-- Application code: <!-- e.g. 120–180 lines --> lines
-- Tests: <!-- e.g. 40–80 lines --> lines
-- Files expected to change: <!-- list -->
-- Anything outside the suggested area and why: <!-- or "none" -->
+## Alternatives and limits
 
-## Subagent investigation
-
-<!-- The bounded question you gave report-investigator, and what you did with the answer. -->
-
-- Question:
-- Tools:
-- Model:
-- Finding: <!-- summarize with the citations it returned (path:line) -->
-- Verification: <!-- what you checked yourself to confirm or correct it -->
-- Effect on plan:
+<!-- Explain a rejected alternative and remaining uncertainty. -->

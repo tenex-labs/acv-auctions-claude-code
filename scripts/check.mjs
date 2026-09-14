@@ -21,7 +21,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, writeSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { checkEvidenceEntry, checkEvidenceEntryQuiet, checkM6Evidence, checkPlan, checkSpec } from './lib/evidence.mjs';
+import { checkFinalDocument, checkFinalDocuments } from './lib/evidence.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = parseArgs(process.argv.slice(2));
@@ -48,12 +48,11 @@ const plans = {
   m1: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1'],
   m2: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1', 'DOC-M2'],
   m3: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1', 'DOC-M2', 'DOC-M3'],
-  m4: ['TYPE-01', 'SVC-01', 'SYS-02', 'AC-01', 'AC-02', 'AC-03'],
+  m4: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01'],
   m5: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01'],
-  // m6 is the executable final stage. Its document check lives in the separate `evidence` stage because the
-  // M6 evidence entry cites the m6 result file: run m6, write the entry from that result, then run evidence.
-  m6: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01'],
-  evidence: ['DOC-M1', 'DOC-M2', 'DOC-M3', 'DOC-M6'],
+  // Public documents are complete before the final clean commit. Output stays in ignored private storage.
+  m6: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01', 'DOC-FINAL'],
+  evidence: ['DOC-FINAL'],
 };
 const NOT_REQUIRED = new Set(['BASE-02-STRONG']);
 const DESCRIPTIONS = {
@@ -74,14 +73,14 @@ const DESCRIPTIONS = {
   'AC-05': 'Retry creates one child from original snapshots; ineligible retry creates nothing',
   'AC-06': 'Report contents preserved; navigation never misattributes a report',
   'HOOK-01': 'Prepared hook script behaves as documented with controlled event payloads',
-  'DOC-M1': 'EVIDENCE.md M1 entry structure and cited paths',
-  'DOC-M2': 'SPEC.md structure, unique acceptance IDs and M2 evidence entry',
-  'DOC-M3': 'PLAN.md increments, acceptance mapping, estimates, subagent evidence and M3 entry',
-  'DOC-M6': 'EVIDENCE.md M6 entry: review target, dispositions, and a readiness decision that agrees with the cited m6 check result',
+  'DOC-M1': 'Investigation structure and word limit',
+  'DOC-M2': 'Specification structure, acceptance cases and word limit',
+  'DOC-M3': 'Plan structure, acceptance mapping and word limit',
+  'DOC-FINAL': 'Final public documents, required instructions and word limits',
 };
 
 const plan = plans[stage];
-const fastModeBrowserless = stage === 'fast' || stage === 'm4' || stage === 'evidence';
+const fastModeBrowserless = stage === 'fast' || stage === 'evidence';
 
 // ---------- execute ----------
 try {
@@ -115,10 +114,10 @@ try {
     results.push(mergeTagged(id, relevant, tag));
   }
 
-  runSimple('DOC-M1', () => checkEvidenceEntry(root, 'M1', ['Tested commit', 'Reproduction', 'Source references', 'Model/effort', 'Decision']));
-  runSimple('DOC-M2', () => [...checkSpec(root), ...checkEvidenceEntryQuiet(root, 'M2', ['Tested commit', 'Clarification', 'Decision'], { requireCitedPath: false })]);
-  runSimple('DOC-M3', () => [...checkPlan(root), ...checkEvidenceEntryQuiet(root, 'M3', ['Tested commit', 'Subagent', 'Decision'])]);
-  runSimple('DOC-M6', () => checkM6Evidence(root));
+  runSimple('DOC-M1', () => checkFinalDocument(root, 'workshop/INVESTIGATION.md'));
+  runSimple('DOC-M2', () => checkFinalDocument(root, 'SPEC.md'));
+  runSimple('DOC-M3', () => checkFinalDocument(root, 'PLAN.md'));
+  runSimple('DOC-FINAL', () => checkFinalDocuments(root));
 } catch (error) {
   console.error(`[check] infrastructure error: ${error && error.stack ? error.stack : error}`);
   finish(2);
@@ -267,7 +266,8 @@ function runPlaywright(ids) {
   const jsonPath = path.join(outDir, 'playwright.json');
   const logPath = path.join(outDir, 'playwright.log');
   const grep = ids.map((id) => `\\[${id.replace('-', '\\-')}\\]`).join('|');
-  const cmd = [npx, 'playwright', 'test', '--reporter=list,json', `--grep=${grep}`];
+  // Only supplied suites can contribute official check IDs. Participant tests run separately.
+  const cmd = [npx, 'playwright', 'test', 'tests/baseline/screens.spec.ts', 'tests/acceptance/journeys.spec.ts', '--reporter=list,json', `--grep=${grep}`];
   const proc = spawnSync(cmd[0], cmd.slice(1), { cwd: root, encoding: 'utf8', env: { ...process.env, CI: '1', PLAYWRIGHT_JSON_OUTPUT_NAME: jsonPath }, maxBuffer: 64 * 1024 * 1024 });
   writeFileSync(logPath, `$ ${cmd.join(' ')}\n\n${proc.stdout ?? ''}\n${proc.stderr ?? ''}`);
   if (!existsSync(jsonPath)) return { error: `playwright produced no JSON report: ${summarizeOutput(proc)}`, tests: [], command: cmd.join(' '), log: logPath };
@@ -370,7 +370,7 @@ function finish(forcedExit) {
   const anyFail = required.some((r) => r.status === 'fail' || r.status === 'not_run');
   const exitCode = forcedExit ?? (anyFail ? 1 : anyError ? 2 : 0);
   const summary = {
-    contractVersion: 'inspection-desk-1.0',
+    contractVersion: 'inspection-desk-3.0',
     stage,
     startedAt,
     finishedAt: new Date().toISOString(),

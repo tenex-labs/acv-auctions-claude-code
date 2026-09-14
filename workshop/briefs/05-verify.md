@@ -1,51 +1,40 @@
-# M5 — Complete failure/retry and verify completion (20 minutes)
+# M5 · Evaluate and improve
 
-**Claude Code capability:** a `PostToolUse` command hook whose script decides pass/fail; a measurable
-completion condition (`/goal` where available, otherwise the published fallback prompt); a short
-`/loop` demonstration with an explicit interval, then cancellation. Hooks, goals and loops go beyond the
-supplied internal guides; they are workshop extensions, and no survey demand for any particular command is
-claimed.
+20 minutes · 10 practice points in the final assessment.
 
-**Opening:** Finish recovery and prove it. Give Claude an observable completion condition and inspect
-what the checks actually establish.
+Passing output can hide a weak test or a review procedure that misses its target.
 
-## Do
+Decision: Does the evidence justify changing the test or review instructions?
 
-1. Inspect the hook: `.claude/settings.json` (event `PostToolUse`, matcher `Edit|Write|MultiEdit`)
-   and `.claude/hooks/check-report-change.mjs`. It runs `npm run check -- --stage fast` only after edits
-   to report source files and reports failures back to Claude. It runs after the edit; it cannot undo it.
-2. Implement increment B: `Retry report` calls the retry endpoint (not Start), the panel follows the
-   child attempt and clears the old error, stale responses are ignored, and a new test under
-   `tests/acceptance/` exposes the original stuck-state defect.
-3. Recommended completion condition (when `/goal` is available):
+Claude Code: Regression tests · skill evaluations · command hooks
 
-   ```text
-   /goal Implement increment B in PLAN.md. The m5 checks must pass on the current code, the original
-   report contents and supplied service/check configuration must remain unchanged, and you must show
-   the executed check output. If a requirement cannot be satisfied within those boundaries, report the
-   blocker. Do not merge or deploy.
-   ```
+## Work
 
-   Fallback if `/goal` is unavailable: paste the same text as a normal prompt and run the checks
-   yourself after each attempt. Same criteria; say which mode you used.
-4. Observe the hook after a relevant edit. If a check fails, use its output to direct the correction,
-   then observe the passing case. If your change passes first time, inspect the labeled failure example
-   in `workshop/evidence-examples.md` instead of breaking working code.
-5. Run `npm run check -- --stage m5 --json workshop/evidence/m5-check.json`. Check the running UI.
-   Compare the goal/evaluator's conclusion with the executed output; clear any unfinished goal.
+1. Add a direct server-request regression test in tests/participant/. Select its fault, exact title and behavioral assertion in assessment.json. Run it on your code; the hosted checker repeats correct/faulty/own runs.
+2. Evaluate the initial review skill on both fixed cases. Check for missed defects and false findings. Retain inputs, settings and actual outputs.
+3. Change the instructions only when an observed weakness warrants it. Repeat the same cases/settings, then accept or reject the revision. A supported decision to retain an adequate version is valid.
+4. Exercise the prepared hook: relevant edit, actual failure feedback, correction/pass and unrelated action. Record its limits and your measurable completion result in workshop/EVALUATION.md.
 
-## Submit
+## Save
 
-The complete M5 candidate, the check output, UI evidence, the hook observation, the completion
-condition and your checked conclusion. Commit and push. **This commit is captured for peer review.**
+Local regression test/selection, EVALUATION.md within 500 prose words, initial/final skill versions and selected test/review/hook output.
 
-## How M5 is graded (5 method points)
+## Prompt
 
-| Level | Looks like |
-| --- | --- |
-| 0 | An unsupported completion claim. |
-| 2.5 | A useful bounded check cycle with a material missing observation. |
-| 5 | A measurable condition, accurately described hook/check evidence, and a supported completion or blocker decision. |
+Check SPEC.md with a new direct server-request regression test. Name its intended behavioral assertion and coverage limit; preserve supplied tests. Evaluate the initial workshop-review skill on the fixed clean and faulty packets with identical model/effort and tools. Record actual misses and false findings. Propose a justified instruction change, compare again and accept/reject it, or justify retention. Demonstrate real hook failure, correction/pass and an unrelated action. Finish only when the selected checks and evidence support the stated completion condition; report any blocker.
 
-Passing the six application cases earns the separate 40 behavior points. Scheduling a loop earns
-nothing extra.
+## Check and grade
+
+`npm run check -- --stage m5`
+
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
+
+<details><summary>Optional hints</summary>
+
+A timeout or startup error is not defect detection. The intended assertion must fail only on the compatible fault.
+
+PostToolUse reports after an action; it does not reverse the edit. The Edit/Write filter does not observe every shell edit.
+
+Use a bounded completion prompt or /goal where available. /loop is an optional read-only demonstration; cancel it. Neither replaces the required evaluations.
+
+</details>

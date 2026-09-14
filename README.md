@@ -1,27 +1,25 @@
 # Inspection Desk
 
-A small, fictional vehicle-inspection report workbench. It exists so engineers can practice advanced
-Claude Code work on a real codebase: investigate a defect, specify the change, plan it, implement two
-reviewable increments, verify them, and review a peer's work.
-
-Everything in here is fictional training data. There are no real vehicles, people or business rules.
+Inspection Desk is the workbench inspection coordinators use to look up a vehicle, read its inspection
+findings and generate the inspection report. This repository contains the web client, the API and the
+report-generation service.
 
 ## Quick start
 
 ```sh
+node --version                # must report Node 24
 npm ci
-npm run prepare:local        # checks Node 24, ports, and installs the pinned Chromium once
+npm run prepare:local        # checks Node 24 and the ports, installs the pinned Chromium once
 npm run dev                  # API http://127.0.0.1:4100, UI http://127.0.0.1:5173
 npm run check -- --stage baseline
 ```
 
-The baseline stage must be green before you begin. `BASE-02-STRONG` is a diagnostic and is expected to
-fail on the unmodified starter: that is the defect you will fix.
+The baseline stage must be green before you start work. `BASE-02-STRONG` is a diagnostic and fails on
+the current code: that is the open defect in the report-generation ticket.
 
-## The assignment
+## Current ticket
 
-Read, in order: `workshop/ticket.md`, `workshop/product-decisions.md`, `workshop/acceptance.md`, then the
-six briefs in `workshop/briefs/`. Record your work in `SPEC.md`, `PLAN.md` and `EVIDENCE.md`.
+Open `product-handoff/report-progress.html` and read its user journey and product brief, then `workshop/product-decisions.md` and `workshop/acceptance.md`. Complete SPEC.md, PLAN.md and the investigation/evaluation/final files in `workshop/`. Save intermediate work locally; submit one final PR and one private evidence packet.
 
 ## Commands
 
@@ -34,31 +32,33 @@ six briefs in `workshop/briefs/`. Record your work in `SPEC.md`, `PLAN.md` and `
 
 Browser checks use ports 4190/5190 so they do not collide with `npm run dev`.
 
-## What is prepared and what is yours
+## What is protected and what is open
 
-Prepared and protected: the job service (`src/server/reports/reportJobs.ts`), report builder, runtime
-store, scheduler, legacy route, shared types, fixtures, service tests and the check runner.
+Protected: the job service (`src/server/reports/reportJobs.ts`), report builder, runtime store,
+scheduler, legacy route, shared types, fixtures, service tests and the check runner.
 
-Yours: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
+Open for the ticket: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
 `src/server/routes/reports.ts` (three handlers that currently return 501) and new tests under
-`tests/acceptance/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
+`tests/participant/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
 
 ## Claude Code configuration in this repository
 
 - `CLAUDE.md`: project guidance. `.claude/rules/report-generation.md`: a rule loaded only when report
   source files are read.
-- `.claude/agents/report-investigator.md`: a read-only investigator (Read, Grep, Glob; no shell).
+- `.claude/agents/service-contract.md` and `behavior-test.md`: two read-only specialists; verify their findings before implementation. `report-investigator.md` supports separate review.
 - `.claude/skills/workshop-review/SKILL.md`: `/workshop-review <context file>` reviews a change in a
-  separate context using that agent. Used on your own increment in M4 and a peer's in M6.
+  separate context using that agent. Use it on your own increments in M4, fixed evaluation cases and your final version in M6.
 - `.claude/settings.json` + `.claude/hooks/check-report-change.mjs`: a `PostToolUse` hook that runs the
   fast checks after Claude edits report source files and reports failures back.
 
-## Limits of this teaching app
+## Environment limits
 
-State is in memory; restarting the API resets it. There is no persistence, no multi-process safety,
-no authentication, no PDF output and no deployment path. The **Workshop controls** panel is a test
-fixture, not a product feature.
+State is kept in memory; restarting the API restores the seed data. There is no persistence, no
+multi-process safety, no authentication, no PDF output and no deployment path. The **Operations** panel
+(reset, failure testing, scheduling mode, manual run control) is for this environment only.
 
 ## License
 
 MIT. See `LICENSE`.
+
+Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [reusable review skill](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). Keep workshop exports outside Git and submit them privately through the portal.

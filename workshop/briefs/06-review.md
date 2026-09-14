@@ -1,47 +1,38 @@
-# M6 — Test a peer, revise and decide readiness (20 minutes)
+# M6 · Final review and submit
 
-**Claude Code capability:** an independent review context. Reuse `/workshop-review` on someone else's
-saved commit with their spec, diff and checks supplied explicitly; verify Claude's claim; then verify
-your own final version after corrections.
+10 minutes · 5 practice points in the final assessment.
 
-**Opening:** Test the assigned failure/retry journey on another engineer's saved submission. Use
-Claude's review assistance, verify the result and give the author useful evidence.
+A final claim is only useful when it describes the code version actually submitted.
 
-## Do (7 minutes review)
+Decision: Is this version ready, and can another engineer trace the change and repeat the review?
 
-1. Open the prepared review copy for your assignment. Confirm the displayed target SHA matches.
-2. Follow `workshop/review-instructions.md`: reset, manual mode, fail next, generate, begin/finish,
-   check failure state, retry, check the child, open the report, run the repeat-retry check.
-3. Invoke `/workshop-review` with the peer's review-context file. Verify the finding you rely on by
-   executing the journey or a small test in the review copy. Never edit the author's branch.
-4. Submit a supported failure, a supported acceptance, or `unable_to_verify` with the cause.
+Claude Code: Final review · current verification · reproducible handoff
 
-## Do (7 minutes corrections, 4 minutes decision)
+## Work
 
-5. Return to your own workspace. For each received finding record `accepted_fixed`,
-   `accepted_unresolved` or `disputed_with_evidence` (a dispute cites source or check output).
-6. Commit your corrections. From that clean, committed checkout run
-   `npm run check -- --stage m6 --json workshop/evidence/m6-check.json`. The result names the code
-   commit it tested.
-7. Write the **M6** entry in `EVIDENCE.md` from that result: `Tested commit` is the commit you just
-   checked, `Final checks` cites `workshop/evidence/m6-check.json`, `Readiness` is `ready_for_merge`
-   only if every required check passed, otherwise `changes_required` with the unresolved items named.
-8. Run `npm run check -- --stage evidence`. It verifies the entry against the cited result (same tested
-   commit, readiness consistent with the checks). Then commit and push: that later commit is your M6
-   submission; it does not need to contain its own SHA. Upstream `main` stays unchanged; nothing is
-   merged during class.
+1. Use the review skill on the final change. Fix, accept as unresolved or dispute findings with evidence. Stop remaining delegated work.
+2. Complete workshop/FINAL.md within 300 words and check all required public documents and instruction files. Commit the final public work.
+3. Run final checks on the clean commit into .workshop-private/final-checks.json. Push and open one PR. If public files change, commit and rerun.
+4. Export only selected workshop sessions, supplement missing tool results, preview/redact and submit the PR with one private packet. Confirm the suggested evidence index and missing-field note.
 
-## How M6 is graded
+## Save
 
-- **Outgoing review, 20 points:** validity 8, evidence 8, usefulness 4. "Looks good" is 0. A supported
-  acceptance of a clean candidate can earn all 20. An unverified Claude claim earns no validity or
-  evidence credit.
-- **M6 method, 5 points:** your handling of received findings with evidence, explained final scope,
-  and checks on the final submitted commit. An accurately reported unresolved failure can earn method
-  credit; it does not pass the behavior gate.
+One final PR and one private packet, bound to the same commit. Corrections preserve the earlier receipt.
 
-Outgoing review is scored once. It is not counted again as task quality.
+## Prompt
 
-## If your peer is unavailable
+Review the final change against SPEC.md using the shared review skill. Verify findings and record supported dispositions, scope, readiness, usage/version notes and limits in workshop/FINAL.md. Finish public files before committing. Then run final checks on that clean version with output in ignored .workshop-private/. Report the actual commit and results privately. Stop unfinished delegated work. Do not claim readiness from stale checks.
 
-The facilitator assigns the prepared target `fallback-failure-retry-v1` under the same criteria.
+## Check and grade
+
+`npm run check -- --stage m6 --json .workshop-private/final-checks.json`
+
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
+
+<details><summary>Optional hints</summary>
+
+Do not write a document that requires its own future SHA. Commit public work before running final checks into ignored storage.
+
+If grading is pending at closing, your receipt remains available. Final results and approved feedback are released after assessment resolves; no delivery deadline has been agreed.
+
+</details>
