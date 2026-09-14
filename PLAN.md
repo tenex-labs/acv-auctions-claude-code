@@ -1,7 +1,7 @@
 # Plan: two reviewable increments
 
 <!--
-Complete this outline in M3 using Plan Mode. No application changes belong in this phase.
+Complete this outline in M3 using Plan Mode. Maximum 400 words. No application changes belong in this phase.
 The m3 check verifies structure: sections present, every AC mapped to an increment/file/check,
 estimate ranges present, subagent fields filled and cited paths existing.
 -->
@@ -18,7 +18,7 @@ estimate ranges present, subagent fields filled and cited paths existing.
 
 <!-- Ordered changes, files, and the check that proves it: npm run check -- --stage m4 -->
 
-## Increment B — recover from failure (M5)
+## Increment B — recover from failure (M4)
 
 <!-- Ordered changes, files, the regression case that exposes the stuck-state defect, and the check: npm run check -- --stage m5 -->
 
@@ -41,6 +41,8 @@ estimate ranges present, subagent fields filled and cited paths existing.
 
 - Application code: <!-- e.g. 120–180 lines --> lines
 - Tests: <!-- e.g. 40–80 lines --> lines
+- Styles and automation: <!-- range, including zero when none --> lines
+- Total counted code: <!-- application + tests + styles/automation, additions plus deletions, at most 500 --> lines
 - Files expected to change: <!-- list -->
 - Anything outside the suggested area and why: <!-- or "none" -->
 

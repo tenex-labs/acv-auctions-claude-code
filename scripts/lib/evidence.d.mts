@@ -10,3 +10,6 @@ export function checkEvidenceEntryQuiet(root: string, moduleId: string, required
 export function checkSpec(root: string): string[];
 export function checkPlan(root: string): string[];
 export function checkM6Evidence(root: string): string[];
+
+export function wordCount(markdown: string): number;
+export function wordLimit(text: string, maximum: number, label: string): string[];

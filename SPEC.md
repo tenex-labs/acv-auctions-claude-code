@@ -1,7 +1,7 @@
 # Specification: report generation progress and safe retry
 
 <!--
-Complete this outline in M2. Aim for about one page plus the acceptance table.
+Complete this outline in M2. Maximum 500 words including headings and table text. Attach command output separately.
 Answer from workshop/ticket.md, workshop/product-decisions.md and the code you inspected in M1.
 Preserve unknowns as open decisions; do not invent product rules.
 The m2 check verifies structure only: sections present, AC-01–AC-06 rows unique and filled.

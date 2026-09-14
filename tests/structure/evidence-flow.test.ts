@@ -10,7 +10,7 @@ import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, write
 import os from 'node:os';
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { checkM6Evidence } from '../../scripts/lib/evidence.mjs';
+import { checkM6Evidence, wordCount, wordLimit } from '../../scripts/lib/evidence.mjs';
 
 const root = path.resolve(import.meta.dirname, '..', '..');
 let tmp: string;
@@ -159,5 +159,16 @@ describe('[EVIDENCE-FLOW] tested-commit attribution', () => {
     const { result } = runStage(dir, 'evidence');
     expect(result!.testedCommit).toBeNull();
     expect(result!.testedCommitSource).toBe('binding-invalid');
+  });
+});
+
+
+describe('published document limits',()=>{
+  it('counts prose, headings and table content, excluding comments and bare Markdown',()=>{
+    expect(wordCount('# Plan\n<!-- hidden example -->\n| AC-01 | Retry works |\n| --- | --- |')).toBe(4);
+  });
+  it('accepts the exact limit and reports oversize without truncation',()=>{
+    expect(wordLimit('word '.repeat(500),500,'SPEC.md')).toEqual([]);
+    expect(wordLimit('word '.repeat(501),500,'SPEC.md')[0]).toContain('501 words exceeds the 500-word limit');
   });
 });

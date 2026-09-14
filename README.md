@@ -7,6 +7,7 @@ report-generation service.
 ## Quick start
 
 ```sh
+node --version                # must report Node 24
 npm ci
 npm run prepare:local        # checks Node 24 and the ports, installs the pinned Chromium once
 npm run dev                  # API http://127.0.0.1:4100, UI http://127.0.0.1:5173
@@ -39,7 +40,7 @@ scheduler, legacy route, shared types, fixtures, service tests and the check run
 
 Open for the ticket: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
 `src/server/routes/reports.ts` (three handlers that currently return 501) and new tests under
-`tests/acceptance/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
+`tests/participant/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
 
 ## Claude Code configuration in this repository
 
@@ -47,7 +48,7 @@ Open for the ticket: `src/client/reports/ReportPanel.tsx`, `src/client/reports/r
   source files are read.
 - `.claude/agents/report-investigator.md`: a read-only investigator (Read, Grep, Glob; no shell).
 - `.claude/skills/workshop-review/SKILL.md`: `/workshop-review <context file>` reviews a change in a
-  separate context using that agent. Used on your own increment in M4 and a peer's in M6.
+  separate context using that agent. Use it on your own increments in M4, assigned reviews and your final version in M6.
 - `.claude/settings.json` + `.claude/hooks/check-report-change.mjs`: a `PostToolUse` hook that runs the
   fast checks after Claude edits report source files and reports failures back.
 
@@ -60,3 +61,5 @@ multi-process safety, no authentication, no PDF output and no deployment path. T
 ## License
 
 MIT. See `LICENSE`.
+
+Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [four reviews](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). Keep workshop exports outside Git and submit them privately through the portal.

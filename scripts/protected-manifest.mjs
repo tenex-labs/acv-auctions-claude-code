@@ -34,6 +34,15 @@ export const PROTECTED_FILES = [
   'scripts/check.mjs',
   'scripts/lib/evidence.mjs',
   'scripts/lib/evidence.d.mts',
+  'scripts/lib/change-scope.mjs',
+  'scripts/lib/change-scope.d.mts',
+  'scripts/change-scope.mjs',
+  'tests/structure/change-scope.test.ts',
+  'workshop/contract.json',
+  'workshop/rubric.md',
+  'workshop/rules.md',
+  'workshop/test-assessment.md',
+  'workshop/review-instructions.md',
   'scripts/probe-built-app.mjs',
   'scripts/protected-manifest.mjs',
   'tests/helpers/testApp.ts',
@@ -46,6 +55,8 @@ export const PROTECTED_FILES = [
   'tests/structure/protected-files.test.ts',
   'tests/structure/evidence-flow.test.ts',
   'tests/hooks/check-report-change.test.ts',
+  '.claude/hooks/check-report-change.mjs',
+  '.claude/settings.json',
   '.github/workflows/check-pr.yml',
 ];
 export const PROTECTED_DIRS = ['fixtures', 'tests/service'];
@@ -76,7 +87,7 @@ export function computeManifest() {
     if (!existsSync(full)) throw new Error(`protected file missing: ${rel}`);
     files[rel] = createHash('sha256').update(readFileSync(full)).digest('hex');
   }
-  return { contractVersion: 'inspection-desk-1.0', generatedAt: new Date().toISOString(), files };
+  return { contractVersion: 'inspection-desk-2.0', generatedAt: new Date().toISOString(), files };
 }
 
 const mode = process.argv[2];

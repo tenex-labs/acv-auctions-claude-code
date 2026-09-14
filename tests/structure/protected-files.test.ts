@@ -25,7 +25,7 @@ describe('[SYS-03] protected file integrity', () => {
   it('[SYS-03] the manifest exists and names the contract', () => {
     expect(existsSync(manifestPath)).toBe(true);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as Manifest;
-    expect(manifest.contractVersion).toBe('inspection-desk-1.0');
+    expect(manifest.contractVersion).toBe('inspection-desk-2.0');
     expect(Object.keys(manifest.files).length).toBeGreaterThan(10);
   });
 

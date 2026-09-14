@@ -152,6 +152,44 @@ test.describe('acceptance journeys', () => {
     await expectReportPage(page, 'insp-001', revisionTwo.revision, revisionTwo.findings);
   });
 
+  test('[AC-04] status lookup failure offers Check again and resumes the same attempt', async ({ page, request }) => {
+    await openInspection(page, 'insp-001');
+    const p = panel(page);
+    await p.generate.click();
+    const run = await waitForRun(request, 'insp-001', ['pending']);
+    const statusRoute = `**/api/report-runs/${run.id}`;
+    let lookupFails = true;
+    const lookedUp: string[] = [];
+    const newAttempts: string[] = [];
+    page.on('request', (req) => {
+      if (req.method() === 'POST' && /\/report-runs(?:\/[^/]+\/retry)?$/.test(req.url())) newAttempts.push(req.url());
+    });
+    await page.route(statusRoute, async (route) => {
+      lookedUp.push(route.request().url());
+      if (lookupFails) await route.abort('failed');
+      else await route.continue();
+    });
+    await expect(p.status).toHaveText('Could not check report status.');
+    await expect(p.checkAgain).toBeEnabled();
+    await expect(p.open).toHaveCount(0);
+    // A repeated lookup failure must keep recovery available.
+    await p.checkAgain.click();
+    await expect(p.status).toHaveText('Could not check report status.');
+    await expect(p.checkAgain).toBeEnabled();
+    await begin(request, run.id);
+    await finish(request, run.id);
+    lookupFails = false;
+    await p.checkAgain.click();
+    await expect(p.status).toHaveText('Report ready');
+    await expect(p.checkAgain).toHaveCount(0);
+    await expect(p.root).not.toContainText('Could not check report status.');
+    await expect(p.open).toHaveAttribute('href', `/reports/${run.id}`);
+    expect(lookedUp.length).toBeGreaterThanOrEqual(3);
+    expect(lookedUp.every((url) => url.endsWith(`/api/report-runs/${run.id}`))).toBe(true);
+    expect(newAttempts).toEqual([]);
+    expect((await state(request)).runs.filter((item) => item.inspectionId === 'insp-001')).toHaveLength(1);
+  });
+
   test('[AC-05] a repeated Retry click sends one request', async ({ page, request }) => {
     await config(request, { failNextGeneration: true });
     await openInspection(page, 'insp-001');

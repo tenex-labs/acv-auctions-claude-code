@@ -1,47 +1,75 @@
-# M6 — Test a peer, revise and decide readiness (20 minutes)
+# M6 · Finalize · 10 minutes
 
-**Claude Code capability:** an independent review context. Reuse `/workshop-review` on someone else's
-saved commit with their spec, diff and checks supplied explicitly; verify Claude's claim; then verify
-your own final version after corrections.
+An earlier passing result does not establish that the final version works.
 
-**Opening:** Test the assigned failure/retry journey on another engineer's saved submission. Use
-Claude's review assistance, verify the result and give the author useful evidence.
+Decision: Do current results support readiness, and what remains unresolved?
 
-## Do (7 minutes review)
+## Claude Code controls
 
-1. Open the prepared review copy for your assignment. Confirm the displayed target SHA matches.
-2. Follow `workshop/review-instructions.md`: reset, manual mode, fail next, generate, begin/finish,
-   check failure state, retry, check the child, open the report, run the repeat-retry check.
-3. Invoke `/workshop-review` with the peer's review-context file. Verify the finding you rely on by
-   executing the journey or a small test in the review copy. Never edit the author's branch.
-4. Submit a supported failure, a supported acceptance, or `unable_to_verify` with the cause.
+**Evidence-based review.** Reuse the separate review procedure on the final version. Give each received finding a supported disposition.
 
-## Do (7 minutes corrections, 4 minutes decision)
+**Verified completion.** Accept completion only when current results support it; stop pending workshop work. Run final checks and clear any remaining goal or schedule.
 
-5. Return to your own workspace. For each received finding record `accepted_fixed`,
-   `accepted_unresolved` or `disputed_with_evidence` (a dispute cites source or check output).
-6. Commit your corrections. From that clean, committed checkout run
-   `npm run check -- --stage m6 --json workshop/evidence/m6-check.json`. The result names the code
-   commit it tested.
-7. Write the **M6** entry in `EVIDENCE.md` from that result: `Tested commit` is the commit you just
-   checked, `Final checks` cites `workshop/evidence/m6-check.json`, `Readiness` is `ready_for_merge`
-   only if every required check passed, otherwise `changes_required` with the unresolved items named.
-8. Run `npm run check -- --stage evidence`. It verifies the entry against the cited result (same tested
-   commit, readiness consistent with the checks). Then commit and push: that later commit is your M6
-   submission; it does not need to contain its own SHA. Upstream `main` stays unchanged; nothing is
-   merged during class.
+## Do
 
-## How M6 is graded
+1. For each received finding, record fixed, accepted as unresolved or disputed, with supporting evidence. Make justified corrections.
+2. Reuse /workshop-review with the final spec, plan, diff and results. Explain the final changed-line total and any departure from PLAN.md.
+3. Commit code. Run M6 and save its output. Write the M6 readiness entry from that result, then run the separate evidence check and commit the evidence.
+4. Push and save M6. Preview/redact the selected workshop exports and attach them privately. Confirm no workshop goal or schedule remains.
 
-- **Outgoing review, 20 points:** validity 8, evidence 8, usefulness 4. "Looks good" is 0. A supported
-  acceptance of a clean candidate can earn all 20. An unverified Claude claim earns no validity or
-  evidence credit.
-- **M6 method, 5 points:** your handling of received findings with evidence, explained final scope,
-  and checks on the final submitted commit. An accurately reported unresolved failure can earn method
-  credit; it does not pass the behavior gate.
+## Starting prompt
 
-Outgoing review is scored once. It is not counted again as task quality.
+```text
+Use the received reviews and the current SPEC.md and PLAN.md. For each
+finding, cite the correction or the evidence for a remaining disagreement.
+Reuse /workshop-review with this final version and its check results.
+Follow the published M6 order: commit code, run the final checks, write
+the evidence entry, validate it, then commit the evidence. Report readiness
+only when the required checks support it. Identify remaining failures and
+confirm that no workshop goal or scheduled task remains. Do not merge.
+```
 
-## If your peer is unavailable
+## Save your work
 
-The facilitator assigns the prepared target `fallback-failure-retry-v1` under the same criteria.
+Final checked version, all feedback dispositions, scope and readiness decision; selected private workshop exports covering M1–M6. No new peer-review round.
+
+Commit and push your continuing PR, then select **Save submission** in the portal. Preview and redact session evidence before attaching it. Keep exports outside the repository; the private evidence route accepts selected excerpts when export or tenant rules prevent collection.
+
+```sh
+npm run check -- --stage m6 --json workshop/evidence/m6-check.json
+npm run check -- --stage evidence
+```
+
+## Published grading
+
+5 method points.
+
+**CC-M6-FEEDBACK · Resolve feedback with evidence · 2 points.**
+Evidence: Each received finding marked fixed, unresolved or disputed with supporting evidence.
+
+- Zero: Feedback ignored or dismissed without support.
+- Half: Some dispositions are supported but a material finding is unaddressed.
+- Full: Each disposition states the action or remaining limitation and cites supporting evidence.
+
+**CC-M6-VERIFY · Verify the final code version · 2 points.**
+Evidence: Final hosted checks and the readiness decision at the saved version.
+
+- Zero: Stale checks or a readiness claim contradicted by the results.
+- Half: Current results exist but a required result or limitation is omitted.
+- Full: Current final results support readiness or explicitly identify unresolved work.
+
+**CC-M6-SCOPE · Explain final scope · 1 points.**
+Evidence: Final additions/deletions and changed files compared with PLAN.md.
+
+- Zero: No explanation of the final change.
+- Half: The scope is described but a material departure is unexplained.
+- Full: The final counted change and any departure from the plan are explained.
+
+Automated checks establish submitted versions, document limits, protected files and executed behavior. File existence or a command invocation alone does not earn method points. Final behavior contributes 40 points once, at M6. See [rules](../rules.md), [acceptance cases](../acceptance.md) and [full rubric](../rubric.md).
+
+## Optional hints
+
+- Record a supported blocker when a required check fails. This can still earn method credit.
+- Keep the tested code commit separate from the later evidence commit. The trainer reruns the saved final version; local output cannot override its results.
+
+Hints and unavailable optional features cost no points.

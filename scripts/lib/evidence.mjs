@@ -12,6 +12,14 @@ export const ALL_AC = ['AC-01', 'AC-02', 'AC-03', 'AC-04', 'AC-05', 'AC-06'];
 // Unfilled outline values: empty, an HTML comment, a bare dash, or the usual TODO markers.
 export const PLACEHOLDER = /^(?:<[^>]*>|\(fill in\)|TODO|TBD|_?not filled_?|—|-)?$/i;
 
+// Count whitespace-separated tokens containing a letter or number; headings count, markup alone does not.
+export function wordCount(markdown) {
+  return markdown.replace(/<!--[\s\S]*?-->/g, '').split(/\s+/).filter(word=>/[\p{L}\p{N}]/u.test(word)).length;
+}
+export function wordLimit(text,maximum,label) {
+  const count=wordCount(text);return count>maximum ? [`${label}: ${count} words exceeds the ${maximum}-word limit. Attach command output separately.`] : [];
+}
+
 export function readDoc(root, name) {
   const file = path.join(root, name);
   if (!existsSync(file)) throw new Error(`${name} is missing`);
@@ -57,7 +65,7 @@ export function checkEvidenceEntry(root, moduleId, requiredFields, { requireCite
   const text = readDoc(root, 'EVIDENCE.md');
   const body = section(text, moduleId);
   if (body === null) return [`EVIDENCE.md has no "## ${moduleId}" section`];
-  const problems = [];
+  const problems = moduleId === 'M1' ? wordLimit(body,200,'M1 investigation') : [];
   for (const field of requiredFields) {
     const value = fieldValue(body, field);
     if (value === null) problems.push(`${moduleId}: missing field "${field}:"`);
@@ -79,7 +87,7 @@ export function checkEvidenceEntryQuiet(root, moduleId, requiredFields, options)
 
 export function checkSpec(root) {
   const text = readDoc(root, 'SPEC.md');
-  const problems = [];
+  const problems = wordLimit(text,500,'SPEC.md');
   for (const heading of ['Problem and evidence', 'Intended behavior', 'Failure cases', 'Constraints', 'Acceptance criteria', 'Scope', 'Open decisions']) {
     const body = section(text, heading);
     if (body === null) problems.push(`SPEC.md: missing "## ${heading}" section`);
@@ -103,7 +111,7 @@ export function checkSpec(root) {
 
 export function checkPlan(root) {
   const text = readDoc(root, 'PLAN.md');
-  const problems = [];
+  const problems = wordLimit(text,400,'PLAN.md');
   for (const heading of ['Kind of change', 'Increment A', 'Increment B', 'Acceptance mapping', 'Change estimate', 'Subagent investigation', 'Alternatives considered']) {
     const body = section(text, heading);
     if (body === null) problems.push(`PLAN.md: missing "## ${heading}" section`);

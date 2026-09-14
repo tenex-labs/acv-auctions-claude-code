@@ -66,3 +66,7 @@ commit comes afterwards and never needs to contain its own SHA.
 Add `--json <path>` to write the machine-readable result. Exit 0 pass, 1 a check failed, 2 tooling problem.
 The public checks give feedback. The trainer reruns a private copy of the same checks on your captured
 commit; that private run is the official result.
+
+## Status lookup recovery (AC-04)
+
+The published browser suite also interrupts the status request for an active attempt. The panel must show `Could not check report status.` and enable `Check again`. A second failed lookup keeps that recovery action available. When the lookup succeeds, the panel shows the same attempt's current state and clears the lookup error. Checking again must not send Start or Retry, create another attempt, or open a different report. This case does not simulate report-generation failure.

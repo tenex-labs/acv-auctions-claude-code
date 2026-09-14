@@ -48,7 +48,7 @@ const plans = {
   m1: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1'],
   m2: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1', 'DOC-M2'],
   m3: ['ENV-01', 'TYPE-01', 'LINT-01', 'SVC-01', 'BASE-01', 'BASE-02', 'BASE-02-STRONG', 'DOC-M1', 'DOC-M2', 'DOC-M3'],
-  m4: ['TYPE-01', 'SVC-01', 'SYS-02', 'AC-01', 'AC-02', 'AC-03'],
+  m4: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01'],
   m5: ['ENV-01', 'TYPE-01', 'LINT-01', 'SYS-01', 'SYS-02', 'SYS-03', 'SVC-01', 'BASE-01', 'BASE-02', ...ALL_AC, 'HOOK-01'],
   // m6 is the executable final stage. Its document check lives in the separate `evidence` stage because the
   // M6 evidence entry cites the m6 result file: run m6, write the entry from that result, then run evidence.
@@ -81,7 +81,7 @@ const DESCRIPTIONS = {
 };
 
 const plan = plans[stage];
-const fastModeBrowserless = stage === 'fast' || stage === 'm4' || stage === 'evidence';
+const fastModeBrowserless = stage === 'fast' || stage === 'evidence';
 
 // ---------- execute ----------
 try {
@@ -267,7 +267,8 @@ function runPlaywright(ids) {
   const jsonPath = path.join(outDir, 'playwright.json');
   const logPath = path.join(outDir, 'playwright.log');
   const grep = ids.map((id) => `\\[${id.replace('-', '\\-')}\\]`).join('|');
-  const cmd = [npx, 'playwright', 'test', '--reporter=list,json', `--grep=${grep}`];
+  // Only supplied suites can contribute official check IDs. Participant tests run separately.
+  const cmd = [npx, 'playwright', 'test', 'tests/baseline/screens.spec.ts', 'tests/acceptance/journeys.spec.ts', '--reporter=list,json', `--grep=${grep}`];
   const proc = spawnSync(cmd[0], cmd.slice(1), { cwd: root, encoding: 'utf8', env: { ...process.env, CI: '1', PLAYWRIGHT_JSON_OUTPUT_NAME: jsonPath }, maxBuffer: 64 * 1024 * 1024 });
   writeFileSync(logPath, `$ ${cmd.join(' ')}\n\n${proc.stdout ?? ''}\n${proc.stderr ?? ''}`);
   if (!existsSync(jsonPath)) return { error: `playwright produced no JSON report: ${summarizeOutput(proc)}`, tests: [], command: cmd.join(' '), log: logPath };
@@ -370,7 +371,7 @@ function finish(forcedExit) {
   const anyFail = required.some((r) => r.status === 'fail' || r.status === 'not_run');
   const exitCode = forcedExit ?? (anyFail ? 1 : anyError ? 2 : 0);
   const summary = {
-    contractVersion: 'inspection-desk-1.0',
+    contractVersion: 'inspection-desk-2.0',
     stage,
     startedAt,
     finishedAt: new Date().toISOString(),
