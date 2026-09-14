@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { describe, expect, test } from 'vitest';
-import { classifyPath, countCommitChanges, parseChangedCode } from '../../scripts/lib/change-scope.mjs';
+import { classifyPath, countCommitChanges, parseChangedCode, instructionCode } from '../../scripts/lib/change-scope.mjs';
 
 describe('published changed-code counter', () => {
   test('counts helpers, tests, styles, automation, comments and blank lines; separates documents', () => {
@@ -38,4 +38,23 @@ describe('published changed-code counter', () => {
       expect(r.files.map((f: { path: string }) => f.path).sort()).toEqual(['edit.js','new.js','old.js','workshop/helper.js']);
     } finally { rmSync(dir, { recursive: true, force: true }); }
   });
+});
+
+
+test('counts fenced blocks and frontmatter, separates prose, and handles instruction renames', () => {
+  expect(instructionCode('# Notes\nUse `npm test`.\n')).toBe('');
+  expect(instructionCode('---\nmodel: inherit\n---\nProse.\n```sh\nnpm test\n```\n')).toBe('---\nmodel: inherit\n---\n```sh\nnpm test\n```\n');
+  const dir=mkdtempSync(path.join(os.tmpdir(),'idesk-instruction-scope-'));
+  const git=(...args:string[])=>execFileSync('git',args,{cwd:dir,encoding:'utf8'}).trim();
+  try {
+    git('init','-q');git('config','user.name','Scope test');git('config','user.email','test@example.invalid');
+    writeFileSync(path.join(dir,'old.md'),'Prose.\n```js\nconst x = 1;\n```\n');
+    git('add','.');git('commit','-qm','base');const base=git('rev-parse','HEAD');
+    renameSync(path.join(dir,'old.md'),path.join(dir,'new.md'));
+    writeFileSync(path.join(dir,'notes.md'),'Explanation and `inline command`.\n');
+    git('add','.');git('commit','-qm','rename');
+    const result=countCommitChanges(dir,base);expect(result.countedCodeLines).toBe(6);expect(result.countingVersion).toBe('changed-code-3.0');
+    expect(result.files.find(f=>f.path==='new.md')?.instructionAdditions).toBe(3);
+    expect(result.files.find(f=>f.path==='old.md')?.instructionDeletions).toBe(3);
+  } finally {rmSync(dir,{recursive:true,force:true});}
 });

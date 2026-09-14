@@ -1,296 +1,144 @@
-# How your work earns points
+# Published grading criteria
 
-Contract `inspection-desk-2.0`. Each item earns zero, half or full points. A judgment must cite the saved artifact or private session passage and explain the awarded level. File creation and command invocation alone do not establish understanding.
+One final assessment: 40 behavior + 60 Claude Code practice = 100 points. No peer, attendance, speed or command-count points.
 
-Final behavior earns 40 points; Claude Code method earns 40; outgoing reviews earn 20. Earlier behavior runs show progress and are not added to the final score.
+All required final checks must pass; the change must fit 500 code lines; practice must reach 30/60; no grade may remain pending. Ties share a place.
 
-## Final behavior
+## Application behavior — 40 points
 
-| Case | Points | Required result |
-| --- | ---: | --- |
-| AC-01 | 6 | Progress; every published assertion passes. |
-| AC-02 | 6 | One active run; every published assertion passes. |
-| AC-03 | 8 | Correct result; every published assertion passes. |
-| AC-04 | 6 | Failure recovery; every published assertion passes. |
-| AC-05 | 6 | Safe retry; every published assertion passes. |
-| AC-06 | 8 | Preserved results and inspection separation; every published assertion passes. |
+- AC-01 · Progress: 6 points. Applicable direct server and browser assertions must all pass.
+- AC-02 · One active attempt: 6 points. Applicable direct server and browser assertions must all pass.
+- AC-03 · Correct report: 8 points. Applicable direct server and browser assertions must all pass.
+- AC-04 · Failure and status-lookup recovery: 6 points. Applicable direct server and browser assertions must all pass.
+- AC-05 · Safe retry: 6 points. Applicable direct server and browser assertions must all pass.
+- AC-06 · Preserved contents and inspection separation: 8 points. Applicable direct server and browser assertions must all pass.
 
-## Claude Code method
+## WF-M1-CONTEXT · Context, instructions and diagnosis — 5 points
 
-### M1 · Inspect — 5 points
+Evidence: INVESTIGATION.md, applicable project instructions and selected session evidence.
 
-**CC-M1-CONTEXT · Select relevant context · 1 points**
+- Complete (5): Relevant inputs and instructions are used to verify a prototype/app discrepancy; the model/effort decision and its observed limit or result are explained.
+- Partial (2.5): A real discrepancy and relevant inputs are identified, but instruction use or the diagnosis is not fully checked.
+- Unsupported (0): Only file/model names or an unsupported diagnosis.
 
-Evidence: Selected project instructions and source references, with the reason they matter.
+## WF-M2-CLARIFY · Resolve a consequential ambiguity — 4 points
 
-- Zero: A list of files with no connection to the failure.
-- Half: Relevant source supplied, but its role is unexplained.
-- Full: The report entry point and applicable instructions are connected to the observed failure.
+Evidence: The product question, shared answer and resulting SPEC.md requirement.
 
-**CC-M1-CHOICE · Justify model and effort · 1 points**
+- Complete (4): A supported product answer changes an observable requirement, such as retrying the original snapshot.
+- Partial (2): A meaningful question and answer exist, but the change to the requirement is unclear.
+- Unsupported (0): A generic request for robustness with no resolved decision.
 
-Evidence: The approved model/effort used, the task need and a checked result.
+## WF-M2-ACCEPTANCE · Specify observable behavior — 4 points
 
-- Zero: Only a model name or screenshot.
-- Half: A task-based choice without checking the result.
-- Full: The choice is justified and its result checked; any limit or need to change is explained.
+Evidence: SPEC.md and its journey/AC-01–06 mapping.
 
-**CC-M1-DIAGNOSIS · Verify the diagnosis · 3 points**
+- Complete (4): Actions, inputs and observable outcomes cover all published cases, including failed status lookup and recovery.
+- Partial (2): Useful cases omit a required outcome.
+- Unsupported (0): Acceptance IDs or prototype screenshots without observable requirements.
 
-Evidence: Reproduction, Claude’s diagnosis and the engineer’s source or UI verification.
+## WF-M2-SCOPE · Define preservation and exclusions — 2 points
 
-- Zero: An unsupported cause or no reproduction.
-- Half: The failure is reproduced but the cited cause is not fully checked.
-- Full: The observed failure is traced to code and the weak test’s missing recovery assertion is explained.
+Evidence: SPEC.md boundaries and cited existing service behavior.
 
-### M2 · Specify — 10 points
+- Complete (2): Original report contents and retry data are preserved; existing service ownership and excluded work are explicit.
+- Partial (1): Some preservation or scope rules are stated but a material boundary is missing.
+- Unsupported (0): An unbounded rewrite or no supported preservation rules.
 
-**CC-M2-CLARIFY · Resolve a consequential ambiguity · 3 points**
+## WF-M3-PLAN · Plan checked increments — 4 points
 
-Evidence: Question, shared product answer and the resulting requirement.
+Evidence: PLAN.md files, two increments, check mapping and additions/deletions estimate.
 
-- Zero: “Make retry robust” with no checked clarification.
-- Half: A meaningful question is answered but its effect on the spec is unclear.
-- Full: A product answer resolves an ambiguity and changes an observable requirement.
+- Complete (4): Server handlers/direct request checks precede UI integration/browser checks; both increments follow the spec and estimate all counted code within 500 lines.
+- Partial (2): A useful plan omits one material dependency, check or counted change.
+- Unsupported (0): A task list without a bounded implementation or verification path.
 
-**CC-M2-ACCEPTANCE · Specify observable behavior · 4 points**
+## WF-M3-ASSIGN · Define the two agent assignments — 4 points
 
-Evidence: SPEC.md covers AC-01–06, including status lookup and recovery.
+Evidence: Prepared specialist configurations and actual assignment prompts.
 
-- Zero: Acceptance IDs without observable outcomes.
-- Half: Useful cases omit a required outcome or failure case.
-- Full: Cases identify inputs/actions and observable outcomes for every published behavior.
+- Complete (4): Each independent investigation has relevant inputs, a narrow question, suitable tools/model, expected evidence and stopping conditions.
+- Partial (2): The tasks are bounded but one lacks a necessary input, capability restriction or return requirement.
+- Unsupported (0): Only agent invocation, agent count or an unrestricted instruction to build everything.
 
-**CC-M2-BOUNDARIES · Preserve behavior and limit scope · 3 points**
+## WF-M3-COORDINATE · Combine work in the right order — 4 points
 
-Evidence: Report contents, retry data, service reuse and exclusions in SPEC.md.
+Evidence: Returned findings and the main session synthesis reflected in PLAN.md.
 
-- Zero: No supported preservation or scope rules.
-- Half: Some boundaries are explicit but a material rule is missing.
-- Full: Required contents and original retry data are preserved; service ownership and exclusions are explicit.
+- Complete (4): Independent investigations run concurrently where permitted; dependencies are ordered and overlapping or conflicting findings are reconciled. A documented access fallback is equivalent.
+- Partial (2): Both findings return, but their dependencies or a meaningful overlap are not resolved.
+- Unsupported (0): Independent outputs are pasted together without a supported implementation decision.
 
-### M3 · Plan — 10 points
+## WF-M3-CHECK · Verify delegated findings — 3 points
 
-**CC-M3-PLAN · Plan two bounded increments · 4 points**
+Evidence: One source claim from each investigator and the engineer’s recorded check.
 
-Evidence: PLAN.md connects the reviewed spec to files and two implementation increments.
+- Complete (3): Both claims are checked and their acceptance, correction or rejection informs the plan.
+- Partial (1.5): One claim is verified or both are checked incompletely.
+- Unsupported (0): Delegated conclusions are accepted without evidence.
 
-- Zero: Unbounded rewrite or a task list unrelated to the spec.
-- Half: Two increments exist but a material dependency or acceptance path is missing.
-- Full: Both increments follow the spec, reuse existing behavior and name their affected files.
+## WF-M4-REUSE · Make the review skill usable by the team — 5 points
 
-**CC-M3-DELEGATION · Choose suitable delegation and tools · 2 points**
+Evidence: Repository skill, brief use/version/owner notes and a fresh-session invocation.
 
-Evidence: A narrow subagent question, supplied context and inspected tool/model configuration.
+- Complete (5): The skill uses explicit inputs, no personal paths or hidden chat assumptions, and works in a fresh context; another engineer has concise usage and version information.
+- Partial (2.5): The skill is useful but its handoff or fresh-context use is incomplete.
+- Unsupported (0): A personal-only prompt or skill file with no demonstrated reuse.
 
-- Zero: Only an invocation or unrestricted request to build everything.
-- Half: The question is bounded but tool/context/model suitability is unexplained.
-- Full: An independent question uses suitable context, tools and approved model settings.
+## WF-M4-REVIEW · Give the skill explicit review instructions — 5 points
 
-**CC-M3-VERIFY · Check delegated evidence · 2 points**
+Evidence: Skill instructions, supplied spec/target/diff/check inputs and cited output.
 
-Evidence: Returned finding, cited source and the engineer’s checked decision.
+- Complete (5): The separate review receives the correct evidence and returns checked findings or a supported pass with limits; the engineer verifies a consequential result.
+- Partial (2.5): The review is useful but a material input or verification is missing.
+- Unsupported (0): Bare invocation, generic praise or an unverified defect claim.
 
-- Zero: Claude’s conclusion accepted without checking it.
-- Half: A citation is inspected but the claimed relationship is not established.
-- Full: Source evidence supports a correction, rejection or acceptance and informs the plan.
+## WF-M4-IMPLEMENT · Control implementation scope — 5 points
 
-**CC-M3-CHECKS · Plan checks and estimate change size · 2 points**
+Evidence: Server and UI diff, local increments and PLAN.md deviations.
 
-Evidence: Each increment’s checks and a cumulative code estimate including tests and helpers.
+- Complete (5): Implementation follows the approved increments, reuses the prepared service and explains any necessary deviation; supplied checks remain intact.
+- Partial (2.5): Most work follows the plan but a material deviation is unexplained.
+- Unsupported (0): Unrelated edits, weakened checks or no supported connection to the plan.
 
-- Zero: “Run tests” with no mapping or estimate.
-- Half: A useful check map or estimate omits part of the change.
-- Full: Checks cover the planned behavior and the estimate includes counted code within 500 lines.
+## WF-M5-TEST · Prove the regression test detects its defect — 4 points
 
-### M4 · Implement — 5 points
+Evidence: The unchanged new server-request regression test and trusted correct/faulty/own results.
 
-**CC-M4-CONTEXT · Supply explicit review context · 2 points**
+- Complete (4): Correct code passes, the faulty code fails at the intended assertion, and the own-code result and coverage limits are explained.
+- Partial (2): Correct/faulty detection is established but the own-code result or coverage limit is not explained.
+- Unsupported (0): Both implementations fail, or the faulty run fails only at import, startup or timeout. Infrastructure errors remain pending rather than scored as participant failure.
 
-Evidence: Skill invocation and the exact spec, diff, target version and results supplied.
+## WF-M5-EVALUATE · Evaluate and improve the review skill — 3 points
 
-- Zero: Bare skill invocation.
-- Half: Useful files supplied but a material input is missing.
-- Full: The separate review receives the target version and all evidence needed for its bounded question.
+Evidence: EVALUATION.md plus retained initial/revised skill versions, fixed cases and actual outputs.
 
-**CC-M4-VERIFY · Verify a review conclusion · 2 points**
+- Complete (3): Clean and faulty cases expose false findings or misses; a proposed instruction change is compared on the same cases/configuration and accepted or rejected with evidence. An adequate initial skill may be retained with supported reasons.
+- Partial (1.5): Both cases are assessed, but the before/after comparison or retention decision lacks a material control.
+- Unsupported (0): A self-improvement claim without executions, fabricated gains or a check that merely confirms the skill file exists.
 
-Evidence: Skill finding or supported pass and independent verification.
+## WF-M5-HOOK · Prove automatic checking and its limits — 3 points
 
-- Zero: Unverified praise or criticism.
-- Half: A useful conclusion is checked incompletely.
-- Full: The engineer verifies the conclusion against code or executed behavior and responds accordingly.
+Evidence: Hook event/filter/script and selected invocation, failure, correction/pass and unrelated-action evidence.
 
-**CC-M4-SCOPE · Control implementation scope · 1 points**
+- Complete (3): The relevant event runs the intended check, feedback reaches Claude, correction passes, and scope/remaining behavioral checks are explained. Approved equivalent evidence has no feature-access penalty.
+- Partial (1.5): Real hook output is supplied, but the correction, scope check or coverage limit is missing.
+- Unsupported (0): Only a direct script run or an incorrect claim that PostToolUse reverses an edit or proves every behavior.
 
-Evidence: Two increments and an explanation of changed files or deviations.
+## WF-M6-VERIFY · Review and verify the final version — 3 points
 
-- Zero: Unexplained unrelated edits.
-- Half: The change mostly follows the plan but a deviation is unexplained.
-- Full: Both increments follow the agreed scope or explain necessary deviations with evidence.
+Evidence: FINAL.md, final skill output, supported dispositions and current trainer checks.
 
-### M5 · Verify — 5 points
+- Complete (3): The engineer resolves or explains findings, checks the actual submitted version and reports readiness or a specific blocker accurately; unfinished agent work is stopped.
+- Partial (1.5): Current results exist but a material finding or limitation is not addressed.
+- Unsupported (0): A completion claim contradicted by results or based only on stale checks.
 
-**CC-M5-TEST · Demonstrate regression-test strength · 2 points**
+## WF-M6-HANDOFF · Leave a reproducible handoff — 2 points
 
-Evidence: Trusted test results on correct, faulty and own implementations; intended assertion and file hash.
+Evidence: Final PR documents, skill usage notes and private receipt/evidence.
 
-- Zero: Failure is an import/startup error, timeout, or occurs on the correct implementation.
-- Half: The test distinguishes correct and faulty behavior but its coverage limit is unexplained.
-- Full: The unchanged test passes correct behavior, fails the intended faulty assertion, and its own-result and limits are explained.
+- Complete (2): A reviewer can trace requirements to changes and results, run the shared skill, and see scope and known limits without reconstructing private conversation history.
+- Partial (1): The handoff is usable but one required connection or usage detail is missing.
+- Unsupported (0): Missing or contradictory handoff with no reproducible evidence.
 
-**CC-M5-HOOK · Interpret hook feedback accurately · 1 points**
-
-Evidence: Relevant invocation, failure output, correction/pass and unrelated-action check; coverage limit, or the approved equivalent packet.
-
-- Zero: Claim that PostToolUse undoes an edit or proves all behavior.
-- Half: Relevant hook output without explaining its effect or limit.
-- Full: The engineer shows relevant invocation, failure, correction/pass and an unrelated-action check, and explains what behavioral checks remain.
-
-**CC-M5-COMPLETE · Use a measurable completion condition · 2 points**
-
-Evidence: Saved launch prompt with current spec/plan, scope, completion/stopping conditions; current results, justified interventions and cleared unfinished work.
-
-- Zero: Claude says done without current checks.
-- Half: A bounded condition is present but the conclusion omits a required result.
-- Full: The bounded launch request and current results support completion or a blocker; justified interventions and cancellation are recorded.
-
-### M6 · Finalize — 5 points
-
-**CC-M6-FEEDBACK · Resolve feedback with evidence · 2 points**
-
-Evidence: Each received finding marked fixed, unresolved or disputed with supporting evidence.
-
-- Zero: Feedback ignored or dismissed without support.
-- Half: Some dispositions are supported but a material finding is unaddressed.
-- Full: Each disposition states the action or remaining limitation and cites supporting evidence.
-
-**CC-M6-VERIFY · Verify the final code version · 2 points**
-
-Evidence: Final hosted checks and the readiness decision at the saved version.
-
-- Zero: Stale checks or a readiness claim contradicted by the results.
-- Half: Current results exist but a required result or limitation is omitted.
-- Full: Current final results support readiness or explicitly identify unresolved work.
-
-**CC-M6-SCOPE · Explain final scope · 1 points**
-
-Evidence: Final additions/deletions and changed files compared with PLAN.md.
-
-- Zero: No explanation of the final change.
-- Half: The scope is described but a material departure is unexplained.
-- Full: The final counted change and any departure from the plan are explained.
-
-## Outgoing reviews
-
-### M2 · Specify — 4 points
-
-**REV-M2-VALIDITY · Reach a supported verdict · 2 points**
-
-Evidence: Verdict on the assigned specification: retry requirements and preserved data.
-
-- Zero: Invented defect or unsupported pass.
-- Half: A useful conclusion is only partly established.
-- Full: A verified defect or supported pass accurately reflects the assigned case.
-
-**REV-M2-EVIDENCE · Cite the assigned version · 1 points**
-
-Evidence: Exact assigned commit, source locations and relevant specification evidence.
-
-- Zero: No evidence or the wrong saved version.
-- Half: Relevant evidence leaves a material part of the claim unverified.
-- Full: Reproducible evidence at the assigned version establishes the claim.
-
-**REV-M2-USEFULNESS · Give a bounded correction or limitation · 1 points**
-
-Evidence: Specific next change/check, or the stated limits of a supported pass.
-
-- Zero: Generic criticism or praise.
-- Half: A useful direction lacks a concrete change/check or limit.
-- Full: The author receives a bounded correction or a precise limit on supported acceptance.
-
-### M3 · Plan — 4 points
-
-**REV-M3-VALIDITY · Reach a supported verdict · 2 points**
-
-Evidence: Verdict on the assigned plan: files, checks and one acceptance path.
-
-- Zero: Invented defect or unsupported pass.
-- Half: A useful conclusion is only partly established.
-- Full: A verified defect or supported pass accurately reflects the assigned case.
-
-**REV-M3-EVIDENCE · Cite the assigned version · 1 points**
-
-Evidence: Exact assigned commit, source locations and relevant plan evidence.
-
-- Zero: No evidence or the wrong saved version.
-- Half: Relevant evidence leaves a material part of the claim unverified.
-- Full: Reproducible evidence at the assigned version establishes the claim.
-
-**REV-M3-USEFULNESS · Give a bounded correction or limitation · 1 points**
-
-Evidence: Specific next change/check, or the stated limits of a supported pass.
-
-- Zero: Generic criticism or praise.
-- Half: A useful direction lacks a concrete change/check or limit.
-- Full: The author receives a bounded correction or a precise limit on supported acceptance.
-
-### M4 · Implement — 6 points
-
-**REV-M4-VALIDITY · Reach a supported verdict · 2 points**
-
-Evidence: Verdict on the assigned implementation: failure/retry behavior against the specification.
-
-- Zero: Invented defect or unsupported pass.
-- Half: A useful conclusion is only partly established.
-- Full: A verified defect or supported pass accurately reflects the assigned case.
-
-**REV-M4-EVIDENCE · Cite the assigned version · 2 points**
-
-Evidence: Exact assigned commit, source locations and relevant implementation evidence.
-
-- Zero: No evidence or the wrong saved version.
-- Half: Relevant evidence leaves a material part of the claim unverified.
-- Full: Reproducible evidence at the assigned version establishes the claim.
-
-**REV-M4-USEFULNESS · Give a bounded correction or limitation · 2 points**
-
-Evidence: Specific next change/check, or the stated limits of a supported pass.
-
-- Zero: Generic criticism or praise.
-- Half: A useful direction lacks a concrete change/check or limit.
-- Full: The author receives a bounded correction or a precise limit on supported acceptance.
-
-### M5 · Verify — 6 points
-
-**REV-M5-VALIDITY · Reach a supported verdict · 2 points**
-
-Evidence: Verdict on the assigned test suite: assertion and trusted correct/faulty test results.
-
-- Zero: Invented defect or unsupported pass.
-- Half: A useful conclusion is only partly established.
-- Full: A verified defect or supported pass accurately reflects the assigned case.
-
-**REV-M5-EVIDENCE · Cite the assigned version · 2 points**
-
-Evidence: Exact assigned commit, source locations and relevant test suite evidence.
-
-- Zero: No evidence or the wrong saved version.
-- Half: Relevant evidence leaves a material part of the claim unverified.
-- Full: Reproducible evidence at the assigned version establishes the claim.
-
-**REV-M5-USEFULNESS · Give a bounded correction or limitation · 2 points**
-
-Evidence: Specific next change/check, or the stated limits of a supported pass.
-
-- Zero: Generic criticism or praise.
-- Half: A useful direction lacks a concrete change/check or limit.
-- Full: The author receives a bounded correction or a precise limit on supported acceptance.
-
-## Eligibility and pending results
-
-Every required final behavior and system check must pass, the final change must meet the 500-line rule, method points must reach 20/40 and all grading must be resolved. Highest eligible total wins; ties share a place. Attendance, speed, spend, command count and code volume earn no points. A service failure stays pending.
-
-A supported pass can earn full review credit. Review the assigned saved version. Peers report findings; the trainer calculates official points. Unavailable optional Claude Code features use the published equivalent evidence route without a points penalty.
-
-The workshop score describes submitted evidence. It is not an employment assessment or certification.
+The model proposes levels, cited evidence and reasons. Server code calculates points. Confirmed missing practice receives zero; failed collection, execution or model assessment remains pending. File existence and invocation alone do not show understanding. Optional feature access never costs points.

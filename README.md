@@ -19,8 +19,7 @@ the current code: that is the open defect in the report-generation ticket.
 
 ## Current ticket
 
-Read, in order: `workshop/ticket.md`, `workshop/product-decisions.md`, `workshop/acceptance.md`, then the
-six briefs in `workshop/briefs/`. Record your work in `SPEC.md`, `PLAN.md` and `EVIDENCE.md`.
+Open `product-handoff/report-progress.html` and read its user journey and product brief, then `workshop/product-decisions.md` and `workshop/acceptance.md`. Complete SPEC.md, PLAN.md and the investigation/evaluation/final files in `workshop/`. Save intermediate work locally; submit one final PR and one private evidence packet.
 
 ## Commands
 
@@ -46,9 +45,9 @@ Open for the ticket: `src/client/reports/ReportPanel.tsx`, `src/client/reports/r
 
 - `CLAUDE.md`: project guidance. `.claude/rules/report-generation.md`: a rule loaded only when report
   source files are read.
-- `.claude/agents/report-investigator.md`: a read-only investigator (Read, Grep, Glob; no shell).
+- `.claude/agents/service-contract.md` and `behavior-test.md`: two read-only specialists; verify their findings before implementation. `report-investigator.md` supports separate review.
 - `.claude/skills/workshop-review/SKILL.md`: `/workshop-review <context file>` reviews a change in a
-  separate context using that agent. Use it on your own increments in M4, assigned reviews and your final version in M6.
+  separate context using that agent. Use it on your own increments in M4, fixed evaluation cases and your final version in M6.
 - `.claude/settings.json` + `.claude/hooks/check-report-change.mjs`: a `PostToolUse` hook that runs the
   fast checks after Claude edits report source files and reports failures back.
 
@@ -62,4 +61,4 @@ multi-process safety, no authentication, no PDF output and no deployment path. T
 
 MIT. See `LICENSE`.
 
-Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [four reviews](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). Keep workshop exports outside Git and submit them privately through the portal.
+Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [reusable review skill](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). Keep workshop exports outside Git and submit them privately through the portal.

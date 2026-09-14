@@ -1,19 +1,14 @@
-# Evidence that earns method and review points
+# Evidence examples
 
-The [published rubric](rubric.md) gives every criterion's zero, half and full-credit examples. These examples are illustrations, not observed participant sessions.
+A practice needs a decision and its verification. A command name or a saved file alone does not show understanding.
 
-For M3's verified delegated finding (2 points):
+| Practice | Useful evidence | Insufficient evidence |
+| --- | --- | --- |
+| Investigation | Reproduction, cited source and the engineer’s checked conclusion. | “Claude found the bug.” |
+| Clarification | Product question, supported answer and the resulting acceptance case. | “Make it robust.” |
+| Coordination | Two bounded assignments, returned citations, checked claims and a combined plan. | Two agent outputs pasted together. |
+| Reusable review | Explicit inputs, fresh-context output and a verified finding or supported pass. | A skill file with no demonstrated use. |
+| Evaluation | Matched clean/faulty runs and a supported change or retention decision. | A claim that the prompt improved itself. |
+| Final handoff | Current check results and supported readiness for the captured version. | A completion statement based on an older commit. |
 
-- Zero: “The investigator says retry preserves the data.” No source was checked.
-- Half: The engineer opens a cited source but leaves its connection to retry unverified.
-- Full: The engineer checks the cited behavior and uses that evidence to accept, correct or reject the finding in PLAN.md.
-
-For M5's bounded completion decision (2 points):
-
-- Zero: A completion screenshot without current executed checks.
-- Half: A useful launch prompt and check output, with a material gap in the supported outcome.
-- Full: The prompt states current context, required results, scope and stopping conditions. The engineer verifies the outcome, records justified interventions and clears unfinished work. A supported blocker can earn full method credit.
-
-For an outgoing review, a supported pass can earn full points. Cite the assigned saved version, show what was checked and state the limit of that conclusion. Inventing a defect earns no credit.
-
-Store session prompts, responses and exports privately through the portal. Public EVIDENCE.md records your decisions and artifact references. Do not paste another engineer's information or a transcript into the public PR.
+Full zero/half/full examples appear in the published rubric. Keep actual session exchanges and check outputs private. Exports may omit tool details; selected supplementary output is accepted. Name missing fields and known limits without inventing evidence.

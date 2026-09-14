@@ -1,33 +1,29 @@
-# Show what your regression test catches
+# Prove what your regression test detects
 
-Add your test in a new file under `tests/participant/`. Use the published UI/API behavior and supplied helpers. Keep supplied tests unchanged. Your test code counts toward the 500-line limit.
+Add a new Playwright `.spec.ts` file under `tests/participant/`. Use its `request` fixture to call the real local server at `http://127.0.0.1:4190`. Do not mock its response or import the private reference implementation. Supplied Operations requests control failures and scheduling; see the public API tests and helpers.
 
-Choose **stuck recovery** or **stale error**. After the application reaches an observable state, assert the behavior that should differ on the faulty copy. Identify that assertion's line. A timeout, import error or startup failure does not demonstrate detection.
+The required server case is `retry-status`: a newly created retry must return HTTP 202; a repeated request returns HTTP 200 for the same retry. The compatible fault returns 200 even when it creates a retry. Check the response at a direct assertion after reaching the intended failed-attempt state. Add coverage for other retry behavior as time permits.
 
-In `tests/participant/assessment.json`, select one to three exact test titles:
+You may also select a `stuck-recovery` or `stale-error` UI test. The first challenges recovery after generation failure; the second challenges the old error remaining after retry is accepted. Select at most three tests, including the server case.
+
+Create `tests/participant/assessment.json` with your actual file, exact title and assertion line:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
   "tests": [
     {
-      "file": "tests/participant/recovery.spec.ts",
-      "title": "your exact test title",
-      "fault": "stuck-recovery",
+      "file": "tests/participant/retry.spec.ts",
+      "title": "new retry returns an accepted response",
+      "fault": "retry-status",
       "assertionLine": 12
     }
   ]
 }
 ```
 
-Use `stale-error` for a test of the old error remaining during retry. Replace the example file, title and line with your actual test. Run it on your code:
+Run `npx playwright test tests/participant/retry.spec.ts` on your implementation. The hosted isolated checker captures the file hash and runs it unchanged on correct, compatible faulty and your own code. Correct code must pass. Faulty code must fail at the selected behavior assertion. A timeout, import/startup error, unconditional failure, skipped test or expected failure does not establish detection.
 
-```sh
-npx playwright test tests/participant/recovery.spec.ts
-```
+The trusted results record all three outcomes. Explain the observed difference and the test’s limits in EVALUATION.md. A test failing both implementations is invalid. An infrastructure failure stays pending. The official application suite remains separate and cannot be changed by your new test.
 
-The trainer captures the file and its hash, then runs it unchanged on a correct implementation, a compatible faulty implementation and your submitted implementation in the isolated checker. The correct copy must pass. The faulty copy must fail at your selected behavioral assertion. The result also reports whether your own implementation passed.
-
-Do not use skipped tests, expected failures or retries to demonstrate detection. Tests must exercise behavior available to both valid implementations; they cannot depend on the private reference's internal variables or layout choices.
-
-M5 method credit also requires explaining the weak test's omission and your new test's limits. An unavailable checker result remains pending. A review may state that limitation without inventing a defect.
+Your tests and selection JSON count toward the same 500-line cap. Add new files; preserve all supplied tests.

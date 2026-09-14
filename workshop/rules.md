@@ -1,40 +1,46 @@
 # Submission rules
 
-Keep one continuing pull request to `tenex-labs/acv-auctions-claude-code`, based on the workshop's frozen starter. Save M1–M6 in the portal. Each save captures the current commit; later pushes do not change an earlier submission or review target.
+Use the frozen starter shown in the portal. Save work locally through six learning stages. At the end, open one PR and submit its link with one private evidence packet. Corrections update the same PR and create a new receipt; earlier receipts and grades retain their exact code versions. No intermediate uploads or peer reviews are required.
 
-- M1–M3 submissions contain no application changes. Investigate, specify and plan before implementation.
-- Final code changes must total no more than **500 additions plus deletions** from the frozen starter. Count tests, styles, automation, helpers, comments and blank lines within code files. Do not use net growth.
-- Preserve supplied services, fixtures, tests, dependencies and checking files. Add tests in new `tests/participant/*.spec.ts` files. No new dependencies or generated bundles.
-- Keep changes within the report assignment. Explain necessary departures from the plan. Unrelated formatting changes do not belong in the submission.
-- Investigation: at most 200 words. `SPEC.md`: 500. `PLAN.md`: 400. Attach command output separately under `workshop/evidence/`.
-- Every claim needs a source location, check result or private session excerpt. Review the exact saved commit assigned to you.
-- Keep workshop session exports outside the repository. Upload only selected workshop evidence through the private portal after preview and redaction.
+## Editable and protected paths
 
-## Count the change
+| Path | Rule |
+| --- | --- |
+| `src/server/routes/reports.ts` | Complete the three report handlers; preserve the older route. |
+| `src/client/reports/ReportPanel.tsx`, `reportApi.ts` | Connect the report journey. |
+| Other source/styles | Only necessary, explained changes within the assignment. |
+| `tests/participant/` | Add new tests and the test-selection file. |
+| `CLAUDE.md`, `.claude/rules/report-generation.md` | Adapt concise project/scoped guidance. |
+| `.claude/agents/service-contract.md`, `behavior-test.md`, `report-investigator.md` | Adapt the prepared read-only assignments and review agent. |
+| `.claude/skills/workshop-review/` | Adapt and retain review instructions; include short owner/version/use notes. |
+| `SPEC.md`, `PLAN.md`, `workshop/INVESTIGATION.md`, `workshop/EVALUATION.md`, `workshop/FINAL.md` | Complete the public work record. |
+| Prepared service, builder, store, scheduler, shared types, JSON fixtures | Read and preserve. |
+| Supplied tests, check scripts, hook/settings, dependency/build files, product and grading packets | Preserve. Exact files and hashes: `scripts/protected-manifest.json`. |
 
-Use the full starter commit shown in the portal:
+No new dependencies, generated bundles, unrelated formatting or application rewrites. New helpers count wherever they are placed. Do not use documentation files as executable application modules. Trusted checking validates protected files before adding its own checks.
 
-```sh
-node scripts/change-scope.mjs <frozen-starter-commit> HEAD
-```
+## 500 changed code lines
 
-The counter uses Git additions plus deletions with rename detection disabled. Markdown, text documents, LICENSE/NOTICE and command-result `.json`/`.log` files directly under `workshop/evidence/` are reported separately. All other changed text counts as code, including helpers outside `src/`. A file containing executable helper logic counts as code regardless of its name; disguising it as documentation violates this rule. Binary/unreadable code requires facilitator review; it does not receive a guessed count.
+The fixed counter is `changed-code-3.0`. Run `node scripts/change-scope.mjs <full-starter-commit>` after committing. It compares with the frozen starter using additions **plus deletions**, without rename detection.
 
-| Change | Counted lines |
+| Change | Count |
 | --- | ---: |
 | Replace one code line | 2 |
-| Delete five lines | 5 |
-| Add a ten-line helper | 10 |
-| Add one comment and one blank line in code | 2 |
-| Rename a twenty-line code file without edits | 40 |
-| Add a forty-word paragraph to SPEC.md | 0; reported as documentation |
+| Delete 10 code lines | 10 |
+| Add a 20-line helper or test | 20 |
+| Rename an unchanged 20-line code file | 40 |
+| Add a comment and a blank line in a code file | 2 |
 
-The final scope check uses the trusted copy of this counter. Smaller changes receive no bonus. Reviewable code and useful tests still matter.
+Application code, tests, styles, automation and configuration count. Unknown file types count. Markdown/text prose and inline command examples are reported separately. Fenced blocks and instruction frontmatter count, including their delimiters, comments and blank lines. Raw HTML documents count in full. The report lists counted instruction additions/deletions beside document changes. Renames use deletion plus addition for instruction code too. Binary files and generated bundles cannot pass the rule.
 
-## Your score
+Session exports and check outputs belong in ignored `.workshop-private/` or outside the repository; never commit them. The supplied prototype and configuration are already in the starter and consume no change budget unless edited; the prototype is protected.
 
-Final application behavior earns 40 points, Claude Code method earns 40 and outgoing reviews earn 20. See [every criterion and evidence level](rubric.md). Reviews run in M2, M3, M4 and M5. A supported pass can earn full credit; invented defects cannot.
+## Documents and private evidence
 
-To place in the standings, pass every required final behavior/system check, meet the 500-line rule, earn at least 20 method points and resolve all pending grading. Highest eligible total wins; ties share a place. Attendance, speed, spend and command count earn no points.
+Investigation: 200 words. SPEC: 500. PLAN: 400. EVALUATION: 500 prose words, excluding result-table rows. FINAL: 300. Headings count; Markdown punctuation and HTML comments do not. Put command output in the private packet.
 
-If a service fails, your assessment stays pending. If a peer has no submission, use the equivalent assigned fallback packet. If an optional Claude Code feature is unavailable, use the published equivalent exercise with the same points available.
+Attach at most eight private files: 1 MiB each, 4 MiB total. Preview and redact selected workshop sessions. Native exports can omit expanded tool results; add a selected supplementary file and explain missing evidence. Keep private sessions, email and other participants’ data out of public Git history.
+
+Complete and commit public files first. Run final checks on the clean commit into ignored storage, push/open the PR, then submit the same code version and private evidence. Repeat checks after any public edit. A public document never needs to contain its own future commit ID.
+
+The trainer checks captured versions. A saved snapshot cannot prove that a temporary local edit never occurred. Session hashes establish integrity after receipt, not an independent record of every action.

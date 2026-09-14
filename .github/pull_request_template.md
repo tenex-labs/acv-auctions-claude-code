@@ -1,9 +1,7 @@
-## Workshop PR
+## Report progress change
 
-- Assignment/version: inspection-desk-1.0
-- SPEC: `SPEC.md` · PLAN: `PLAN.md` · EVIDENCE: `EVIDENCE.md`
-- Latest module completed: <!-- M1 … M6 -->
-- Known incomplete work: <!-- or "none" -->
-- Final readiness decision (M6): <!-- ready_for_merge | changes_required -->
+Describe the implemented server/UI behavior and any known limit.
 
-These fields help navigation. They are not a score and not an identity check.
+Public work record: `workshop/INVESTIGATION.md`, `SPEC.md`, `PLAN.md`, `workshop/EVALUATION.md`, `workshop/FINAL.md` and `.claude/skills/workshop-review/`.
+
+Name the executed final checks and changed code-line total. Submit session excerpts and detailed output privately through the workshop portal. Do not paste exports, email addresses or another engineer’s information here.

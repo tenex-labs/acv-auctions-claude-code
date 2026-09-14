@@ -1,94 +1,38 @@
-# M2 · Specify · 20 minutes
+# M2 · Specify
 
-“Support retry” leaves decisions about saved data and repeated requests unanswered.
+20 minutes · 10 practice points in the final assessment.
 
-Decision: What product answer changes an observable requirement?
+The prototype leaves recovery, repeated requests and preserved data unresolved.
 
-## Claude Code controls
+Decision: Which product answer changes an observable requirement?
 
-**Claude-led clarification.** AskUserQuestion lets Claude ask for a decision before implementing. Ordinary questions are an equivalent fallback. Ask which inspection data Retry must use.
+Claude Code: Clarification · durable task context
 
-**Durable task context.** A referenced specification preserves the agreed task across conversations. SPEC.md is not loaded automatically. Reference the agreed SPEC.md when planning, implementing and reviewing.
+## Work
 
-## Do
+1. Give Claude the investigation, journey, product decisions and acceptance rules. Ask it to surface a question that changes implementation.
+2. Answer from workshop/product-decisions.md. Record how the answer changes a requirement; name remaining unknowns.
+3. Write SPEC.md within 500 words. Cover direct server responses and visible AC-01–06 behavior, including failed status lookup.
+4. Define preserved data, service ownership and excluded work. Save the specification locally before implementation.
 
-1. Give Claude the investigation, product decisions and acceptance cases. Have it ask about an ambiguity that changes implementation.
-2. Answer from workshop/product-decisions.md. Check how the answer changes an observable requirement.
-3. Write SPEC.md in at most 500 words: all six acceptance cases, failure handling, preserved contents and scope. Keep application code unchanged.
-4. Commit, push and save M2. Review the assigned specification for four minutes; submit a verdict, evidence and correction or limitation.
+## Save
 
-## Starting prompt
+Local SPEC.md and the clarification exchange. Show the question, supported answer and changed requirement.
 
-```text
-Read my investigation, workshop/product-decisions.md and
-workshop/acceptance.md. Before drafting SPEC.md, ask me about a consequential
-ambiguity using AskUserQuestion if available. Use the shared product
-decisions as authority and preserve any unresolved question. Then draft
-observable cases for AC-01–06, preserved behavior and exclusions in no more
-than 500 words. Do not implement. Show how the answer changed a requirement.
-```
+## Prompt
 
-## Save your work
+Read workshop/INVESTIGATION.md, product-handoff/USER-JOURNEY.md, workshop/product-decisions.md and workshop/acceptance.md. Ask me about a consequential ambiguity using AskUserQuestion if available. Resolve it from the shared product answers, then draft SPEC.md within 500 words. Cover AC-01–06 in UI and server behavior, preserved contents and exclusions. Show which requirement the answer changed. Do not implement.
 
-SPEC.md, M2 clarification and changed requirement; outgoing specification review. Attach the supporting exchange and your verification privately.
+## Check and grade
 
-Commit and push your continuing PR, then select **Save submission** in the portal. Preview and redact session evidence before attaching it. Keep exports outside the repository; the private evidence route accepts selected excerpts when export or tenant rules prevent collection.
+`npm run check -- --stage m2`
 
-```sh
-npm run check -- --stage m2
-```
+See the zero/half/full examples in [the rubric](../rubric.md). A command or file alone earns no credit.
 
-## Published grading
+<details><summary>Optional hints</summary>
 
-10 method points and 4 review points.
+Ask what Retry uses if an inspection changes after failure.
 
-**CC-M2-CLARIFY · Resolve a consequential ambiguity · 3 points.**
-Evidence: Question, shared product answer and the resulting requirement.
+Use an action, input and observable result for each case. “Support retry” does not define duplicate handling.
 
-- Zero: “Make retry robust” with no checked clarification.
-- Half: A meaningful question is answered but its effect on the spec is unclear.
-- Full: A product answer resolves an ambiguity and changes an observable requirement.
-
-**CC-M2-ACCEPTANCE · Specify observable behavior · 4 points.**
-Evidence: SPEC.md covers AC-01–06, including status lookup and recovery.
-
-- Zero: Acceptance IDs without observable outcomes.
-- Half: Useful cases omit a required outcome or failure case.
-- Full: Cases identify inputs/actions and observable outcomes for every published behavior.
-
-**CC-M2-BOUNDARIES · Preserve behavior and limit scope · 3 points.**
-Evidence: Report contents, retry data, service reuse and exclusions in SPEC.md.
-
-- Zero: No supported preservation or scope rules.
-- Half: Some boundaries are explicit but a material rule is missing.
-- Full: Required contents and original retry data are preserved; service ownership and exclusions are explicit.
-
-**REV-M2-VALIDITY · Reach a supported verdict · 2 points.**
-Evidence: Verdict on the assigned specification: retry requirements and preserved data.
-
-- Zero: Invented defect or unsupported pass.
-- Half: A useful conclusion is only partly established.
-- Full: A verified defect or supported pass accurately reflects the assigned case.
-
-**REV-M2-EVIDENCE · Cite the assigned version · 1 points.**
-Evidence: Exact assigned commit, source locations and relevant specification evidence.
-
-- Zero: No evidence or the wrong saved version.
-- Half: Relevant evidence leaves a material part of the claim unverified.
-- Full: Reproducible evidence at the assigned version establishes the claim.
-
-**REV-M2-USEFULNESS · Give a bounded correction or limitation · 1 points.**
-Evidence: Specific next change/check, or the stated limits of a supported pass.
-
-- Zero: Generic criticism or praise.
-- Half: A useful direction lacks a concrete change/check or limit.
-- Full: The author receives a bounded correction or a precise limit on supported acceptance.
-
-Automated checks establish submitted versions, document limits, protected files and executed behavior. File existence or a command invocation alone does not earn method points. Final behavior contributes 40 points once, at M6. See [rules](../rules.md), [acceptance cases](../acceptance.md) and [full rubric](../rubric.md).
-
-## Optional hints
-
-- Walk through failure, retry and two repeated retry requests.
-- Specify which saved inspection data Retry uses. Include status-lookup failure, Check again and recovery without a new attempt.
-
-Hints and unavailable optional features cost no points.
+</details>

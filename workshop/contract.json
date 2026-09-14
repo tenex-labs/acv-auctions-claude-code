@@ -1,9 +1,9 @@
 {
-  "contractVersion": "inspection-desk-2.0",
-  "ssotVersion": "1.8",
+  "contractVersion": "inspection-desk-3.0",
+  "ssotVersion": "1.9",
   "applicationName": "Inspection Desk",
   "scope": "workshop_release_candidate",
-  "framing": "transferable_advanced_claude_code_practice",
+  "framing": "product_to_engineering_handoff",
   "workshop": {
     "date": "2026-09-17",
     "timezone": "America/New_York",
@@ -36,465 +36,310 @@
   "modules": [
     {
       "id": "M1",
-      "name": "Inspect",
+      "name": "Context and inspect",
       "minutes": 10,
-      "methodCriterion": "CC-M1",
-      "snapshotRequired": true
+      "practicePoints": 5,
+      "methodCriterion": "WF-M1",
+      "snapshotRequired": false
     },
     {
       "id": "M2",
       "name": "Specify",
       "minutes": 20,
-      "methodCriterion": "CC-M2",
-      "snapshotRequired": true
+      "practicePoints": 10,
+      "methodCriterion": "WF-M2",
+      "snapshotRequired": false
     },
     {
       "id": "M3",
-      "name": "Plan",
+      "name": "Plan and orchestrate",
       "minutes": 25,
-      "methodCriterion": "CC-M3",
-      "snapshotRequired": true
+      "practicePoints": 15,
+      "methodCriterion": "WF-M3",
+      "snapshotRequired": false
     },
     {
       "id": "M4",
-      "name": "Implement",
+      "name": "Implement and package the review",
       "minutes": 30,
-      "methodCriterion": "CC-M4",
-      "snapshotRequired": true
+      "practicePoints": 15,
+      "methodCriterion": "WF-M4",
+      "snapshotRequired": false
     },
     {
       "id": "M5",
-      "name": "Verify",
+      "name": "Evaluate and improve",
       "minutes": 20,
-      "methodCriterion": "CC-M5",
-      "snapshotRequired": true
+      "practicePoints": 10,
+      "methodCriterion": "WF-M5",
+      "snapshotRequired": false
     },
     {
       "id": "M6",
-      "name": "Finalize",
+      "name": "Final review and submit",
       "minutes": 10,
-      "methodCriterion": "CC-M6",
+      "practicePoints": 5,
+      "methodCriterion": "WF-M6",
       "snapshotRequired": true
     }
   ],
-  "closingMinutes": 5,
-  "implementationWorkMinutes": 21,
-  "peerReviewMinutes": 18,
-  "finalCorrectionMinutes": 9,
+  "submission": {
+    "requiredFinalPRCount": 1,
+    "mandatoryCheckpointUploads": 0,
+    "requiredPeerReviewRounds": 0,
+    "requiredPrivatePackets": 1,
+    "maxPrivateFiles": 8,
+    "maxPrivateFileBytes": 1048576,
+    "maxPrivatePacketBytes": 4194304
+  },
+  "application": {
+    "fixtureFormat": "committed JSON",
+    "runtimeState": "in-memory; reset on server restart",
+    "requiredServerHandlers": [
+      "POST /api/inspections/:id/report-runs",
+      "GET /api/report-runs/:runId",
+      "POST /api/report-runs/:runId/retry"
+    ],
+    "implementationOrder": [
+      "server handlers and direct request tests",
+      "UI integration and browser checks"
+    ],
+    "participantRegressionLayer": "HTTP requests to the real local server",
+    "behaviorScoreRequires": "applicable direct server and browser assertions",
+    "newDatabaseRequired": false
+  },
   "behaviorCriteria": [
     {
       "id": "AC-01",
       "name": "Progress",
-      "maxPoints": 6,
-      "allAssertionsRequired": true
+      "maxPoints": 6
     },
     {
       "id": "AC-02",
-      "name": "One active run",
-      "maxPoints": 6,
-      "allAssertionsRequired": true
+      "name": "One active attempt",
+      "maxPoints": 6
     },
     {
       "id": "AC-03",
-      "name": "Correct result",
-      "maxPoints": 8,
-      "allAssertionsRequired": true
+      "name": "Correct report",
+      "maxPoints": 8
     },
     {
       "id": "AC-04",
-      "name": "Failure recovery",
-      "maxPoints": 6,
-      "allAssertionsRequired": true
+      "name": "Failure and status-lookup recovery",
+      "maxPoints": 6
     },
     {
       "id": "AC-05",
       "name": "Safe retry",
-      "maxPoints": 6,
-      "allAssertionsRequired": true
+      "maxPoints": 6
     },
     {
       "id": "AC-06",
-      "name": "Preserved results and inspection separation",
-      "maxPoints": 8,
-      "allAssertionsRequired": true
+      "name": "Preserved contents and inspection separation",
+      "maxPoints": 8
     }
   ],
   "methodCriteria": [
     {
-      "id": "CC-M1-CONTEXT",
+      "id": "WF-M1-CONTEXT",
       "moduleId": "M1",
-      "maxPoints": 1,
-      "practice": "Select relevant context",
-      "evidence": "Selected project instructions and source references, with the reason they matter.",
+      "practice": "Context, instructions and diagnosis",
+      "maxPoints": 5,
+      "evidence": "INVESTIGATION.md, applicable project instructions and selected session evidence.",
       "examples": {
-        "unsupported": "A list of files with no connection to the failure.",
-        "partial": "Relevant source supplied, but its role is unexplained.",
-        "complete": "The report entry point and applicable instructions are connected to the observed failure."
+        "unsupported": "Only file/model names or an unsupported diagnosis.",
+        "partial": "A real discrepancy and relevant inputs are identified, but instruction use or the diagnosis is not fully checked.",
+        "complete": "Relevant inputs and instructions are used to verify a prototype/app discrepancy; the model/effort decision and its observed limit or result are explained."
       }
     },
     {
-      "id": "CC-M1-CHOICE",
-      "moduleId": "M1",
-      "maxPoints": 1,
-      "practice": "Justify model and effort",
-      "evidence": "The approved model/effort used, the task need and a checked result.",
-      "examples": {
-        "unsupported": "Only a model name or screenshot.",
-        "partial": "A task-based choice without checking the result.",
-        "complete": "The choice is justified and its result checked; any limit or need to change is explained."
-      }
-    },
-    {
-      "id": "CC-M1-DIAGNOSIS",
-      "moduleId": "M1",
-      "maxPoints": 3,
-      "practice": "Verify the diagnosis",
-      "evidence": "Reproduction, Claude’s diagnosis and the engineer’s source or UI verification.",
-      "examples": {
-        "unsupported": "An unsupported cause or no reproduction.",
-        "partial": "The failure is reproduced but the cited cause is not fully checked.",
-        "complete": "The observed failure is traced to code and the weak test’s missing recovery assertion is explained."
-      }
-    },
-    {
-      "id": "CC-M2-CLARIFY",
+      "id": "WF-M2-CLARIFY",
       "moduleId": "M2",
-      "maxPoints": 3,
       "practice": "Resolve a consequential ambiguity",
-      "evidence": "Question, shared product answer and the resulting requirement.",
+      "maxPoints": 4,
+      "evidence": "The product question, shared answer and resulting SPEC.md requirement.",
       "examples": {
-        "unsupported": "“Make retry robust” with no checked clarification.",
-        "partial": "A meaningful question is answered but its effect on the spec is unclear.",
-        "complete": "A product answer resolves an ambiguity and changes an observable requirement."
+        "unsupported": "A generic request for robustness with no resolved decision.",
+        "partial": "A meaningful question and answer exist, but the change to the requirement is unclear.",
+        "complete": "A supported product answer changes an observable requirement, such as retrying the original snapshot."
       }
     },
     {
-      "id": "CC-M2-ACCEPTANCE",
+      "id": "WF-M2-ACCEPTANCE",
       "moduleId": "M2",
-      "maxPoints": 4,
       "practice": "Specify observable behavior",
-      "evidence": "SPEC.md covers AC-01–06, including status lookup and recovery.",
-      "examples": {
-        "unsupported": "Acceptance IDs without observable outcomes.",
-        "partial": "Useful cases omit a required outcome or failure case.",
-        "complete": "Cases identify inputs/actions and observable outcomes for every published behavior."
-      }
-    },
-    {
-      "id": "CC-M2-BOUNDARIES",
-      "moduleId": "M2",
-      "maxPoints": 3,
-      "practice": "Preserve behavior and limit scope",
-      "evidence": "Report contents, retry data, service reuse and exclusions in SPEC.md.",
-      "examples": {
-        "unsupported": "No supported preservation or scope rules.",
-        "partial": "Some boundaries are explicit but a material rule is missing.",
-        "complete": "Required contents and original retry data are preserved; service ownership and exclusions are explicit."
-      }
-    },
-    {
-      "id": "CC-M3-PLAN",
-      "moduleId": "M3",
       "maxPoints": 4,
-      "practice": "Plan two bounded increments",
-      "evidence": "PLAN.md connects the reviewed spec to files and two implementation increments.",
+      "evidence": "SPEC.md and its journey/AC-01–06 mapping.",
       "examples": {
-        "unsupported": "Unbounded rewrite or a task list unrelated to the spec.",
-        "partial": "Two increments exist but a material dependency or acceptance path is missing.",
-        "complete": "Both increments follow the spec, reuse existing behavior and name their affected files."
+        "unsupported": "Acceptance IDs or prototype screenshots without observable requirements.",
+        "partial": "Useful cases omit a required outcome.",
+        "complete": "Actions, inputs and observable outcomes cover all published cases, including failed status lookup and recovery."
       }
     },
     {
-      "id": "CC-M3-DELEGATION",
+      "id": "WF-M2-SCOPE",
+      "moduleId": "M2",
+      "practice": "Define preservation and exclusions",
+      "maxPoints": 2,
+      "evidence": "SPEC.md boundaries and cited existing service behavior.",
+      "examples": {
+        "unsupported": "An unbounded rewrite or no supported preservation rules.",
+        "partial": "Some preservation or scope rules are stated but a material boundary is missing.",
+        "complete": "Original report contents and retry data are preserved; existing service ownership and excluded work are explicit."
+      }
+    },
+    {
+      "id": "WF-M3-PLAN",
       "moduleId": "M3",
-      "maxPoints": 2,
-      "practice": "Choose suitable delegation and tools",
-      "evidence": "A narrow subagent question, supplied context and inspected tool/model configuration.",
+      "practice": "Plan checked increments",
+      "maxPoints": 4,
+      "evidence": "PLAN.md files, two increments, check mapping and additions/deletions estimate.",
       "examples": {
-        "unsupported": "Only an invocation or unrestricted request to build everything.",
-        "partial": "The question is bounded but tool/context/model suitability is unexplained.",
-        "complete": "An independent question uses suitable context, tools and approved model settings."
+        "unsupported": "A task list without a bounded implementation or verification path.",
+        "partial": "A useful plan omits one material dependency, check or counted change.",
+        "complete": "Server handlers/direct request checks precede UI integration/browser checks; both increments follow the spec and estimate all counted code within 500 lines."
       }
     },
     {
-      "id": "CC-M3-VERIFY",
+      "id": "WF-M3-ASSIGN",
       "moduleId": "M3",
-      "maxPoints": 2,
-      "practice": "Check delegated evidence",
-      "evidence": "Returned finding, cited source and the engineer’s checked decision.",
+      "practice": "Define the two agent assignments",
+      "maxPoints": 4,
+      "evidence": "Prepared specialist configurations and actual assignment prompts.",
       "examples": {
-        "unsupported": "Claude’s conclusion accepted without checking it.",
-        "partial": "A citation is inspected but the claimed relationship is not established.",
-        "complete": "Source evidence supports a correction, rejection or acceptance and informs the plan."
+        "unsupported": "Only agent invocation, agent count or an unrestricted instruction to build everything.",
+        "partial": "The tasks are bounded but one lacks a necessary input, capability restriction or return requirement.",
+        "complete": "Each independent investigation has relevant inputs, a narrow question, suitable tools/model, expected evidence and stopping conditions."
       }
     },
     {
-      "id": "CC-M3-CHECKS",
+      "id": "WF-M3-COORDINATE",
       "moduleId": "M3",
-      "maxPoints": 2,
-      "practice": "Plan checks and estimate change size",
-      "evidence": "Each increment’s checks and a cumulative code estimate including tests and helpers.",
+      "practice": "Combine work in the right order",
+      "maxPoints": 4,
+      "evidence": "Returned findings and the main session synthesis reflected in PLAN.md.",
       "examples": {
-        "unsupported": "“Run tests” with no mapping or estimate.",
-        "partial": "A useful check map or estimate omits part of the change.",
-        "complete": "Checks cover the planned behavior and the estimate includes counted code within 500 lines."
+        "unsupported": "Independent outputs are pasted together without a supported implementation decision.",
+        "partial": "Both findings return, but their dependencies or a meaningful overlap are not resolved.",
+        "complete": "Independent investigations run concurrently where permitted; dependencies are ordered and overlapping or conflicting findings are reconciled. A documented access fallback is equivalent."
       }
     },
     {
-      "id": "CC-M4-CONTEXT",
-      "moduleId": "M4",
-      "maxPoints": 2,
-      "practice": "Supply explicit review context",
-      "evidence": "Skill invocation and the exact spec, diff, target version and results supplied.",
+      "id": "WF-M3-CHECK",
+      "moduleId": "M3",
+      "practice": "Verify delegated findings",
+      "maxPoints": 3,
+      "evidence": "One source claim from each investigator and the engineer’s recorded check.",
       "examples": {
-        "unsupported": "Bare skill invocation.",
-        "partial": "Useful files supplied but a material input is missing.",
-        "complete": "The separate review receives the target version and all evidence needed for its bounded question."
+        "unsupported": "Delegated conclusions are accepted without evidence.",
+        "partial": "One claim is verified or both are checked incompletely.",
+        "complete": "Both claims are checked and their acceptance, correction or rejection informs the plan."
       }
     },
     {
-      "id": "CC-M4-VERIFY",
+      "id": "WF-M4-REUSE",
       "moduleId": "M4",
-      "maxPoints": 2,
-      "practice": "Verify a review conclusion",
-      "evidence": "Skill finding or supported pass and independent verification.",
+      "practice": "Make the review skill usable by the team",
+      "maxPoints": 5,
+      "evidence": "Repository skill, brief use/version/owner notes and a fresh-session invocation.",
       "examples": {
-        "unsupported": "Unverified praise or criticism.",
-        "partial": "A useful conclusion is checked incompletely.",
-        "complete": "The engineer verifies the conclusion against code or executed behavior and responds accordingly."
+        "unsupported": "A personal-only prompt or skill file with no demonstrated reuse.",
+        "partial": "The skill is useful but its handoff or fresh-context use is incomplete.",
+        "complete": "The skill uses explicit inputs, no personal paths or hidden chat assumptions, and works in a fresh context; another engineer has concise usage and version information."
       }
     },
     {
-      "id": "CC-M4-SCOPE",
+      "id": "WF-M4-REVIEW",
       "moduleId": "M4",
-      "maxPoints": 1,
+      "practice": "Give the skill explicit review instructions",
+      "maxPoints": 5,
+      "evidence": "Skill instructions, supplied spec/target/diff/check inputs and cited output.",
+      "examples": {
+        "unsupported": "Bare invocation, generic praise or an unverified defect claim.",
+        "partial": "The review is useful but a material input or verification is missing.",
+        "complete": "The separate review receives the correct evidence and returns checked findings or a supported pass with limits; the engineer verifies a consequential result."
+      }
+    },
+    {
+      "id": "WF-M4-IMPLEMENT",
+      "moduleId": "M4",
       "practice": "Control implementation scope",
-      "evidence": "Two increments and an explanation of changed files or deviations.",
+      "maxPoints": 5,
+      "evidence": "Server and UI diff, local increments and PLAN.md deviations.",
       "examples": {
-        "unsupported": "Unexplained unrelated edits.",
-        "partial": "The change mostly follows the plan but a deviation is unexplained.",
-        "complete": "Both increments follow the agreed scope or explain necessary deviations with evidence."
+        "unsupported": "Unrelated edits, weakened checks or no supported connection to the plan.",
+        "partial": "Most work follows the plan but a material deviation is unexplained.",
+        "complete": "Implementation follows the approved increments, reuses the prepared service and explains any necessary deviation; supplied checks remain intact."
       }
     },
     {
-      "id": "CC-M5-TEST",
+      "id": "WF-M5-TEST",
       "moduleId": "M5",
-      "maxPoints": 2,
-      "practice": "Demonstrate regression-test strength",
-      "evidence": "Trusted test results on correct, faulty and own implementations; intended assertion and file hash.",
+      "practice": "Prove the regression test detects its defect",
+      "maxPoints": 4,
+      "evidence": "The unchanged new server-request regression test and trusted correct/faulty/own results.",
       "examples": {
-        "unsupported": "Failure is an import/startup error, timeout, or occurs on the correct implementation.",
-        "partial": "The test distinguishes correct and faulty behavior but its coverage limit is unexplained.",
-        "complete": "The unchanged test passes correct behavior, fails the intended faulty assertion, and its own-result and limits are explained."
+        "unsupported": "Both implementations fail, or the faulty run fails only at import, startup or timeout. Infrastructure errors remain pending rather than scored as participant failure.",
+        "partial": "Correct/faulty detection is established but the own-code result or coverage limit is not explained.",
+        "complete": "Correct code passes, the faulty code fails at the intended assertion, and the own-code result and coverage limits are explained."
       }
     },
     {
-      "id": "CC-M5-HOOK",
+      "id": "WF-M5-EVALUATE",
       "moduleId": "M5",
-      "maxPoints": 1,
-      "practice": "Interpret hook feedback accurately",
-      "evidence": "Relevant invocation, failure output, correction/pass and unrelated-action check; coverage limit, or the approved equivalent packet.",
+      "practice": "Evaluate and improve the review skill",
+      "maxPoints": 3,
+      "evidence": "EVALUATION.md plus retained initial/revised skill versions, fixed cases and actual outputs.",
       "examples": {
-        "unsupported": "Claim that PostToolUse undoes an edit or proves all behavior.",
-        "partial": "Relevant hook output without explaining its effect or limit.",
-        "complete": "The engineer shows relevant invocation, failure, correction/pass and an unrelated-action check, and explains what behavioral checks remain."
+        "unsupported": "A self-improvement claim without executions, fabricated gains or a check that merely confirms the skill file exists.",
+        "partial": "Both cases are assessed, but the before/after comparison or retention decision lacks a material control.",
+        "complete": "Clean and faulty cases expose false findings or misses; a proposed instruction change is compared on the same cases/configuration and accepted or rejected with evidence. An adequate initial skill may be retained with supported reasons."
       }
     },
     {
-      "id": "CC-M5-COMPLETE",
+      "id": "WF-M5-HOOK",
       "moduleId": "M5",
-      "maxPoints": 2,
-      "practice": "Use a measurable completion condition",
-      "evidence": "Saved launch prompt with current spec/plan, scope, completion/stopping conditions; current results, justified interventions and cleared unfinished work.",
+      "practice": "Prove automatic checking and its limits",
+      "maxPoints": 3,
+      "evidence": "Hook event/filter/script and selected invocation, failure, correction/pass and unrelated-action evidence.",
       "examples": {
-        "unsupported": "Claude says done without current checks.",
-        "partial": "A bounded condition is present but the conclusion omits a required result.",
-        "complete": "The bounded launch request and current results support completion or a blocker; justified interventions and cancellation are recorded."
+        "unsupported": "Only a direct script run or an incorrect claim that PostToolUse reverses an edit or proves every behavior.",
+        "partial": "Real hook output is supplied, but the correction, scope check or coverage limit is missing.",
+        "complete": "The relevant event runs the intended check, feedback reaches Claude, correction passes, and scope/remaining behavioral checks are explained. Approved equivalent evidence has no feature-access penalty."
       }
     },
     {
-      "id": "CC-M6-FEEDBACK",
+      "id": "WF-M6-VERIFY",
       "moduleId": "M6",
-      "maxPoints": 2,
-      "practice": "Resolve feedback with evidence",
-      "evidence": "Each received finding marked fixed, unresolved or disputed with supporting evidence.",
+      "practice": "Review and verify the final version",
+      "maxPoints": 3,
+      "evidence": "FINAL.md, final skill output, supported dispositions and current trainer checks.",
       "examples": {
-        "unsupported": "Feedback ignored or dismissed without support.",
-        "partial": "Some dispositions are supported but a material finding is unaddressed.",
-        "complete": "Each disposition states the action or remaining limitation and cites supporting evidence."
+        "unsupported": "A completion claim contradicted by results or based only on stale checks.",
+        "partial": "Current results exist but a material finding or limitation is not addressed.",
+        "complete": "The engineer resolves or explains findings, checks the actual submitted version and reports readiness or a specific blocker accurately; unfinished agent work is stopped."
       }
     },
     {
-      "id": "CC-M6-VERIFY",
+      "id": "WF-M6-HANDOFF",
       "moduleId": "M6",
+      "practice": "Leave a reproducible handoff",
       "maxPoints": 2,
-      "practice": "Verify the final code version",
-      "evidence": "Final hosted checks and the readiness decision at the saved version.",
+      "evidence": "Final PR documents, skill usage notes and private receipt/evidence.",
       "examples": {
-        "unsupported": "Stale checks or a readiness claim contradicted by the results.",
-        "partial": "Current results exist but a required result or limitation is omitted.",
-        "complete": "Current final results support readiness or explicitly identify unresolved work."
-      }
-    },
-    {
-      "id": "CC-M6-SCOPE",
-      "moduleId": "M6",
-      "maxPoints": 1,
-      "practice": "Explain final scope",
-      "evidence": "Final additions/deletions and changed files compared with PLAN.md.",
-      "examples": {
-        "unsupported": "No explanation of the final change.",
-        "partial": "The scope is described but a material departure is unexplained.",
-        "complete": "The final counted change and any departure from the plan are explained."
+        "unsupported": "Missing or contradictory handoff with no reproducible evidence.",
+        "partial": "The handoff is usable but one required connection or usage detail is missing.",
+        "complete": "A reviewer can trace requirements to changes and results, run the shared skill, and see scope and known limits without reconstructing private conversation history."
       }
     }
   ],
-  "reviewCriteria": [
-    {
-      "id": "REV-M2-VALIDITY",
-      "moduleId": "M2",
-      "maxPoints": 2,
-      "practice": "Reach a supported verdict",
-      "evidence": "Verdict on the assigned specification: retry requirements and preserved data.",
-      "examples": {
-        "unsupported": "Invented defect or unsupported pass.",
-        "partial": "A useful conclusion is only partly established.",
-        "complete": "A verified defect or supported pass accurately reflects the assigned case."
-      }
-    },
-    {
-      "id": "REV-M2-EVIDENCE",
-      "moduleId": "M2",
-      "maxPoints": 1,
-      "practice": "Cite the assigned version",
-      "evidence": "Exact assigned commit, source locations and relevant specification evidence.",
-      "examples": {
-        "unsupported": "No evidence or the wrong saved version.",
-        "partial": "Relevant evidence leaves a material part of the claim unverified.",
-        "complete": "Reproducible evidence at the assigned version establishes the claim."
-      }
-    },
-    {
-      "id": "REV-M2-USEFULNESS",
-      "moduleId": "M2",
-      "maxPoints": 1,
-      "practice": "Give a bounded correction or limitation",
-      "evidence": "Specific next change/check, or the stated limits of a supported pass.",
-      "examples": {
-        "unsupported": "Generic criticism or praise.",
-        "partial": "A useful direction lacks a concrete change/check or limit.",
-        "complete": "The author receives a bounded correction or a precise limit on supported acceptance."
-      }
-    },
-    {
-      "id": "REV-M3-VALIDITY",
-      "moduleId": "M3",
-      "maxPoints": 2,
-      "practice": "Reach a supported verdict",
-      "evidence": "Verdict on the assigned plan: files, checks and one acceptance path.",
-      "examples": {
-        "unsupported": "Invented defect or unsupported pass.",
-        "partial": "A useful conclusion is only partly established.",
-        "complete": "A verified defect or supported pass accurately reflects the assigned case."
-      }
-    },
-    {
-      "id": "REV-M3-EVIDENCE",
-      "moduleId": "M3",
-      "maxPoints": 1,
-      "practice": "Cite the assigned version",
-      "evidence": "Exact assigned commit, source locations and relevant plan evidence.",
-      "examples": {
-        "unsupported": "No evidence or the wrong saved version.",
-        "partial": "Relevant evidence leaves a material part of the claim unverified.",
-        "complete": "Reproducible evidence at the assigned version establishes the claim."
-      }
-    },
-    {
-      "id": "REV-M3-USEFULNESS",
-      "moduleId": "M3",
-      "maxPoints": 1,
-      "practice": "Give a bounded correction or limitation",
-      "evidence": "Specific next change/check, or the stated limits of a supported pass.",
-      "examples": {
-        "unsupported": "Generic criticism or praise.",
-        "partial": "A useful direction lacks a concrete change/check or limit.",
-        "complete": "The author receives a bounded correction or a precise limit on supported acceptance."
-      }
-    },
-    {
-      "id": "REV-M4-VALIDITY",
-      "moduleId": "M4",
-      "maxPoints": 2,
-      "practice": "Reach a supported verdict",
-      "evidence": "Verdict on the assigned implementation: failure/retry behavior against the specification.",
-      "examples": {
-        "unsupported": "Invented defect or unsupported pass.",
-        "partial": "A useful conclusion is only partly established.",
-        "complete": "A verified defect or supported pass accurately reflects the assigned case."
-      }
-    },
-    {
-      "id": "REV-M4-EVIDENCE",
-      "moduleId": "M4",
-      "maxPoints": 2,
-      "practice": "Cite the assigned version",
-      "evidence": "Exact assigned commit, source locations and relevant implementation evidence.",
-      "examples": {
-        "unsupported": "No evidence or the wrong saved version.",
-        "partial": "Relevant evidence leaves a material part of the claim unverified.",
-        "complete": "Reproducible evidence at the assigned version establishes the claim."
-      }
-    },
-    {
-      "id": "REV-M4-USEFULNESS",
-      "moduleId": "M4",
-      "maxPoints": 2,
-      "practice": "Give a bounded correction or limitation",
-      "evidence": "Specific next change/check, or the stated limits of a supported pass.",
-      "examples": {
-        "unsupported": "Generic criticism or praise.",
-        "partial": "A useful direction lacks a concrete change/check or limit.",
-        "complete": "The author receives a bounded correction or a precise limit on supported acceptance."
-      }
-    },
-    {
-      "id": "REV-M5-VALIDITY",
-      "moduleId": "M5",
-      "maxPoints": 2,
-      "practice": "Reach a supported verdict",
-      "evidence": "Verdict on the assigned test suite: assertion and trusted correct/faulty test results.",
-      "examples": {
-        "unsupported": "Invented defect or unsupported pass.",
-        "partial": "A useful conclusion is only partly established.",
-        "complete": "A verified defect or supported pass accurately reflects the assigned case."
-      }
-    },
-    {
-      "id": "REV-M5-EVIDENCE",
-      "moduleId": "M5",
-      "maxPoints": 2,
-      "practice": "Cite the assigned version",
-      "evidence": "Exact assigned commit, source locations and relevant test suite evidence.",
-      "examples": {
-        "unsupported": "No evidence or the wrong saved version.",
-        "partial": "Relevant evidence leaves a material part of the claim unverified.",
-        "complete": "Reproducible evidence at the assigned version establishes the claim."
-      }
-    },
-    {
-      "id": "REV-M5-USEFULNESS",
-      "moduleId": "M5",
-      "maxPoints": 2,
-      "practice": "Give a bounded correction or limitation",
-      "evidence": "Specific next change/check, or the stated limits of a supported pass.",
-      "examples": {
-        "unsupported": "Generic criticism or praise.",
-        "partial": "A useful direction lacks a concrete change/check or limit.",
-        "complete": "The author receives a bounded correction or a precise limit on supported acceptance."
-      }
-    }
-  ],
+  "reviewCriteria": [],
+  "review": {
+    "commonAcceptanceIds": [],
+    "verdicts": [],
+    "rounds": []
+  },
   "judgmentFactors": {
     "unsupported": 0,
     "partial": 0.5,
@@ -502,21 +347,23 @@
   },
   "score": {
     "behaviorMax": 40,
-    "methodMax": 40,
-    "reviewMax": 20,
+    "methodMax": 60,
+    "reviewMax": 0,
     "totalMax": 100,
-    "calculateInHalfPointUnits": true,
-    "pendingFinalTotal": null,
     "stageMaxima": {
-      "M1": 5,
-      "M2": 19,
-      "M3": 33,
-      "M4": 44,
-      "M5": 55,
       "M6": 100
     },
+    "practiceMaxima": {
+      "M1": 5,
+      "M2": 10,
+      "M3": 15,
+      "M4": 15,
+      "M5": 10,
+      "M6": 5
+    },
+    "behaviorCountedAt": "M6",
+    "gradesReleasedAt": "final",
     "eligibility": {
-      "allBehaviorPassed": true,
       "requiredSystemChecks": [
         "ENV-01",
         "SVC-01",
@@ -528,171 +375,58 @@
         "BASE-01",
         "BASE-02",
         "HOOK-01",
-        "DOC-M6",
         "SCOPE-01",
-        "SNAPSHOT-01"
+        "DOC-FINAL",
+        "SUBMISSION-01"
       ],
-      "minMethodPoints": 20,
-      "allFinalGradesResolved": true
+      "minMethodPoints": 30
     },
     "ties": "competition_ranking_1_1_3",
-    "speedOrCommandOrCodeVolumeBonuses": false,
-    "checkpointMaxima": {
-      "M1": 5,
-      "M2": 14,
-      "M3": 14,
-      "M4": 11,
-      "M5": 11,
-      "M6": 5
+    "pendingFinalTotal": null
+  },
+  "rules": {
+    "maxChangedCodeLines": 500,
+    "countingVersion": "changed-code-3.0",
+    "count": "additions_plus_deletions",
+    "renamePolicy": "delete_plus_add_no_rename_detection",
+    "commentsAndBlankLinesCount": true,
+    "documentWordLimits": {
+      "workshop/INVESTIGATION.md": 200,
+      "SPEC.md": 500,
+      "PLAN.md": 400,
+      "workshop/EVALUATION.md": 500,
+      "workshop/FINAL.md": 300
     },
-    "behaviorCountedAt": "M6"
-  },
-  "review": {
-    "assignmentAlgorithm": "sha256_seed_order_cycle_v1",
-    "separator": "U+0000",
-    "authorFinalModule": "M6",
-    "commonAcceptanceIds": [
-      "AC-04",
-      "AC-05"
-    ],
-    "verdicts": [
-      "pass",
-      "fail",
-      "unable_to_verify"
-    ],
-    "authorDispositions": [
-      "accepted_fixed",
-      "accepted_unresolved",
-      "disputed_with_evidence"
-    ],
-    "readiness": [
-      "ready_for_merge",
-      "changes_required"
-    ],
-    "rounds": [
-      {
-        "moduleId": "M2",
-        "subject": "specification",
-        "maxPoints": 4,
-        "fallbackId": "fallback-m2-v2"
-      },
-      {
-        "moduleId": "M3",
-        "subject": "plan",
-        "maxPoints": 4,
-        "fallbackId": "fallback-m3-v2"
-      },
-      {
-        "moduleId": "M4",
-        "subject": "implementation",
-        "maxPoints": 6,
-        "fallbackId": "fallback-m4-v2"
-      },
-      {
-        "moduleId": "M5",
-        "subject": "test suite",
-        "maxPoints": 6,
-        "fallbackId": "fallback-m5-v2"
-      }
-    ],
-    "reuseRelationship": true
-  },
-  "api": {
-    "newRunPath": "/api/inspections/:id/report-runs",
-    "runStatusPath": "/api/report-runs/:runId",
-    "retryPath": "/api/report-runs/:runId/retry",
-    "newRunHttpStatus": 202,
-    "reusedRunHttpStatus": 200,
-    "states": [
-      "pending",
-      "running",
-      "completed",
-      "failed"
-    ],
-    "origins": [
-      "legacy",
-      "job"
-    ],
-    "manualSchedulerRequired": true,
-    "automaticBeginDelayMs": 250,
-    "automaticSettleDelayMs": 750,
-    "legacyDelayMs": 500,
-    "uiPollIntervalMs": 500
+    "participantTests": "new files under tests/participant; at least one direct HTTP regression",
+    "newDependencies": false,
+    "generatedBundles": false,
+    "executableMarkdown": "Fenced blocks and instruction frontmatter count, including blank lines and delimiters; prose and inline commands do not. Raw HTML documents count in full."
   },
   "requiredCheckIds": [
+    "ENV-01",
+    "SVC-01",
+    "TYPE-01",
+    "LINT-01",
     "SYS-01",
     "SYS-02",
     "SYS-03",
     "BASE-01",
     "BASE-02",
+    "HOOK-01",
+    "SCOPE-01",
+    "DOC-FINAL",
+    "SUBMISSION-01",
     "AC-01",
     "AC-02",
     "AC-03",
     "AC-04",
     "AC-05",
-    "AC-06",
-    "HOOK-01",
-    "REVIEW-01",
-    "SCORE-01"
+    "AC-06"
   ],
-  "publication": {
-    "public": [
-      "starter",
-      "participant_briefs",
-      "fictional_fixtures",
-      "public_checks",
-      "rubric",
-      "participant_owned_pr_evidence"
-    ],
-    "private": [
-      "client_research",
-      "reference_and_alternative_solutions",
-      "recovery_answers",
-      "official_grader",
-      "credentials",
-      "attendance_records",
-      "internal_build_handoff",
-      "workshop_sessions",
-      "personal_feedback",
-      "email_addresses"
-    ]
-  },
-  "rules": {
-    "maxChangedCodeLines": 500,
-    "countingVersion": "changed-code-2.0",
-    "count": "additions_plus_deletions",
-    "renamePolicy": "delete_plus_add_no_rename_detection",
-    "commentsAndBlankLinesCount": true,
-    "noApplicationChangesThrough": "M3",
-    "documentWordLimits": {
-      "investigation": 200,
-      "SPEC.md": 500,
-      "PLAN.md": 400
-    },
-    "participantTests": "new files under tests/participant; supplied tests are protected",
-    "newDependencies": false,
-    "generatedBundles": false
-  },
-  "sessionEvidence": {
-    "private": true,
-    "freshWorkshopSession": true,
-    "multipleSessionsAllowed": true,
-    "primaryRoute": "/export [filename]",
-    "maxFileBytes": 1048576,
-    "maxPacketBytes": 4194304,
-    "maxFiles": 8,
-    "previewAndRedaction": true,
-    "alternative": "Selected prompt, response/tool activity and verification excerpts with missing fields stated",
-    "policyApprovalRequiredBeforeLiveCollection": true
-  },
-  "feedback": {
-    "minWords": 250,
-    "maxWords": 400,
-    "maxAutomatedRevisions": 2,
-    "requiresResolvedReleasedGrade": true,
-    "requiresVerifiedWorkshopEmail": true,
-    "requiresDraftOrBatchApproval": true,
-    "gradeChangesInvalidateDraft": true,
-    "uncertainDeliveryRequiresReconciliation": true
+  "timing": {
+    "scoresByClose": "unverified",
+    "feedbackByClose": "unsupported_by_v2_rehearsal",
+    "recommendedDelivery": "after_session_following_review",
+    "agreedDeliveryDeadline": null
   }
 }

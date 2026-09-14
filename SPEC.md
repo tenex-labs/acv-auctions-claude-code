@@ -1,34 +1,24 @@
-# Specification: report generation progress and safe retry
-
-<!--
-Complete this outline in M2. Maximum 500 words including headings and table text. Attach command output separately.
-Answer from workshop/ticket.md, workshop/product-decisions.md and the code you inspected in M1.
-Preserve unknowns as open decisions; do not invent product rules.
-The m2 check verifies structure only: sections present, AC-01–AC-06 rows unique and filled.
-It cannot judge whether the specification is good; that is assessed from your evidence.
--->
+# Report progress specification
 
 ## Problem and evidence
 
-<!-- Current behavior, who is affected, and the source that establishes it (path:line). -->
+<!-- At most 500 words total. Connect the product journey to the observed app gap. -->
 
 ## Intended behavior
 
-<!-- Inputs, outputs, state changes and what the user observes at each step. -->
+<!-- State the visible progress and direct server request/response outcomes. -->
 
 ## Failure cases
 
-<!-- Invalid or missing input, duplicate/out-of-order requests, generation failure, status lookup failure. -->
+<!-- Generation failure, failed status lookup, repeated retry, reload and switching inspections. -->
 
 ## Constraints
 
-<!-- Existing behavior to preserve, the dependency rule (handlers call the job service), permitted files. -->
+<!-- Preserve the prepared service, original report contents and failed attempt's captured input. -->
 
 ## Acceptance criteria
 
-<!-- One row per published case. Columns: ID | Example (given/when) | Expected result | Planned check (test file or command). -->
-
-| ID | Example | Expected result | Planned check |
+| ID | Action / input | Observable result | Planned check |
 | --- | --- | --- | --- |
 | AC-01 | | | |
 | AC-02 | | | |
@@ -39,8 +29,8 @@ It cannot judge whether the specification is good; that is assessed from your ev
 
 ## Scope
 
-<!-- Included changes and explicit exclusions. -->
+<!-- State what changes and what is excluded. -->
 
 ## Open decisions
 
-<!-- What is unknown, what evidence or person would resolve it, and whether implementation depends on it. Write "none" if none. -->
+<!-- Record a consequential question, its shared answer and how it changed this specification. Name remaining unknowns or state none. -->

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Inspection Desk · Reports</title>
+  <style>
+    :root{font:15px/1.5 system-ui,-apple-system,sans-serif;color:#1f2933;background:#f5f7fa}
+    *{box-sizing:border-box}body{margin:0}header{padding:18px 28px;border-bottom:1px solid #cbd2d9;background:white;display:flex;justify-content:space-between;gap:20px}header span{color:#52606d}
+    main{max-width:1020px;margin:40px auto;padding:0 24px}h1{font-size:28px;line-height:1.2;margin:8px 0}h2{font-size:19px;margin:0 0 12px}p{margin:8px 0}.muted{color:#52606d}.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#52606d}
+    .layout{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-top:28px}.panel{background:white;border:1px solid #cbd2d9;border-radius:6px;padding:24px}label{display:block;font-size:13px;font-weight:600;margin:18px 0 6px}select,button{font:inherit;border:1px solid #1f4e79;border-radius:4px;padding:10px 14px}select{width:100%;color:#1f2933;background:white;border-color:#cbd2d9}button{background:#1f4e79;color:white;cursor:pointer}button:disabled{opacity:.55;cursor:wait}button.secondary{background:white;color:#1f4e79}button:focus-visible,select:focus-visible{outline:3px solid #f0b429;outline-offset:3px}
+    dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 0}dt{color:#52606d}dd{margin:0;text-align:right}.status{background:#f5f7fa;padding:16px;border:1px solid #cbd2d9;border-radius:4px;margin:18px 0}.status.ready{background:#e6f4ea;border-color:#1e6b3a}.steps{display:flex;gap:8px;margin-top:14px}.steps span{height:4px;flex:1;background:#cbd2d9}.steps .active{background:#1f4e79}.actions{display:flex;gap:10px;flex-wrap:wrap}dialog{max-width:540px;width:calc(100% - 32px);padding:28px;border:1px solid #cbd2d9;border-radius:6px}dialog::backdrop{background:#1f293388}dialog dl{margin-bottom:24px}
+    @media(max-width:700px){.layout{grid-template-columns:1fr}header{padding:16px 24px}header span{display:none}main{margin-top:24px}}
+  </style>
+</head>
+<body>
+  <header><strong>Inspection Desk</strong><span>Inspections &nbsp; / &nbsp; Reports</span></header>
+  <main>
+    <div class="eyebrow">Inspection reports</div>
+    <h1>Prepare the report. Keep the work moving.</h1>
+    <p class="muted">Follow report progress and open the completed inspection.</p>
+    <div class="layout">
+      <section class="panel" aria-labelledby="inspection-heading">
+        <h2 id="inspection-heading">Inspection</h2>
+        <label for="inspection">Vehicle</label>
+        <select id="inspection"><option value="0">2022 Toyota Camry · INSP-1042</option><option value="1">2021 Ford F-150 · INSP-1043</option></select>
+        <dl><dt>Inspection</dt><dd id="record"></dd><dt>Odometer</dt><dd id="mileage"></dd><dt>Condition</dt><dd id="condition"></dd><dt>Inspection status</dt><dd>Complete</dd></dl>
+      </section>
+      <section class="panel" aria-labelledby="report-heading">
+        <h2 id="report-heading">Report</h2>
+        <p class="muted">Build a report from this inspection’s findings.</p>
+        <div id="status-box" class="status" role="status" aria-live="polite"><strong id="status">No report yet</strong><p id="detail">Generate a report when you’re ready.</p><div class="steps" aria-hidden="true"><span></span><span></span><span></span></div></div>
+        <div class="actions"><button id="generate">Generate report</button><button id="open" class="secondary" hidden>Open report</button></div>
+      </section>
+    </div>
+  </main>
+  <dialog id="preview" aria-labelledby="preview-heading"><div class="eyebrow">Inspection report</div><h2 id="preview-heading"></h2><dl id="report-values"></dl><form method="dialog"><button>Close report</button></form></dialog>
+  <script>
+    // Product prototype: sample records and timed progress only. No API, durable state or failure handling.
+    const samples=[{id:'INSP-1042',vehicle:'2022 Toyota Camry',mileage:'31,842 mi',condition:'Minor exterior wear'},{id:'INSP-1043',vehicle:'2021 Ford F-150',mileage:'54,109 mi',condition:'Windshield chip'}];
+    const states=samples.map(()=>({status:'idle'}));
+    const $=id=>document.getElementById(id);
+    const chosen=()=>Number($('inspection').value);
+    function render(){
+      const item=samples[chosen()],state=states[chosen()].status;
+      $('record').textContent=item.id;$('mileage').textContent=item.mileage;$('condition').textContent=item.condition;
+      const copy={idle:['No report yet','Generate a report when you’re ready.'],queued:['Report queued','Your report is waiting to start.'],running:['Generating report…','Preparing the inspection findings.'],ready:['Report ready','The completed report is available.']}[state];
+      $('status').textContent=copy[0];$('detail').textContent=copy[1];$('generate').disabled=['queued','running'].includes(state);$('open').hidden=state!=='ready';$('status-box').classList.toggle('ready',state==='ready');
+      document.querySelectorAll('.steps span').forEach((el,i)=>el.classList.toggle('active',i<['idle','queued','running','ready'].indexOf(state)));
+    }
+    $('generate').onclick=()=>{const index=chosen();states[index].status='queued';render();setTimeout(()=>{states[index].status='running';render();},900);setTimeout(()=>{states[index].status='ready';render();},3000);};
+    $('inspection').onchange=render;
+    $('open').onclick=()=>{const item=samples[chosen()];$('preview-heading').textContent=item.vehicle;$('report-values').replaceChildren();for(const [label,value] of [['Inspection',item.id],['Odometer',item.mileage],['Condition',item.condition]]){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;$('report-values').append(dt,dd);}$('preview').showModal();};
+    render();
+  </script>
+</body>
+</html>

@@ -1,24 +1,11 @@
-# Review the assigned saved version
+# Review your change with a reusable skill
 
-Keep one peer relationship through four short rounds. The portal records the exact submission and commit for each assignment. A later push does not change your target.
+There are no required peer-review rounds. Optional discussion does not affect the score.
 
-| Round | Minutes | Inspect |
-| --- | ---: | --- |
-| M2 · Specification | 4 | Observable failure/retry requirements and preserved data. |
-| M3 · Plan | 4 | A path from one acceptance case through files, changes and checks. |
-| M4 · Implementation | 5 | Failure/retry behavior against the specification and captured check results. |
-| M5 · Test suite | 5 | The selected assertion and trusted correct/faulty/own execution results. |
+Adapt `.claude/skills/workshop-review/SKILL.md`. Give each review a context file with the specification, exact target, diff, permitted sources and executed check outputs. The separate review context must have everything it needs.
 
-Use the assigned packet's files and hosted results. Do not run another engineer's submitted code locally. If their work or execution result is missing, use the prepared packet or state the limit of what you could verify. Another engineer's delay does not remove your chance to earn review points.
+Check a consequential conclusion against source or execution. Record a bounded correction, an accepted limitation or a supported pass. Save the skill in the PR and selected review exchanges privately.
 
-Submit the short form:
+Evaluate initial and revised instructions on the same clean and faulty cases in `workshop/skill-cases/`. Compare missed defects and false findings with the published expected results. Keep inputs, model/effort and tools fixed. Explain why you accept a change or retain the existing skill. Two cases establish only what happened on those cases.
 
-1. **Verdict:** supported pass, supported finding, or unable to verify.
-2. **Evidence:** assigned version, source or check location, and what it establishes.
-3. **Correction or limit:** a bounded next change/check, or the limit of a supported pass.
-
-A supported pass can earn full points. Do not invent a defect. Peers report findings; they do not award official points. Keep private sessions and email addresses out of reviews.
-
-Authors mark received findings fixed, accepted as unresolved or disputed, with evidence. M6 adds final corrections and verification; it has no new peer-review round.
-
-For a failure/retry review, check whether generation failure leaves an enabled recovery action; retry follows one new attempt using the original saved data; the old error clears; repeated retry requests return the same attempt; and completion opens the correct report. Cite only the behavior your evidence establishes.
+Use the skill again for final review. In `workshop/FINAL.md`, give another engineer the command, input requirements, owner and version. A reviewed repository skill can later be packaged for a team marketplace; this workshop does not require marketplace access or publication.
