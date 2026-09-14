@@ -1,6 +1,6 @@
 {
   "contractVersion": "inspection-desk-3.0",
-  "generatedAt": "2026-09-14T18:47:00.155Z",
+  "generatedAt": "2026-09-14T18:53:16.026Z",
   "files": {
     ".claude/hooks/check-report-change.mjs": "fa64a4e162b000e427f66292ecf01c17d21a0732a9f941f8c200ccbe6d5ad6ba",
     ".claude/settings.json": "0242f9880f45e723c84853e909250c91636dfdea1b01d95f88b6ac5a1c8bb1a2",
@@ -25,7 +25,7 @@
     "scripts/lib/evidence.d.mts": "6f2a42ef34c13cb813482c9d754b84f06880f8b4a5fc82a382f89778df34575f",
     "scripts/lib/evidence.mjs": "dffe24fa2a5f18566add212b20f15bef1e794d57e3430c5e0a8caaa637e65309",
     "scripts/probe-built-app.mjs": "91b519139a15019cbe3c100eda0349f208b0ac2b2bef67ab7a1cf02e2154fd7f",
-    "scripts/protected-manifest.mjs": "3c986fa898cd24a6b263570fcff13098210bef1fbeeba0b9a4ada6102b7e4aa0",
+    "scripts/protected-manifest.mjs": "5f400ae0ed57f26bcd94ff79a9e3260cc809a0d4ee2a77f32edc03c75f4bcc5a",
     "src/server/errors.ts": "7c88bdd3da3095035fa9ccfbdf06ef158f29fa77983be1c81a15ff6df75c7034",
     "src/server/fixtures/loadFixtures.ts": "43b1aa2013302b0348fbcb6e6270da822f125386147dddb2b275fcc0635637e3",
     "src/server/http.ts": "438d5a0d3ed3c450bc52b3abbfca7f780b4852b566157e90ee41422a127a43ed",
@@ -53,7 +53,9 @@
     "tsconfig.server.json": "0456034edbe9f95f44b18dc9e75062faba3baf75e7b701d1380845f921fc0b06",
     "vite.config.ts": "97e238c68fa9002b433771799aa045a02cd1a54bdfd44592c248de2d02891ef4",
     "vitest.config.ts": "cf3d0b274d039970d22a473b36ee74aed73d64b869ca04152dacfab457ed88e9",
+    "workshop/acceptance.md": "8e4f5a10236857eb5326b06e44e58f820091302168c5a4bf13f2cef797f0fd04",
     "workshop/contract.json": "e8dba128b91e6b004134e61f55c407adcef4eeb8bebb179b76e90f0e7ef4b937",
+    "workshop/product-decisions.md": "486b86f1602d5e58e730a47ee90514f6a2f2ff61a8187b64147208d6f9da2dd2",
     "workshop/review-instructions.md": "40fb09dca111401af5077ea323b4d3e1ad8620a0adf0004c40b9e2d8600b5ebc",
     "workshop/rubric.md": "08e340ce1c0c4e2301c7320b7122e1585981fc216ee78993f48e611dfdf25d49",
     "workshop/rules.md": "9459f7a687187b028c301aa7adc48344b97c260e665087ceda02921619ea8a14",

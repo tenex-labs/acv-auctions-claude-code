@@ -39,6 +39,8 @@ export const PROTECTED_FILES = [
   'scripts/change-scope.mjs',
   'tests/structure/change-scope.test.ts',
   'workshop/contract.json',
+  'workshop/acceptance.md',
+  'workshop/product-decisions.md',
   'workshop/rubric.md',
   'workshop/rules.md',
   'workshop/test-assessment.md',
