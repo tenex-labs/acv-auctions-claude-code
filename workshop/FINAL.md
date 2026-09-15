@@ -18,6 +18,6 @@ What did the fixed cases show? Which instruction changes were kept or reverted, 
 
 Which part of the workflow or complete skill will you reuse? What should the next reviewer inspect?
 
-## Optional codebase and skill review
+## Optional Claude self-assessment
 
-Use [the local review prompt](../docs/SELF-REVIEW-PROMPT.md) if useful. Save its response as `workshop/SELF-REVIEW.md` and verify one cited code line and one test result before accepting its provisional grades.
+Use [the self-contained review prompt](../docs/SELF-REVIEW-PROMPT.md) if useful. Its advisory report returns in chat. Review one cited code line, one executed check and any unverified items before deciding what to change.

@@ -25,7 +25,7 @@ Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; Git
 | 3. Modernize and develop the review skill | Build search, inspection and reports in small increments. Fix DF-01: lowercase stock-number search must match. Develop `/inspection-review` and test it on the supplied cases. |
 | 4. Clarify and plan the feature | Read the [request](product/follow-up/REQUEST.md), [journey](product/follow-up/JOURNEY.md), [prototype](product/follow-up/follow-up.html) and [clarifications](product/follow-up/CLARIFICATIONS.md). Save the follow-up specification and plan. |
 | 5. Implement, review and verify | Add follow-ups, write regression tests and reuse the review skill. Check a correction, then review any proposed project rule before saving it. |
-| 6. Review and grade your work | Compare the local result with the demonstration, save check outcomes and remaining questions in [FINAL.md](workshop/FINAL.md), and identify what to reuse. Optionally use the [codebase and skill review prompt](docs/SELF-REVIEW-PROMPT.md). |
+| 6. Review and grade your work | Compare the local result with the demonstration, save check outcomes and remaining questions in [FINAL.md](workshop/FINAL.md), and identify what to reuse. Optionally use the [self-contained review prompt](docs/SELF-REVIEW-PROMPT.md). |
 
 Loading, data types and formatting helpers are prepared under `src/server/`. Foundation checks pass initially. Completed-task checks deliberately fail while the corresponding behavior or participant tests remain unfinished.
 
@@ -59,6 +59,6 @@ After it succeeds, extract `inspection-desk-task1-migrated.zip` into a new folde
 
 ## Keep the useful parts
 
-Record completed behavior, executed checks, limitations and the next useful change in `workshop/FINAL.md`. Keep the full `.claude/skills/inspection-review/` directory, including its cases and references. Save the optional prompt response as `workshop/SELF-REVIEW.md`; inspect its cited evidence before relying on a grade.
+Record completed behavior, executed checks, limitations and the next useful change in `workshop/FINAL.md`. Keep the full `.claude/skills/inspection-review/` directory, including its cases and references. The optional prompt contains the complete requirements and gives an advisory review across 20 checks, with 100 possible points. It may use installed local tools and disposable copies while preserving your working files and existing data. The report returns in chat; inspect its evidence and unverified items before deciding what to change.
 
 The application and tests use local records after setup. They must work without calling the hosted legacy service. The build downloads no external fonts or assets.
