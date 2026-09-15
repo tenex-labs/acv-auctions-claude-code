@@ -5,7 +5,7 @@ const projectPath = path.resolve(process.cwd());
 const project = fs.realpathSync(projectPath);
 const requested = path.resolve(process.env.INSPECTION_DESK_DATA_DIR || '.data');
 const within = (child, parent) => child === parent || child.startsWith(parent + path.sep);
-const refusal = 'Refusing to remove the project, fixtures, an ancestor, or a linked directory.';
+const refusal = 'Refusing to remove project files, fixtures, an ancestor, or a linked directory.';
 
 // Resolve an existing parent even when the final data directory does not exist.
 function realLocation(location) {
@@ -36,6 +36,18 @@ const target = realLocation(requested);
 const fixtures = realLocation(path.resolve(process.env.INSPECTION_DESK_FIXTURE_DIR || 'data'));
 if (target === path.parse(target).root || within(project, target) ||
     within(fixtures, target) || within(target, fixtures)) throw Error(refusal);
+
+// A mistaken state setting must not remove application code, references or tools.
+const protectedFolders = [
+  'app', 'src', 'components', 'pages', 'lib', 'styles', 'public', 'tests',
+  'scripts', 'docs', 'legacy', 'product', 'workshop', 'data', '.claude', '.git',
+  'node_modules', '.next', 'backups'
+];
+for (const name of protectedFolders) {
+  const folder = realLocation(path.join(project, name));
+  if (within(target, folder) || within(folder, target)) throw Error(refusal);
+}
+if (fs.existsSync(target) && !fs.statSync(target).isDirectory()) throw Error(refusal);
 
 fs.rmSync(target, { recursive: true, force: true });
 console.log(`Reset follow-up data: ${target}`);
