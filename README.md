@@ -1,6 +1,10 @@
-# Inspection Desk workshop
+# Inspection Desk walkthrough
 
-Use Node **24.21.0**, Claude Code and a browser. Extract this folder and open a terminal inside it.
+Watch the presenter modernize an existing application, then add follow-ups. Follow along locally if useful. The starter leaves both tasks unfinished; the C1 checkpoint provides the completed modernization so you can begin the follow-up feature.
+
+## Follow along
+
+Use Node **24.21.0**, Claude Code and a browser. Extract the download and open a terminal inside its `inspection-desk/` folder.
 
 ```sh
 node --version
@@ -10,46 +14,51 @@ npm run check:foundation
 npm run dev
 ```
 
-Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; it does not require Git. Accept the Claude Code workspace trust dialog to use project hooks.
+Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; Git is not required. Accept the Claude Code workspace trust dialog to use project hooks.
 
-## Task 1: modernize
+## The six stages
 
-Inspect the [running application](https://acv-inspection-desk-legacy.vercel.app/), [its source](legacy/README.md) and [preservation requirements](docs/PRESERVATION-CONTRACT.md). Loading, data types and formatting are prepared under `src/server/`. Build the vehicle search, inspection and report journey. Fix DF-01: lower-case stock-number search must match.
+| Stage | Work and evidence |
+| --- | --- |
+| 1. Orient and inspect | Explore the [running CFML application](https://acv-inspection-desk-legacy.vercel.app/), [source](legacy/README.md) and [preservation requirements](docs/PRESERVATION-CONTRACT.md). |
+| 2. Specify and plan the modernization | Investigate two bounded questions, verify cited source lines, then save the specification and plan under `workshop/`. |
+| 3. Modernize and develop the review skill | Build search, inspection and reports in small increments. Fix DF-01: lowercase stock-number search must match. Develop `/inspection-review` and test it on the supplied cases. |
+| 4. Clarify and plan the feature | Read the [request](product/follow-up/REQUEST.md), [journey](product/follow-up/JOURNEY.md), [prototype](product/follow-up/follow-up.html) and [clarifications](product/follow-up/CLARIFICATIONS.md). Save the follow-up specification and plan. |
+| 5. Implement, review and verify | Add follow-ups, write regression tests and reuse the review skill. Check a correction, then review any proposed project rule before saving it. |
+| 6. Review and reuse the workflow | Compare the local result with the demonstration, save check outcomes and remaining questions in [FINAL.md](workshop/FINAL.md), and identify what to reuse. Optionally use the [codebase and skill review prompt](docs/SELF-REVIEW-PROMPT.md). |
 
-The starter opens and foundation checks pass. Its unfinished task routes and unfinished participant tests deliberately fail completed-task checks.
+Loading, data types and formatting helpers are prepared under `src/server/`. Foundation checks pass initially. Completed-task checks deliberately fail while the corresponding behavior or participant tests remain unfinished.
 
-## Task 2: add follow-ups
-
-Read the [rough request](product/follow-up/REQUEST.md), [journey](product/follow-up/JOURNEY.md), [prototype](product/follow-up/follow-up.html) and [clarification record](product/follow-up/CLARIFICATIONS.md). Save your specification and plan in `workshop/`, then implement the feature and regression tests.
-
-## Check and submit
+## Local checks
 
 | Command | When to use it |
 | --- | --- |
 | `npm run check:foundation` | Before starting; prepared modules, types and file size. |
-| `npm run check:increment -- task1 PB-04` | One named change; builds saved source once and runs matching checks. |
-| `npm run check:task1` | Entire modernization finished. |
-| `npm run check:increment -- task2 FU-04` | One named feature change. |
-| `npm run check:task2` | Entire feature finished. |
-| `npm run check` | Final verification; one fresh production build, all checks and your regression tests. |
-| `npm run hook:probe` | Direct type/size/error/prose probes; does not prove a Claude session event. |
-| `npm run package` | Packages saved files into `submission.zip`, without Git. |
-| `npm run reset:data` | Clears only follow-up state. |
+| `npm run check:increment -- task1 PB-04` | One named modernization change; builds saved source once. |
+| `npm run check:task1` | The modernization is complete. |
+| `npm run check:increment -- task2 FU-04` | One named follow-up change. |
+| `npm run check:task2` | The follow-up feature is complete. |
+| `npm run check` | Final local verification: one fresh build, all checks and your regression tests. |
+| `npm run hook:probe` | Direct type, size and irrelevant-file probes; actual Claude session events are separate evidence. |
+| `npm run package -- --recovery` | Save a new local backup before switching to a checkpoint. |
+| `npm run reset:data` | Clear only follow-up state. |
 
-[Published checks and points](docs/CHECKS.md) · [Interface](docs/INTERFACE-CONTRACT.md) · [Packaging limits](docs/PACKAGING.md) · [Regression requirement](tests/participant/README.md).
+[Behavior checklist](docs/CHECKS.md) · [Interface](docs/INTERFACE-CONTRACT.md) · [Local backups](docs/PACKAGING.md) · [Regression tests](tests/participant/README.md).
 
-`npm run test:participant` uses a running app at `INSPECTION_DESK_BASE_URL` (default port 3000). Start a fresh production process with `npm run build` then `npm run start` before testing edited code. Production-based check commands manage their own server on port 4310; stop anything using that port first.
+`npm run test:participant` uses a running app at `INSPECTION_DESK_BASE_URL` (default port 3000). After editing production code, run `npm run build` and restart it before testing. The completed-task commands manage their own server on port 4310; stop anything using that port first.
 
-## Checkpoint C1 at 9:45 a.m.
+## Continue from C1
 
-Save your work first:
+C1 is available whenever you want to begin the follow-up feature. Save your current work first:
 
 ```sh
 npm run package -- --recovery
 ```
 
-Only after it succeeds, extract `inspection-desk-task1-migrated.zip` into a new folder. Keep the original project and the printed recovery ZIP. Copy your own workshop notes, review skill and reviewed rules into the new project, then run `npm run setup` and `npm run preflight` there. The checkpoint completes task 1 and leaves task 2 unfinished. Using it changes no scoring rule.
+After it succeeds, extract `inspection-desk-task1-migrated.zip` into a new folder. Keep the original project and printed recovery ZIP. Copy your own workshop notes, complete review-skill directory and reviewed rules into the new project. Run `npm run setup` and `npm run preflight` there. C1 completes task 1 and leaves task 2 unfinished.
 
-Keep the complete `.claude/skills/inspection-review/` directory. Submit one `submission.zip` through the portal. Specifications and plans are collected learning records; points measure application, regression-test and hook behavior. Do not include credentials, personal notes or transcripts.
+## Keep the useful parts
 
-The application and its checks use local records. They must work without the hosted legacy service or network access after setup. No external fonts or assets are downloaded by the build.
+Record completed behavior, executed checks, limitations and the next useful change in `workshop/FINAL.md`. Keep the full `.claude/skills/inspection-review/` directory, including its cases and references. Save the optional prompt response as `workshop/SELF-REVIEW.md`; inspect its cited evidence before relying on a grade.
+
+The application and tests use local records after setup. They must work without calling the hosted legacy service. The build downloads no external fonts or assets.

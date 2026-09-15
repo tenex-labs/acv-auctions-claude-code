@@ -1,10 +1,10 @@
 # Inspection Desk — interface contract for the Next.js replacement
 
-September 14, 2026. Application and product exercise worker. Tenex internal, definition phase. Approved implementation contract, corrected and frozen September 15. Changes require a coordinator version decision before workers alter consumers.
+September 15, 2026. Behavior and interface reference for the two-task walkthrough.
 
 Contract version string: `inspection-desk-2task-1.1`.
 
-Scope: the Next.js application participants submit. It replaces the hosted Lucee (CFML) application (task 1) and adds the follow-up feature (task 2). It must run with no network access and must never call the hosted legacy application (coordinator instruction, September 14).
+Scope: the local Next.js application demonstrated in the walkthrough. It replaces the hosted Lucee (CFML) application (task 1) and adds the follow-up feature (task 2). It must run with no network access and must never call the hosted legacy application after setup.
 
 ## 1. Data shapes
 
@@ -219,11 +219,11 @@ POST /api/follow-ups/fu-…/resolve
 
 | Variable | Meaning | Default |
 | --- | --- | --- |
-| `INSPECTION_DESK_FIXTURE_DIR` | Directory holding `vehicles.json`, `inspections.json` and `reports/*.json`. Read-only; the app never writes here. The checker points it at the controlled variant data. | `<project>/data` |
+| `INSPECTION_DESK_FIXTURE_DIR` | Directory containing `vehicles.json`, `inspections.json` and `reports/*.json`. Read-only; the app never writes here. | `<project>/data` |
 | `INSPECTION_DESK_DATA_DIR` | Writable directory for follow-ups (the only writable state). Created on first write. | `<project>/.data` |
 | `PORT` | Port for `npm run start` (`next start` reads `PORT`; installed docs `01-app/03-api-reference/06-cli/next.md`, line 121). | `3000` |
-| `NEXT_TELEMETRY_DISABLED` | Set to `1` by the checker; recommended in the starter's `.env.example`. | — |
-| `TZ` | The checker sets `UTC`. Date rendering must not depend on it (R-DATE uses the UTC date explicitly). | — |
+| `NEXT_TELEMETRY_DISABLED` | Set to `1` by the local check command and recommended in `.env.example`. | — |
+| `TZ` | The local check command sets `UTC`. Date rendering must not depend on it (R-DATE uses the UTC date explicitly). | — |
 
 Follow-up storage: the reference writes `<INSPECTION_DESK_DATA_DIR>/follow-ups.json` (an array) with write-to-temp-then-rename; any layout inside the directory is acceptable. Loading happens on first request after start. `npm run reset:data` deletes the directory's contents.
 
@@ -254,24 +254,18 @@ Count every packaged file with one of these extensions, wherever it appears: `.t
 
 SIZE-02 covers counted files under `tests/` and `.claude/`, including all recursively nested skill helpers. SIZE-01 covers the other counted files. No participant-defined exclusion is accepted. Generated build output, dependencies, runtime state, fixture JSON, lockfiles, prose, and supplied CFML source have no counted extension or are excluded from packaging. A source file placed under `data/`, `public/`, `product/`, `workshop/` or another helper directory still counts.
 
-The trusted checker uses its own counter. The local counter and hook follow the same contract. Packaging warns about over-limit source files and includes them so the score describes the actual submission. No extra points are awarded for being well below 500. The rule applies to participant projects, not the portal stylesheet.
+The local counter and edit hook use this line-count rule. Local backups warn about over-limit source files and include them so unfinished work can still be preserved. Keep each maintained source file within the limit.
 
 Required verification: 500/501 with LF, CRLF, lone CR and no trailing newline; root configuration, nested skill Python/shell helper, arbitrary directory, generated next-env and fixture JSON. Counted text with a NUL is rejected.
 
 ## 8. ZIP contents
 
-The complete contents, exclusions, limits, manifest and upload fingerprint rules are in `PACKAGING.md` and frozen `../scripts/shared/contract.json`. Include full public references and skill packages, .env.example and root configuration. Legacy/product public packets are included to preserve references. Count all maintained supported source extensions wherever located. ZIP limit 25 MiB, warning above 10 MiB. Repeated saved content has the same packageHash; ZIP-byte identity is separate.
+The local backup contents, exclusions, limits and file-hash rules are in `PACKAGING.md` and `../scripts/shared/contract.json`. Include full public references and skill packages, .env.example and root configuration. Legacy/product public packets are included to preserve references. Count all maintained supported source extensions wherever located. ZIP limit 25 MiB, warning above 10 MiB. Repeated saved content has the same packageHash; ZIP-byte identity is separate.
 
-## 9. How the checker runs the app (for the assessment worker)
+## 9. Local verification
 
-1. Unzip; verify `submission-manifest.json`.
-2. `npm ci --ignore-scripts` from the submitted lockfile (network on for this step only).
-3. `npm run build` with `NEXT_TELEMETRY_DISABLED=1`, no network from here on.
-4. Phase A (variant data): start with `PORT=4310`, `INSPECTION_DESK_FIXTURE_DIR=<variant>`, `INSPECTION_DESK_DATA_DIR=<fresh temp>`, `TZ=UTC`; wait for `GET /api/health` 200; run the DISC, REPORT and SELECT checks (none of them writes), then the follow-up creation, duplicate and persistence checks, each on a finding no earlier check touched; stop the process; start again with the same data dir; run the remaining persistence check; stop. Browser checks run in this phase only.
-5. Phase B (sample data): start with `PORT=4310`, `INSPECTION_DESK_FIXTURE_DIR=<sample>` and a fresh data dir; run the DISC, REPORT and SELECT HTTP checks on the sample data, then the follow-up creation and duplicate checks on the sample data in the same sequence; stop.
-6. Regression start (sample data): start again with a fresh, empty data dir; run the participant regression test with Vitest (FAULTS-AND-CASES.md section 3) against `INSPECTION_DESK_BASE_URL=http://127.0.0.1:4310`; stop; then run the same file against the trusted correct service and the three trusted faulty services F1, F2, F3, each with its own fresh data dir. Four starts of the submitted application in total: phase A, the phase A restart, phase B and the regression start.
-7. Hook check: run the `PostToolUse` command configured in `.claude/settings.json` with real-shaped payloads (no Claude session needed); rules in `assessment/HOOK-CRITERION.md`.
+Run `npm run check:foundation` before work. After each saved increment, use `npm run check:increment -- task1 <test-name-pattern>` or `task2`. Run `check:task1` or `check:task2` when that task is complete, then `npm run check` for the complete local application.
 
-Steps 4 to 6 run in the sequence `assessment/TEST-CONTRACT.md` publishes (its "Run order" table), on the same port, so the two files state one run order. That table names the individual checks; this section names the phases.
+The completed-task commands build saved source once and manage a local production server with fresh follow-up state. To verify persistence separately, stop and restart a server using the same `INSPECTION_DESK_DATA_DIR`, then confirm the saved record remains. To verify a temporary defect, use a disposable copy, rebuild and restart after each change, and keep the test unchanged through pass/fail/pass.
 
-A build or start failure caused by the submitted code is a **failed** check (the build/startup criterion fails, and every check that needs a running app fails with it). **Pending** applies only when the checker itself cannot run: a runner, image, controlled-data or reference-service problem.
+Use `npm run hook:probe` for direct hook checks. Observe an actual Claude Code edit separately before claiming that its PostToolUse event ran the hook. Save the command, result and source version in `workshop/EVALUATION.md` or `workshop/FINAL.md`.

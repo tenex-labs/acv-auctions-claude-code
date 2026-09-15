@@ -1,14 +1,12 @@
 # Preservation contract — what the Next.js replacement must keep
 
-September 15, 2026. Published contract 1.1. Public to participants. Each behavior names the check the automatic scorer applies. Expected values below use the sample data; the scorer applies the same rules to a different controlled dataset with the same shape (a hardcoded copy of the sample values fails). Selectors and endpoints: INTERFACE-CONTRACT.md.
-
-Rubric mapping (coordinator brief): vehicle discovery 10 (PB-01…PB-07), report accuracy 15 (PB-11…PB-18), selection and error behavior 10 (PB-08…PB-10, PB-19…PB-22), build and startup 10 (PB-00).
+September 15, 2026. Behavior contract 1.1 for the modernization walkthrough. Expected values below use the sample data. Implement the general rules so they also work for other records with the same shape. Selectors and endpoints: INTERFACE-CONTRACT.md.
 
 ## Startup
 
 | ID | Behavior | Check |
 | --- | --- | --- |
-| PB-00 | `npm run build` succeeds; `npm run start` with `PORT`, `INSPECTION_DESK_FIXTURE_DIR`, `INSPECTION_DESK_DATA_DIR` set serves `GET /api/health` → 200 with `contractVersion` `inspection-desk-2task-1.1` and the two directories echoed. The process makes no outbound network request (the checker runs without network). | HTTP |
+| PB-00 | `npm run build` succeeds; `npm run start` with `PORT`, `INSPECTION_DESK_FIXTURE_DIR`, `INSPECTION_DESK_DATA_DIR` set serves `GET /api/health` → 200 with `contractVersion` `inspection-desk-2task-1.1` and the two directories echoed. The process makes no outbound network request after setup. | HTTP |
 
 ## Vehicle discovery
 

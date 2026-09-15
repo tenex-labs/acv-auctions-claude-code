@@ -1,6 +1,6 @@
-Every participant receives these requirements. The automatic checks assess the answers below. Use the reasons to explain the decisions in your specification.
+These are the agreed follow-up requirements for the walkthrough. Use the reasons to explain the decisions in your specification.
 
-| # | Product question | Answer (graded) | Reason |
+| # | Product question | Agreed answer | Reason |
 | --- | --- | --- | --- |
 | FU-01 | What does a follow-up belong to? | An existing inspection **and** one finding of that inspection. Creating one for an unknown inspection → 404 `INSPECTION_NOT_FOUND`; for a finding that is not part of that inspection → 404 `FINDING_NOT_FOUND`. | Checking both IDs keeps the follow-up attached to the correct inspection and finding. |
 | FU-02 | What is saved? | A record `{ id, inspectionId, findingId, note, status, createdAt, resolvedAt }`; `id` server-generated and opaque; `status` `open` or `resolved`; `resolvedAt` null until resolved. Findings themselves are never modified. | Save the note and its timestamps while preserving the original finding. |
@@ -13,10 +13,10 @@ Every participant receives these requirements. The automatic checks assess the a
 | FU-09 | Which screen elements are required? | ../../docs/INTERFACE-CONTRACT.md section 3.5 (button names, `follow-up-note`, alerts, `follow-up-<id>` with status attribute, `Mark resolved`, `follow-up-status`). Visual design is free. | Browser checks use the published element names. The prototype provides a visual reference. |
 | FU-10 | What is out of scope? | Assignment to people, notifications, editing or deleting a note, un-resolving, attachments, comments on reports, authentication. | Not in the request; keep the change small enough for the session. |
 
-How the checks use this (rubric: creation and validation 10, persistence 10, duplicate handling and isolation 10):
+How to verify these behaviors:
 
 | Check | Behavior IDs | What runs |
 | --- | --- | --- |
-| Create and validate | FU-01, FU-02, FU-03, FU-09 | HTTP create on a variant inspection/finding → 201 and the record shape; whitespace note → 400 and the list stays empty; 300-character note → 400; unknown inspection → 404; browser: flag, save, `follow-up-status` text, alert texts |
+| Create and validate | FU-01, FU-02, FU-03, FU-09 | HTTP create on an inspection/finding → 201 and the record shape; whitespace note → 400 and the list stays empty; 300-character note → 400; unknown inspection → 404; browser: flag, save, `follow-up-status` text, alert texts |
 | Persistence | FU-05 | Create; reload page → record visible; stop and start the server with the same data dir → `GET …/follow-ups` still returns it; `reset:data` removes it |
 | Duplicate and isolation | FU-04, FU-06, FU-07 | Second create → 409 with the existing `followUp` and still one record; resolve → 200; resolve again → 200 with unchanged `resolvedAt`; create again after resolve → 201; POST to another inspection with that finding id → 404; other inspection's list is empty; `GET /api/inspections/:id` and the generated report unchanged after resolve |
