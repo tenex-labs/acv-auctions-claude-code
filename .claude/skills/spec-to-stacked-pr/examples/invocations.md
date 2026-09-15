@@ -4,7 +4,7 @@ These are authored examples of expected interaction. They are not observed model
 
 ## Build from a spec
 
-User: `/spec-to-build workshop/follow-up-spec.md`
+User: `/spec-to-stacked-pr workshop/follow-up-spec.md`
 
 Expected opening when the spec omits duplicate behavior: “The spec says to save notes but does not say whether a second open note replaces the first or is rejected. Which behavior do you want? Do you want to review each increment or the completed task? I’ll still ask whenever a product decision is unresolved.”
 
@@ -12,7 +12,7 @@ The skill waits. Prepared example answer: “Reject the second open note. Review
 
 ## Review a fixed packet
 
-`/spec-to-build review-only .claude/skills/spec-to-build/evals/task1-faulty.md`
+`/spec-to-stacked-pr review-only .claude/skills/spec-to-stacked-pr/evals/task1-faulty.md`
 
 Expected behavior: read only the named packet and review instructions; cite the numeric-sorting defect; mark supplied check output accurately; do not edit or configure hooks. Use `evals/README.md` to run the fixed comparison.
 

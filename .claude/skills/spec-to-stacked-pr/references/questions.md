@@ -10,7 +10,7 @@ Examples of useful questions:
 - Should notes survive server restart? This determines whether storage must be persistent.
 - Where should a note appear: its inspection only, or also the recorded report? This changes which views and records may change.
 
-These are examples of missing decisions, not permission to override an existing specification. In the workshop, the presenter answers from `product/follow-up/CLARIFICATIONS.md`. During Section 04, ask before reading that answer record; wait, then reconcile answers with it and return conflicts to the user.
+These are examples of missing decisions, not permission to override an existing specification. In the workshop, the presenter answers from `product/follow-up/CLARIFICATIONS.md`. During Module 05, ask before reading that answer record; wait, then reconcile answers with it and return conflicts to the user.
 
 Before implementation ask: “Do you want to review each increment or the completed task? I’ll still ask whenever a product decision is unresolved.” An answer in the current conversation persists. Do not ask again merely because the skill or a new step begins.
 

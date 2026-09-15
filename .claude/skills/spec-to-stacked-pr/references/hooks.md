@@ -64,3 +64,7 @@ Record the tool name, changed path, actual feedback and restoration. If the hook
 `PostToolUse` cannot undo the edit. `PreToolUse` can reject a matching action before it runs. This Edit/Write matcher does not cover shell edits or every possible writing tool. Run named behavior tests separately: the hook does not prove application behavior, duplicate protection or persistence.
 
 Source: [Claude Code hooks](https://code.claude.com/docs/en/hooks), checked September 15, 2026.
+
+## Separate PR-size gate
+
+Read references/stack.md and run the explicit per-layer `check:pr` command. Its scripts/check-pr.mjs, scripts/check-pr.test.mjs and package.json entries are required project dependencies. The existing Edit/Write PostToolUse hook runs typecheck and check:size only. It neither measures PR size nor covers Bash edits. Keep behavior tests separate. Run test:pr before accepting the selected counting rule.

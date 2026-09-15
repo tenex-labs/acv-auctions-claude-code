@@ -26,7 +26,9 @@
     "check:task2": "node scripts/check.mjs check:task2",
     "check": "node scripts/check.mjs check",
     "test": "node scripts/check.mjs test",
-    "test:e2e": "node scripts/check.mjs test:e2e"
+    "test:e2e": "node scripts/check.mjs test:e2e",
+    "check:pr": "node scripts/check-pr.mjs",
+    "test:pr": "node --test scripts/check-pr.test.mjs"
   },
   "dependencies": {
     "next": "16.3.5",

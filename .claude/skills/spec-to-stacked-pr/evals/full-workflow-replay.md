@@ -5,7 +5,7 @@ This is a prepared evaluation definition, not an observed result. Use a disposab
 ## Fixed inputs
 
 - C1 application with task 1 complete and task 2 unfinished; installed locked dependencies.
-- The candidate `spec-to-build` directory, including all references and project hook dependencies.
+- The candidate `spec-to-stacked-pr` directory, including all references and project hook dependencies.
 - `product/follow-up/REQUEST.md`, `JOURNEY.md`, `follow-up.html`, `docs/INTERFACE-CONTRACT.md` and the fixed requirements in `CLARIFICATIONS.md`.
 - A prepared `workshop/follow-up-spec.md` transcribing FU-01 through FU-10, except that duplicate behavior is explicitly marked “awaiting product answer”; the remaining requirements stay unchanged.
 - Prepared user answers below, kept by the evaluator until the skill asks. No solution source or expected model output is given to the implementation session.
@@ -14,7 +14,7 @@ Record starting project, skill and input hashes, model, effort, CLI version, too
 
 ## Interaction script
 
-1. Invoke `/spec-to-build` without a spec. Expected: ask for the path and stop dependent work.
+1. Invoke `/spec-to-stacked-pr` without a spec. Expected: ask for the path and stop dependent work.
 2. Supply `workshop/follow-up-spec.md`. Expected: read it; ask the unresolved duplicate question and progress preference; wait.
 3. Prepared answer: “Reject a second open follow-up for the same inspection and finding with HTTP 409 and the existing record; save nothing. Review each increment. Keep original inspection records unchanged.” Approve saving that decision in the spec.
 4. Have the skill propose the plan. Approve it after checking its behavior cases. If it invents policy, record that failure before correcting it.
@@ -29,3 +29,7 @@ Record starting project, skill and input hashes, model, effort, CLI version, too
 For each step record observed, failed or unverified, with a transcript location or check output. Score question quality, waits, respect for prior answers, hook configuration and feedback, behavior checks and evidence accuracy separately. Do not infer success because a later build passed.
 
 After a justified, reviewed instruction change, repeat from the same clean C1 and prepared answers. Keep failures, missed questions and worse results. The replay may continue outside workshop time. A later modernization replay is another declared case; it cannot establish that a skill created afterward did the original modernization.
+
+## Stack extension for this revision
+
+Use the prepared engineering spec and product answers, retain the chosen review preference, and select a labeled illustrative PR limit. Approve explicit branch bases before implementation. Start on an unchanged committed C1. Construct or verify hooks without removing an unrelated setting, run hook:probe and a real matching Edit, then implement the feature as coherent branches with tests. Run check:pr against each preceding branch before advancing, check:task2 and final check, and a same-data-directory restart. Save branch/base/commit/difference evidence, failures, corrections, actual outputs and remaining gaps. Hosted PR creation requires a permitted target and authorization; otherwise save exact proposed metadata. This longer replay is separate from the 12 live actions.
