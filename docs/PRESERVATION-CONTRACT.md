@@ -1,6 +1,6 @@
 # Preservation contract — what the Next.js replacement must keep
 
-September 14, 2026. Proposed. Public to participants. Each behavior names the check the automatic scorer applies. Expected values below use the sample data; the scorer applies the same rules to a different controlled dataset with the same shape (a hardcoded copy of the sample values fails). Selectors and endpoints: INTERFACE-CONTRACT.md.
+September 15, 2026. Published contract 1.1. Public to participants. Each behavior names the check the automatic scorer applies. Expected values below use the sample data; the scorer applies the same rules to a different controlled dataset with the same shape (a hardcoded copy of the sample values fails). Selectors and endpoints: INTERFACE-CONTRACT.md.
 
 Rubric mapping (coordinator brief): vehicle discovery 10 (PB-01…PB-07), report accuracy 15 (PB-11…PB-18), selection and error behavior 10 (PB-08…PB-10, PB-19…PB-22), build and startup 10 (PB-00).
 

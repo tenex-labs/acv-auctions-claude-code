@@ -4,10 +4,10 @@
 Review the supplied function excerpt and check record.
 
 ## behaviors
-PB-04/PB-05: An unrecognized sort parameter leaves vehicles in saved order; mileage is numeric.
+PB-04/PB-05: Mileage sorts numerically in each direction. PB-10: An unrecognized sort parameter leaves vehicles in saved order.
 
 ## spec
-PB-04/PB-05: An unrecognized sort parameter leaves vehicles in saved order; mileage is numeric. The packet is deliberately limited to the function and recorded checks.
+PB-04/PB-05: Mileage sorts numerically in each direction. PB-10: An unrecognized sort parameter leaves vehicles in saved order. The packet is deliberately limited to the function and recorded checks.
 
 ## diff
 The proposed function is below. Cite this packet's line numbers.
