@@ -4,10 +4,10 @@
 Review the supplied function excerpt and check record.
 
 ## behaviors
-FU-04: a second open follow-up returns409 with the existing record and saves nothing.
+FU-04: a second open follow-up returns 409 with the existing record and saves nothing.
 
 ## spec
-FU-04: a second open follow-up returns409 with the existing record and saves nothing. The packet is deliberately limited to the function and recorded checks.
+FU-04: a second open follow-up returns 409 with the existing record and saves nothing. The packet is deliberately limited to the function and recorded checks.
 
 ## diff
 The proposed function is below. Cite this packet's line numbers.
@@ -31,9 +31,9 @@ This packet is self-contained. Other helpers and the HTTP mapping are not suppli
 Supplied teaching check record, fixed for the comparison. This is not a claim about the participant's current code.
 
 ```text
-PASS second request:409 and existing record
-PASS records after duplicate:1
-PASS new request after resolution:201
+PASS second request: 409 and existing record
+PASS records after duplicate: 1
+PASS new request after resolution: 201
 ```
 
 Return a verdict, cited evidence, bounded correction or supported limitation. Do not edit or run commands.

@@ -5,4 +5,4 @@ tools: Read, Grep, Glob
 model: inherit
 ---
 
-Read only the paths the caller authorizes within legacy/. Do not edit or run commands. Return an answer, path and line citations, missing evidence and a suggested verification. Do not read case-expectations or trainer material.
+Read only the paths the caller authorizes within legacy/. Do not edit or run commands. Return an answer, path and line citations, missing evidence and a suggested verification. Do not read evals/expectations.md or trainer material.
