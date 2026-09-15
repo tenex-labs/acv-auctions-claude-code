@@ -25,7 +25,7 @@ Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; Git
 | 3. Modernize and develop the review skill | Build search, inspection and reports in small increments. Fix DF-01: lowercase stock-number search must match. Develop `/inspection-review` and test it on the supplied cases. |
 | 4. Clarify and plan the feature | Read the [request](product/follow-up/REQUEST.md), [journey](product/follow-up/JOURNEY.md), [prototype](product/follow-up/follow-up.html) and [clarifications](product/follow-up/CLARIFICATIONS.md). Save the follow-up specification and plan. |
 | 5. Implement, review and verify | Add follow-ups, write regression tests and reuse the review skill. Check a correction, then review any proposed project rule before saving it. |
-| 6. Review and reuse the workflow | Compare the local result with the demonstration, save check outcomes and remaining questions in [FINAL.md](workshop/FINAL.md), and identify what to reuse. Optionally use the [codebase and skill review prompt](docs/SELF-REVIEW-PROMPT.md). |
+| 6. Review and grade your work | Compare the local result with the demonstration, save check outcomes and remaining questions in [FINAL.md](workshop/FINAL.md), and identify what to reuse. Optionally use the [codebase and skill review prompt](docs/SELF-REVIEW-PROMPT.md). |
 
 Loading, data types and formatting helpers are prepared under `src/server/`. Foundation checks pass initially. Completed-task checks deliberately fail while the corresponding behavior or participant tests remain unfinished.
 
