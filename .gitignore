@@ -1,17 +1,11 @@
-node_modules
 node_modules/
-dist/
+.next*/
+.data/
 .check-output/
+.workshop-private/
+.env*
+!.env.example
+*.zip
 test-results/
 playwright-report/
-.env
-*.log
-.DS_Store
-workshop/evidence/*.tmp
-.check-binding.json
-
-# Private workshop exports belong outside this repository.
-.workshop-private/
-session-export*
-*.session.txt
-*.session.jsonl
+*.tsbuildinfo

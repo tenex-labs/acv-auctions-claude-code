@@ -1,0 +1,1 @@
+export default function Home() { return <section className="welcome"><p className="eyebrow">Inspection Desk</p><h1>Vehicle records</h1><p>The search page will appear here.</p><a href="/api/health">Service status</a></section>; }

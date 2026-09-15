@@ -1,64 +1,55 @@
-# Inspection Desk
+# Inspection Desk workshop
 
-Inspection Desk is the workbench inspection coordinators use to look up a vehicle, read its inspection
-findings and generate the inspection report. This repository contains the web client, the API and the
-report-generation service.
-
-## Quick start
+Use Node **24.21.0**, Claude Code and a browser. Extract this folder and open a terminal inside it.
 
 ```sh
-node --version                # must report Node 24
-npm ci
-npm run prepare:local        # checks Node 24 and the ports, installs the pinned Chromium once
-npm run dev                  # API http://127.0.0.1:4100, UI http://127.0.0.1:5173
-npm run check -- --stage baseline
+node --version
+npm run setup
+npm run preflight
+npm run check:foundation
+npm run dev
 ```
 
-The baseline stage must be green before you start work. `BASE-02-STRONG` is a diagnostic and fails on
-the current code: that is the open defect in the report-generation ticket.
+Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; it does not require Git. Accept the Claude Code workspace trust dialog to use project hooks.
 
-## Current ticket
+## Task 1: modernize
 
-Open `product-handoff/report-progress.html` and read its user journey and product brief, then `workshop/product-decisions.md` and `workshop/acceptance.md`. Complete SPEC.md, PLAN.md and the investigation/evaluation/final files in `workshop/`. Save exercise work locally; submit only the final reusable review SKILL.md through the portal.
+Inspect the [running application](https://acv-inspection-desk-legacy.vercel.app/), [its source](legacy/README.md) and [preservation requirements](docs/PRESERVATION-CONTRACT.md). Loading, data types and formatting are prepared under `src/server/`. Build the vehicle search, inspection and report journey. Fix DF-01: lower-case stock-number search must match.
 
-## Commands
+The starter opens and foundation checks pass. Its unfinished task routes and unfinished participant tests deliberately fail completed-task checks.
 
-| Command | What it does |
+## Task 2: add follow-ups
+
+Read the [rough request](product/follow-up/REQUEST.md), [journey](product/follow-up/JOURNEY.md), [prototype](product/follow-up/follow-up.html) and [clarification record](product/follow-up/CLARIFICATIONS.md). Save your specification and plan in `workshop/`, then implement the feature and regression tests.
+
+## Check and submit
+
+| Command | When to use it |
 | --- | --- |
-| `npm run dev` | Starts API and UI together; Ctrl+C stops both. Ports via `.env` (see `.env.example`). |
-| `npm run build` / `npm run start` | Builds to `dist/` and serves app + API from one port (`INSPECTION_DESK_API_PORT`, default 4100). |
-| `npm run check -- --stage <stage>` | `baseline`, `fast`, `m1`…`m6`, `evidence`. `--json <path>` writes a result file. Exit 0 pass, 1 failed check, 2 tooling problem. |
-| `npm run test:unit` / `npm run test:e2e` | Raw Vitest / Playwright runs (the staged command is the documented path). |
+| `npm run check:foundation` | Before starting; prepared modules, types and file size. |
+| `npm run check:increment -- task1 PB-04` | One named change; builds saved source once and runs matching checks. |
+| `npm run check:task1` | Entire modernization finished. |
+| `npm run check:increment -- task2 FU-04` | One named feature change. |
+| `npm run check:task2` | Entire feature finished. |
+| `npm run check` | Final verification; one fresh production build, all checks and your regression tests. |
+| `npm run hook:probe` | Direct type/size/error/prose probes; does not prove a Claude session event. |
+| `npm run package` | Packages saved files into `submission.zip`, without Git. |
+| `npm run reset:data` | Clears only follow-up state. |
 
-Browser checks use ports 4190/5190 so they do not collide with `npm run dev`.
+[Published checks and points](docs/CHECKS.md) · [Interface](docs/INTERFACE-CONTRACT.md) · [Packaging limits](docs/PACKAGING.md) · [Regression requirement](tests/participant/README.md).
 
-## What is protected and what is open
+`npm run test:participant` uses a running app at `INSPECTION_DESK_BASE_URL` (default port 3000). Start a fresh production process with `npm run build` then `npm run start` before testing edited code. Production-based check commands manage their own server on port 4310; stop anything using that port first.
 
-Protected: the job service (`src/server/reports/reportJobs.ts`), report builder, runtime store,
-scheduler, legacy route, shared types, fixtures, service tests and the check runner.
+## Checkpoint C1 at 9:45 a.m.
 
-Open for the ticket: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
-`src/server/routes/reports.ts` (three handlers that currently return 501) and new tests under
-`tests/participant/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
+Save your work first:
 
-## Claude Code configuration in this repository
+```sh
+npm run package -- --recovery
+```
 
-- `CLAUDE.md`: project guidance. `.claude/rules/report-generation.md`: a rule loaded only when report
-  source files are read.
-- `.claude/agents/service-contract.md` and `behavior-test.md`: two read-only specialists; verify their findings before implementation. `report-investigator.md` supports separate review.
-- `.claude/skills/workshop-review/SKILL.md`: `/workshop-review <context file>` reviews a change in a
-  separate context using that agent. Use it on your own increments in M4, fixed evaluation cases and your final version in M6.
-- `.claude/settings.json` + `.claude/hooks/check-report-change.mjs`: a `PostToolUse` hook that runs the
-  fast checks after Claude edits report source files and reports failures back.
+Only after it succeeds, extract `inspection-desk-task1-migrated.zip` over this folder. The backup path is printed. The checkpoint completes task 1 and leaves task 2 unfinished. Using it changes no scoring rule.
 
-## Environment limits
+Keep the complete `.claude/skills/inspection-review/` directory. Submit one `submission.zip` through the portal. Specifications and plans are collected learning records; points measure application, regression-test and hook behavior. Do not include credentials, personal notes or transcripts.
 
-State is kept in memory; restarting the API restores the seed data. There is no persistence, no
-multi-process safety, no authentication, no PDF output and no deployment path. The **Operations** panel
-(reset, failure testing, scheduling mode, manual run control) is for this environment only.
-
-## License
-
-MIT. See `LICENSE`.
-
-Workshop rules: [500 changed code lines](workshop/rules.md), [grading](workshop/rubric.md), [reusable review skill](workshop/review-instructions.md), [test assessment](workshop/test-assessment.md). The portal does not collect application changes, PR links, conversations or supporting files.
+The application and its checks use local records. They must work without the hosted legacy service or network access after setup. No external fonts or assets are downloaded by the build.

@@ -1,0 +1,47 @@
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vehicle condition report · Inspection Desk</title><style>:root { color-scheme: light; --ink: #17191c; --muted: #646a73; --line: #d8dce0; --paper: #f7f7f4; --accent: #244e72; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+a { color: var(--accent); text-underline-offset: 4px; }
+header { padding: 22px max(24px,calc((100vw - 1160px)/2)); background: #fff; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; }
+header a { color: var(--ink); text-decoration: none; font-weight: 750; font-size: 20px; letter-spacing: -.5px; }
+header span, .muted { color: var(--muted); }
+main { max-width: 1160px; margin: 0 auto; padding: 42px 24px 70px; min-height: 75vh; }
+h1 { font-size: clamp(32px,4vw,48px); line-height: 1.15; letter-spacing: -1.5px; margin: 12px 0 20px; }
+h2 { font-size: 24px; letter-spacing: -.5px; } h3 { font-size: 18px; margin: 0; }
+p { margin: 10px 0 18px; }.eyebrow { text-transform: uppercase; font-size: 12px; letter-spacing: 1.8px; color: var(--muted); font-weight: 700; }
+.search-form { display: flex; gap: 10px; margin: 30px 0 18px; }
+input, textarea { background: #fff; border: 1px solid #a4aab2; border-radius: 5px; padding: 12px; font: inherit; color: var(--ink); }
+input { flex: 1; min-width: 100px; } textarea { width: 100%; min-height: 96px; }
+button, .button { cursor: pointer; border: 1px solid #253241; border-radius: 5px; background: #253241; color: #fff; padding: 10px 16px; font: inherit; font-weight: 600; text-decoration: none; }
+button:disabled { opacity: .6; cursor: wait; }button.secondary { background: #fff; color: var(--ink); border-color: #a4aab2; }
+.toolbar, .actions { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin: 18px 0 26px; }.toolbar { justify-content: space-between; }
+.table-wrap { overflow: auto; }table { border-collapse: collapse; width: 100%; background: #fff; }th,td { padding: 19px 18px; border-bottom: 1px solid var(--line); text-align: left; }th { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; background: #edf0f2; }td:first-child { font-weight: 600; }
+.facts { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; padding: 24px 0; border-block: 1px solid var(--line); }dt { font-size: 12px; text-transform: uppercase; color: var(--muted); }dd { margin: 6px 0 0; font-weight: 600; }
+.summary { display: flex; gap: 24px; align-items: center; padding: 20px 0; }.attention { background: #fff0d4; color: #7a4900; padding: 5px 12px; border-radius: 4px; font-size: 14px; }
+.findings { list-style: none; padding: 0; }.finding { padding: 24px; background: #fff; border: 1px solid var(--line); margin: 12px 0; }.finding-head { display: flex; gap: 16px; align-items: center; }.severity { font-size: 12px; text-transform: uppercase; padding: 3px 9px; background: #edf0f2; border-radius: 4px; }.major { background: #fce4e3; color: #922d29; }.minor { background: #fff0d4; color: #7a4900; }
+.followup { margin-top: 14px; padding: 16px; border-left: 3px solid #748fa6; background: #f4f7fa; }.followup p { white-space: pre-wrap; }.follow-form { margin-top: 16px; }.follow-form .actions { margin-bottom: 0; }[role=alert] { color: #a02121; }[role=status] { color: #24523b; min-height: 24px; }
+pre { overflow: auto; background: #edf0f2; font-size: 12px; padding: 20px; }details { margin-top: 32px; }footer { border-top: 1px solid var(--line); padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
+@media(max-width:700px) { header span { display:none; }.facts { grid-template-columns:repeat(2,minmax(0,1fr)); }main { padding-top:24px; }th,td { padding:14px 12px; }.summary { flex-wrap:wrap; gap:14px; } }
+
+form { display:flex;gap:12px;margin-top:28px; }nav a { margin-left:14px; }.report-findings li { padding:16px;background:white;border-bottom:1px solid var(--line); }
+</style></head>
+<body><header><a href="index.cfm">Inspection Desk</a><span>VEHICLE RECORDS</span></header><main>
+
+<section data-testid="report-page" data-report-id="RPT-004-R2" data-report-source="generated">
+<a href="inspection.cfm?id=insp-004">Back to inspection</a><p class="eyebrow">Generated report</p><h1>Vehicle condition report <span data-testid="report-id">RPT-004-R2</span></h1>
+<h2 data-testid="report-vehicle">2018 Chevrolet Silverado 1500</h2>
+<dl class="facts"><div><dt>Stock number</dt><dd data-testid="report-stock">STK-20831</dd></div><div><dt>Mileage</dt><dd data-testid="report-mileage">101,200 mi</dd></div><div><dt>Color</dt><dd data-testid="report-color">Black</dd></div><div><dt>Revision</dt><dd data-testid="report-revision">2</dd></div></dl>
+<p>Inspected <span data-testid="report-date">Aug 26, 2026</span> by <span data-testid="report-inspector">D. Okafor</span>.</p>
+<div class="summary">Major <strong data-testid="report-count-major">1</strong> · Minor <strong data-testid="report-count-minor">3</strong> · Info <strong data-testid="report-count-info">1</strong><span class="attention" data-testid="report-needs-attention">Needs attention</span></div>
+<h2>Findings</h2>
+
+<ol class="report-findings"><li data-testid="report-finding-finding-007"><strong data-testid="finding-area">Brakes</strong> · <span data-testid="finding-severity">Major</span><p data-testid="finding-description">Front brake pads worn below the service limit.</p></li><li data-testid="report-finding-finding-005"><strong data-testid="finding-area">Exterior</strong> · <span data-testid="finding-severity">Minor</span><p data-testid="finding-description">Dent on the tailgate below the handle.</p></li><li data-testid="report-finding-finding-006"><strong data-testid="finding-area">Interior</strong> · <span data-testid="finding-severity">Minor</span><p data-testid="finding-description">Tear in the driver seat bolster.</p></li><li data-testid="report-finding-finding-009"><strong data-testid="finding-area">Glass</strong> · <span data-testid="finding-severity">Minor</span><p data-testid="finding-description">Chip in the windshield on the passenger side.</p></li><li data-testid="report-finding-finding-008"><strong data-testid="finding-area">Under hood</strong> · <span data-testid="finding-severity">Info</span><p data-testid="finding-description">Fluids topped up during inspection.</p></li></ol>
+<h2>Report data (JSON)</h2><pre data-testid="report-json">{"severityCounts":{"minor":3,"info":1,"major":1},"findings":[{"id":"finding-007","area":"Brakes","severity":"major","description":"Front brake pads worn below the service limit."},{"id":"finding-005","area":"Exterior","severity":"minor","description":"Dent on the tailgate below the handle."},{"id":"finding-006","area":"Interior","severity":"minor","description":"Tear in the driver seat bolster."},{"id":"finding-009","area":"Glass","severity":"minor","description":"Chip in the windshield on the passenger side."},{"id":"finding-008","area":"Under hood","severity":"info","description":"Fluids topped up during inspection."}],"inspectionRevision":2,"inspectorLabel":"D. Okafor","vehicle":{"id":"veh-004","stockNumber":"STK-20831","year":2018,"make":"Chevrolet","model":"Silverado 1500","mileage":101200,"exteriorColor":"Black"},"inspectionId":"insp-004","inspectedAt":"2026-08-26T16:45:00.000Z","id":"RPT-004-R2","needsAttention":true}</pre>
+</section>
+
+<footer>Inspection Desk · Vehicle records</footer>
+</main>
+
+
+
+</body></html>

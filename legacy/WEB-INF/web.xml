@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="6.0">
+ <security-constraint><web-resource-collection><web-resource-name>Private implementation</web-resource-name>
+ <url-pattern>/data/*</url-pattern><url-pattern>/components/*</url-pattern><url-pattern>/includes/*</url-pattern><url-pattern>/lucee/*</url-pattern><url-pattern>/lucee-server/*</url-pattern><url-pattern>*.cfc</url-pattern>
+ </web-resource-collection><auth-constraint/></security-constraint>
+ <welcome-file-list><welcome-file>index.cfm</welcome-file></welcome-file-list>
+</web-app>

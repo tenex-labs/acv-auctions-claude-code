@@ -1,0 +1,154 @@
+[
+  {
+    "name": "search-all",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm",
+    "status": 200,
+    "html": "search-all.html",
+    "png": "search-all.png",
+    "capturedAt": "2026-09-15T05:01:43.429Z"
+  },
+  {
+    "name": "search-honda",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?q=honda",
+    "status": 200,
+    "html": "search-honda.html",
+    "png": "search-honda.png",
+    "capturedAt": "2026-09-15T05:01:43.677Z"
+  },
+  {
+    "name": "search-prefix-stk-2083",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?q=STK-2083",
+    "status": 200,
+    "html": "search-prefix-stk-2083.html",
+    "png": "search-prefix-stk-2083.png",
+    "capturedAt": "2026-09-15T05:01:43.874Z"
+  },
+  {
+    "name": "search-empty-zzz",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?q=zzz",
+    "status": 200,
+    "html": "search-empty-zzz.html",
+    "png": "search-empty-zzz.png",
+    "capturedAt": "2026-09-15T05:01:44.084Z"
+  },
+  {
+    "name": "search-df01-stk-lowercase",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?q=stk-20811",
+    "status": 200,
+    "html": "search-df01-stk-lowercase.html",
+    "png": "search-df01-stk-lowercase.png",
+    "capturedAt": "2026-09-15T05:01:44.267Z"
+  },
+  {
+    "name": "sort-asc",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?sort=asc",
+    "status": 200,
+    "html": "sort-asc.html",
+    "png": "sort-asc.png",
+    "capturedAt": "2026-09-15T05:01:44.470Z"
+  },
+  {
+    "name": "sort-desc",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/index.cfm?sort=desc",
+    "status": 200,
+    "html": "sort-desc.html",
+    "png": "sort-desc.png",
+    "capturedAt": "2026-09-15T05:01:44.677Z"
+  },
+  {
+    "name": "inspection-insp-001",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-001",
+    "status": 200,
+    "html": "inspection-insp-001.html",
+    "png": "inspection-insp-001.png",
+    "capturedAt": "2026-09-15T05:02:01.838Z"
+  },
+  {
+    "name": "inspection-insp-003-no-findings",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-003",
+    "status": 200,
+    "html": "inspection-insp-003-no-findings.html",
+    "png": "inspection-insp-003-no-findings.png",
+    "capturedAt": "2026-09-15T05:02:02.014Z"
+  },
+  {
+    "name": "inspection-insp-004-rev2",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-004",
+    "status": 200,
+    "html": "inspection-insp-004-rev2.html",
+    "png": "inspection-insp-004-rev2.png",
+    "capturedAt": "2026-09-15T05:02:02.241Z"
+  },
+  {
+    "name": "inspection-insp-005-needs-attention",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-005",
+    "status": 200,
+    "html": "inspection-insp-005-needs-attention.html",
+    "png": "inspection-insp-005-needs-attention.png",
+    "capturedAt": "2026-09-15T05:02:02.452Z"
+  },
+  {
+    "name": "inspection-insp-006-no-recorded-report",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-006",
+    "status": 200,
+    "html": "inspection-insp-006-no-recorded-report.html",
+    "png": "inspection-insp-006-no-recorded-report.png",
+    "capturedAt": "2026-09-15T05:02:02.940Z"
+  },
+  {
+    "name": "inspection-insp-008-utc-date",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-008",
+    "status": 200,
+    "html": "inspection-insp-008-utc-date.html",
+    "png": "inspection-insp-008-utc-date.png",
+    "capturedAt": "2026-09-15T05:02:03.124Z"
+  },
+  {
+    "name": "inspection-missing-404",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/inspection.cfm?id=insp-999",
+    "status": 404,
+    "html": "inspection-missing-404.html",
+    "png": "inspection-missing-404.png",
+    "capturedAt": "2026-09-15T05:02:03.285Z"
+  },
+  {
+    "name": "report-insp-001",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/report.cfm?inspectionId=insp-001",
+    "status": 200,
+    "html": "report-insp-001.html",
+    "png": "report-insp-001.png",
+    "capturedAt": "2026-09-15T05:02:03.570Z"
+  },
+  {
+    "name": "report-insp-004",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/report.cfm?inspectionId=insp-004",
+    "status": 200,
+    "html": "report-insp-004.html",
+    "png": "report-insp-004.png",
+    "capturedAt": "2026-09-15T05:02:03.816Z"
+  },
+  {
+    "name": "recorded-RPT-001-R1",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/recorded.cfm?id=RPT-001-R1",
+    "status": 200,
+    "html": "recorded-RPT-001-R1.html",
+    "png": "recorded-RPT-001-R1.png",
+    "capturedAt": "2026-09-15T05:02:04.016Z"
+  },
+  {
+    "name": "recorded-RPT-004-R1-stale",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/recorded.cfm?id=RPT-004-R1",
+    "status": 200,
+    "html": "recorded-RPT-004-R1-stale.html",
+    "png": "recorded-RPT-004-R1-stale.png",
+    "capturedAt": "2026-09-15T05:02:04.255Z"
+  },
+  {
+    "name": "recorded-missing-404",
+    "url": "https://acv-inspection-desk-legacy.vercel.app/recorded.cfm?id=RPT-006-R1",
+    "status": 404,
+    "html": "recorded-missing-404.html",
+    "png": "recorded-missing-404.png",
+    "capturedAt": "2026-09-15T05:02:04.405Z"
+  }
+]

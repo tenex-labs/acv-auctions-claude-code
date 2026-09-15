@@ -1,0 +1,36 @@
+{
+  "id": "RPT-002-R1",
+  "inspectionId": "insp-002",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-002",
+    "stockNumber": "STK-20827",
+    "year": 2020,
+    "make": "Honda",
+    "model": "Civic",
+    "mileage": 61205,
+    "exteriorColor": "Blue"
+  },
+  "inspectedAt": "2026-08-20T15:00:00.000Z",
+  "inspectorLabel": "L. Whitfield",
+  "findings": [
+    {
+      "id": "finding-004",
+      "area": "Tires",
+      "severity": "major",
+      "description": "Rear tires require replacement."
+    },
+    {
+      "id": "finding-003",
+      "area": "Exterior",
+      "severity": "minor",
+      "description": "Paint chip on the front bumper."
+    }
+  ],
+  "severityCounts": {
+    "major": 1,
+    "minor": 1,
+    "info": 0
+  },
+  "needsAttention": true
+}

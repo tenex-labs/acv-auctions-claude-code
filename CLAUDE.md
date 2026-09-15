@@ -1,27 +1,15 @@
 # Inspection Desk
 
-TypeScript/React client, Express server, committed JSON fixtures and an in-memory report service. Use Node 24. Browser reload retains server state; server restart resets it.
+Node 24.21.0; Next.js 16.3.5 App Router; TypeScript. Read-only fixtures are under data/. Only follow-ups write under INSPECTION_DESK_DATA_DIR, default .data/.
 
-## Commands
+Read [the interface](docs/INTERFACE-CONTRACT.md), [preservation requirements](docs/PRESERVATION-CONTRACT.md) and [task 2 answers](product/follow-up/CLARIFICATIONS.md). Loading and formatting helpers are supplied. Joins, search, numeric sorting, summary and report rules are participant work.
 
-- Prepare: `node --version`, `npm ci`, `npm run prepare:local`.
-- Run: `npm run dev` (API 4100, UI 5173).
-- Check: `npm run check -- --stage baseline`, `fast`, `m5`, `m6` or `evidence`.
-- Final order: exercise the reusable review skill on local work, select the final skill package in the portal, preview and submit. Keep the application, specification, plan and checks locally.
+Run npm run check:foundation before work. Use npm run check:increment -- task1 PB-04 (or task2 FU-04) for named changes; check:task1 or check:task2 for a completed task; npm run check before packaging. Every source file has 500 lines maximum. The edit hook runs type and size checks only.
 
-## Work area
+Save specifications and plans in workshop/. Plan Mode proposes; save the approved plan through the editor or after approving edits. Use legacy-investigator and contract-investigator for two bounded questions, with explicit file limits. Verify material findings before relying on them.
 
-Read `product-handoff/`, `workshop/product-decisions.md` and `workshop/acceptance.md`. The prototype is simulated; the accepted requirements control.
+Develop /inspection-review using the packet outline and supplied fixed cases. Use it after both tasks. Require the requirement, cited code, consequence and a way to verify each finding. No supported findings is valid.
 
-Implement `src/server/routes/reports.ts` first with direct request tests. Then connect `src/client/reports/ReportPanel.tsx` and `reportApi.ts`. New tests go in `tests/participant/`. Explain any other necessary source change in PLAN.md.
+When a check catches a mistake, correct it and add a regression test. Then propose a scoped project instruction, review it as a person, save it under .claude/rules/, and inspect fresh-session loading and code behavior separately. Loading instructions is not proof they were applied correctly. Auto memory is local; shared project instructions travel with this folder.
 
-Read and preserve the report service, builder, store, scheduler, shared types, fixtures, old route and supplied checks. The exact protected list is `scripts/protected-manifest.json`.
-
-## Working method
-
-- Resolve product ambiguity before editing. Save the result in SPEC.md.
-- Use the two read-only specialists for independent questions; verify one claim from each and combine their findings in PLAN.md. Use one implementation writer.
-- Adapt `.claude/skills/workshop-review/SKILL.md`; supply its spec, target, diff and check inputs explicitly. Evaluate its output on the fixed cases before using it on the final change.
-- Keep this file, scoped instructions and agent/skill configuration concise and reusable. They are editable guidance, not security controls.
-- Maximum 500 added plus deleted code lines, including tests, styles and configuration. See `workshop/rules.md` for counting and editable paths.
-- Never put session exports, email addresses or private evidence in Git. Use `.workshop-private/` or an external folder for your own exercise records; they are not submitted.
+Do not call the hosted legacy service from the application or tests. Do not place private notes, credentials or session transcripts in submitted files. Run npm run package -- --recovery before applying checkpoint C1.

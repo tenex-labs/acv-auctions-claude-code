@@ -1,0 +1,23 @@
+{
+  "id": "RPT-003-R1",
+  "inspectionId": "insp-003",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-003",
+    "stockNumber": "STK-20830",
+    "year": 2023,
+    "make": "Ford",
+    "model": "Escape",
+    "mileage": 9850,
+    "exteriorColor": "White"
+  },
+  "inspectedAt": "2026-08-24T13:15:00.000Z",
+  "inspectorLabel": "M. Castellano",
+  "findings": [],
+  "severityCounts": {
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "needsAttention": false
+}

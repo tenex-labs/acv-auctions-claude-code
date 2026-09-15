@@ -1,0 +1,54 @@
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Inspection · Inspection Desk</title><style>:root { color-scheme: light; --ink: #17191c; --muted: #646a73; --line: #d8dce0; --paper: #f7f7f4; --accent: #244e72; }
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+a { color: var(--accent); text-underline-offset: 4px; }
+header { padding: 22px max(24px,calc((100vw - 1160px)/2)); background: #fff; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; }
+header a { color: var(--ink); text-decoration: none; font-weight: 750; font-size: 20px; letter-spacing: -.5px; }
+header span, .muted { color: var(--muted); }
+main { max-width: 1160px; margin: 0 auto; padding: 42px 24px 70px; min-height: 75vh; }
+h1 { font-size: clamp(32px,4vw,48px); line-height: 1.15; letter-spacing: -1.5px; margin: 12px 0 20px; }
+h2 { font-size: 24px; letter-spacing: -.5px; } h3 { font-size: 18px; margin: 0; }
+p { margin: 10px 0 18px; }.eyebrow { text-transform: uppercase; font-size: 12px; letter-spacing: 1.8px; color: var(--muted); font-weight: 700; }
+.search-form { display: flex; gap: 10px; margin: 30px 0 18px; }
+input, textarea { background: #fff; border: 1px solid #a4aab2; border-radius: 5px; padding: 12px; font: inherit; color: var(--ink); }
+input { flex: 1; min-width: 100px; } textarea { width: 100%; min-height: 96px; }
+button, .button { cursor: pointer; border: 1px solid #253241; border-radius: 5px; background: #253241; color: #fff; padding: 10px 16px; font: inherit; font-weight: 600; text-decoration: none; }
+button:disabled { opacity: .6; cursor: wait; }button.secondary { background: #fff; color: var(--ink); border-color: #a4aab2; }
+.toolbar, .actions { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin: 18px 0 26px; }.toolbar { justify-content: space-between; }
+.table-wrap { overflow: auto; }table { border-collapse: collapse; width: 100%; background: #fff; }th,td { padding: 19px 18px; border-bottom: 1px solid var(--line); text-align: left; }th { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; background: #edf0f2; }td:first-child { font-weight: 600; }
+.facts { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; padding: 24px 0; border-block: 1px solid var(--line); }dt { font-size: 12px; text-transform: uppercase; color: var(--muted); }dd { margin: 6px 0 0; font-weight: 600; }
+.summary { display: flex; gap: 24px; align-items: center; padding: 20px 0; }.attention { background: #fff0d4; color: #7a4900; padding: 5px 12px; border-radius: 4px; font-size: 14px; }
+.findings { list-style: none; padding: 0; }.finding { padding: 24px; background: #fff; border: 1px solid var(--line); margin: 12px 0; }.finding-head { display: flex; gap: 16px; align-items: center; }.severity { font-size: 12px; text-transform: uppercase; padding: 3px 9px; background: #edf0f2; border-radius: 4px; }.major { background: #fce4e3; color: #922d29; }.minor { background: #fff0d4; color: #7a4900; }
+.followup { margin-top: 14px; padding: 16px; border-left: 3px solid #748fa6; background: #f4f7fa; }.followup p { white-space: pre-wrap; }.follow-form { margin-top: 16px; }.follow-form .actions { margin-bottom: 0; }[role=alert] { color: #a02121; }[role=status] { color: #24523b; min-height: 24px; }
+pre { overflow: auto; background: #edf0f2; font-size: 12px; padding: 20px; }details { margin-top: 32px; }footer { border-top: 1px solid var(--line); padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
+@media(max-width:700px) { header span { display:none; }.facts { grid-template-columns:repeat(2,minmax(0,1fr)); }main { padding-top:24px; }th,td { padding:14px 12px; }.summary { flex-wrap:wrap; gap:14px; } }
+
+form { display:flex;gap:12px;margin-top:28px; }nav a { margin-left:14px; }.report-findings li { padding:16px;background:white;border-bottom:1px solid var(--line); }
+</style></head>
+<body><header><a href="index.cfm">Inspection Desk</a><span>VEHICLE RECORDS</span></header><main>
+
+<section data-testid="inspection-page" data-inspection-id="insp-008">
+<a href="index.cfm">Back to search</a><p class="eyebrow">Vehicle inspection</p>
+<h1 data-testid="vehicle-title">2016 Ford F-150</h1>
+<dl class="facts"><div><dt>Stock number</dt><dd data-testid="vehicle-stock">STK-20860</dd></div><div><dt>Mileage</dt><dd data-testid="vehicle-mileage">154,900 mi</dd></div><div><dt>Color</dt><dd data-testid="vehicle-color">White</dd></div><div><dt>Revision</dt><dd data-testid="inspection-revision">1</dd></div></dl>
+<p>Inspected <span data-testid="inspection-date">Sep 2, 2026</span> by <span data-testid="inspector">R. Ahmed</span>.</p>
+
+
+<div class="summary">Major <strong data-testid="count-major">1</strong> · Minor <strong data-testid="count-minor">0</strong> · Info <strong data-testid="count-info">0</strong>
+<span class="attention" data-testid="needs-attention">Needs attention</span></div>
+<h2>Inspection findings</h2>
+
+<table><thead><tr><th>Area</th><th>Severity</th><th>Description</th></tr></thead><tbody>
+<tr data-testid="finding-finding-016" data-finding-id="finding-016"><td data-testid="finding-area">Frame</td><td data-testid="finding-severity">Major</td><td data-testid="finding-description">Rust perforation on the rear frame crossmember.</td></tr>
+</tbody></table>
+
+<div class="actions"><a class="button" href="report.cfm?inspectionId=insp-008">Generate report</a>
+<a href="recorded.cfm?id=RPT-008-R1">Open recorded report</a></div>
+</section>
+
+<footer>Inspection Desk · Vehicle records</footer>
+</main>
+
+
+
+</body></html>
