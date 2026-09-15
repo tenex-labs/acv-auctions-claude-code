@@ -2,7 +2,7 @@
 
 Node 24.21.0; Next.js 16.3.5 App Router; TypeScript. Read-only fixtures are under data/. Only follow-ups write under INSPECTION_DESK_DATA_DIR, default .data/.
 
-This is a presenter-led walkthrough with optional local follow-along. Keep notes and check results locally; finish with workshop/FINAL.md and, if useful, the optional docs/SELF-REVIEW-PROMPT.md.
+Keep notes and check results locally. Record the completed work in workshop/FINAL.md and use docs/SELF-REVIEW-PROMPT.md to review its evidence.
 
 Read [the interface](docs/INTERFACE-CONTRACT.md), [preservation requirements](docs/PRESERVATION-CONTRACT.md) before implementation. For task 2, ask product questions before reading product/follow-up/CLARIFICATIONS.md; wait for answers, then reconcile them with that record. Loading and formatting helpers are supplied. Joins, search, numeric sorting, summary and report rules are participant work.
 
@@ -16,4 +16,4 @@ When a check catches a mistake, correct it and add a regression test. Then propo
 
 Do not call the hosted legacy service from the application or tests. Keep credentials and session transcripts out of shared project files. Run npm run package -- --recovery before applying checkpoint C1.
 
-Plan manageable PRs before implementation. Read workshop/review-criteria.md and reuse the selected review preference. Run check:pr against each layer's actual base, counting additions, deletions, new files and generated text across the complete proposed layer. A local branch is not a hosted PR. See .claude/skills/spec-to-stacked-pr/references/stack.md. Module 05 asks questions about all four fictional PM inputs before consulting CLARIFICATIONS.md.
+Plan manageable PRs before implementation. Read workshop/review-criteria.md and reuse the selected review preference. Run check:pr against each layer's actual base, counting additions, deletions, new files and generated text across the complete proposed layer. A local branch is not a hosted PR. See .claude/skills/spec-to-stacked-pr/references/stack.md. Ask questions about all four fictional PM inputs before consulting CLARIFICATIONS.md.

@@ -17,3 +17,7 @@ The four fixed packets evaluate the read-only review branch. They do not establi
 ## Result fields
 
 Date; branch; case; skill hash; case hash; model; effort; tools; actual output path; observed findings; missed defects; false alarms; unsupported claims; check executions; limits; reviewed change; repeat result.
+
+## Apply your selected criteria
+
+Use [review-criteria.md](review-criteria.md) to prepare and evaluate the selected PR-size boundary and the learner's additional criteria. Reuse the agreed record from the earlier criteria exercise. The project includes scripts/prepare-review-evals.mjs and its check-pr.mjs dependency.

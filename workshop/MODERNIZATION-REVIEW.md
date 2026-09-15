@@ -9,4 +9,4 @@ Commands and results:
 Failures and corrections:
 Controlled stock-search pass/fail/pass (same test hash; intended assertion):
 Remaining gaps:
-Reviewed procedure to capture in Module 04:
+Reviewed procedure to capture in the skill:
