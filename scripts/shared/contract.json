@@ -531,7 +531,8 @@
       ".cfc",
       ".csv",
       ".xml",
-      ".properties"
+      ".properties",
+      ".svg"
     ],
     "supportedRootNames": [
       ".node-version",

@@ -48,7 +48,7 @@ Save your work first:
 npm run package -- --recovery
 ```
 
-Only after it succeeds, extract `inspection-desk-task1-migrated.zip` over this folder. The backup path is printed. The checkpoint completes task 1 and leaves task 2 unfinished. Using it changes no scoring rule.
+Only after it succeeds, extract `inspection-desk-task1-migrated.zip` into a new folder. Keep the original project and the printed recovery ZIP. Copy your own workshop notes, review skill and reviewed rules into the new project, then run `npm run setup` and `npm run preflight` there. The checkpoint completes task 1 and leaves task 2 unfinished. Using it changes no scoring rule.
 
 Keep the complete `.claude/skills/inspection-review/` directory. Submit one `submission.zip` through the portal. Specifications and plans are collected learning records; points measure application, regression-test and hook behavior. Do not include credentials, personal notes or transcripts.
 
