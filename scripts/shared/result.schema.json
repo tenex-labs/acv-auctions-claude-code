@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trusted Inspection Desk result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "binding",
+    "checks",
+    "regressionGate",
+    "startedAt",
+    "completedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "submissionId",
+        "participantId",
+        "sequence",
+        "packageHash",
+        "zipSha256",
+        "contractVersion",
+        "checkerBundleHash",
+        "jobId"
+      ],
+      "properties": {
+        "submissionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participantId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "packageHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "zipSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "contractVersion": {
+          "const": "inspection-desk-2task-1.2"
+        },
+        "checkerBundleHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "jobId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 45,
+      "maxItems": 45,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "explanation",
+          "datasets"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "BUILD-01",
+              "BUILD-02",
+              "BUILD-03",
+              "BUILD-04",
+              "SIZE-01",
+              "SIZE-02",
+              "DISC-01",
+              "DISC-02",
+              "DISC-03",
+              "DISC-04",
+              "DISC-05",
+              "DISC-06",
+              "REPORT-01",
+              "REPORT-02",
+              "REPORT-03",
+              "REPORT-04",
+              "REPORT-05",
+              "REPORT-06",
+              "SELECT-01",
+              "SELECT-02",
+              "SELECT-03",
+              "SELECT-04",
+              "SELECT-05",
+              "HOOK-01",
+              "HOOK-02",
+              "HOOK-03",
+              "HOOK-04",
+              "HOOK-05"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "pending"
+            ]
+          },
+          "explanation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "regressionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "loaded",
+        "ownPassed",
+        "referencePassed"
+      ],
+      "properties": {
+        "loaded": {
+          "type": "boolean"
+        },
+        "ownPassed": {
+          "type": "boolean"
+        },
+        "referencePassed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "measurements": {
+      "type": "object"
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

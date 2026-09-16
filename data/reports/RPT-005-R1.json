@@ -1,0 +1,42 @@
+{
+  "id": "RPT-005-R1",
+  "inspectionId": "insp-005",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-005",
+    "stockNumber": "STK-20844",
+    "year": 2019,
+    "make": "HONDA",
+    "model": "Accord",
+    "mileage": 77540,
+    "exteriorColor": "Gray"
+  },
+  "inspectedAt": "2026-08-28T14:30:00.000Z",
+  "inspectorLabel": "L. Whitfield",
+  "findings": [
+    {
+      "id": "finding-010",
+      "area": "Exterior",
+      "severity": "minor",
+      "description": "Curb rash on the front left wheel."
+    },
+    {
+      "id": "finding-011",
+      "area": "Interior",
+      "severity": "minor",
+      "description": "Stain on the rear bench seat."
+    },
+    {
+      "id": "finding-012",
+      "area": "Lights",
+      "severity": "minor",
+      "description": "Right rear turn signal lens cracked."
+    }
+  ],
+  "severityCounts": {
+    "major": 0,
+    "minor": 3,
+    "info": 0
+  },
+  "needsAttention": true
+}

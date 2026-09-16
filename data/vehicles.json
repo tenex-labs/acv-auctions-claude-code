@@ -1,0 +1,10 @@
+[
+  { "id": "veh-001", "stockNumber": "STK-20811", "year": 2021, "make": "Toyota", "model": "RAV4", "mileage": 42310, "exteriorColor": "Silver" },
+  { "id": "veh-002", "stockNumber": "STK-20827", "year": 2020, "make": "Honda", "model": "Civic", "mileage": 61205, "exteriorColor": "Blue" },
+  { "id": "veh-003", "stockNumber": "STK-20830", "year": 2023, "make": "Ford", "model": "Escape", "mileage": 9850, "exteriorColor": "White" },
+  { "id": "veh-004", "stockNumber": "STK-20831", "year": 2018, "make": "Chevrolet", "model": "Silverado 1500", "mileage": 101200, "exteriorColor": "Black" },
+  { "id": "veh-005", "stockNumber": "STK-20844", "year": 2019, "make": "HONDA", "model": "Accord", "mileage": 77540, "exteriorColor": "Gray" },
+  { "id": "veh-006", "stockNumber": "STK-20851", "year": 2017, "make": "Subaru", "model": "Outback", "mileage": 128430, "exteriorColor": "Green" },
+  { "id": "veh-007", "stockNumber": "STK-20852", "year": 2024, "make": "Hyundai", "model": "Tucson", "mileage": 12075, "exteriorColor": "Red" },
+  { "id": "veh-008", "stockNumber": "STK-20860", "year": 2016, "make": "Ford", "model": "F-150", "mileage": 154900, "exteriorColor": "White" }
+]

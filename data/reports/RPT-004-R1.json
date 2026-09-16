@@ -1,0 +1,42 @@
+{
+  "id": "RPT-004-R1",
+  "inspectionId": "insp-004",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-004",
+    "stockNumber": "STK-20831",
+    "year": 2018,
+    "make": "Chevrolet",
+    "model": "Silverado 1500",
+    "mileage": 101200,
+    "exteriorColor": "Black"
+  },
+  "inspectedAt": "2026-08-26T16:45:00.000Z",
+  "inspectorLabel": "D. Okafor",
+  "findings": [
+    {
+      "id": "finding-007",
+      "area": "Brakes",
+      "severity": "major",
+      "description": "Front brake pads worn below the service limit."
+    },
+    {
+      "id": "finding-005",
+      "area": "Exterior",
+      "severity": "minor",
+      "description": "Dent on the tailgate below the handle."
+    },
+    {
+      "id": "finding-006",
+      "area": "Interior",
+      "severity": "minor",
+      "description": "Tear in the driver seat bolster."
+    }
+  ],
+  "severityCounts": {
+    "major": 1,
+    "minor": 2,
+    "info": 0
+  },
+  "needsAttention": true
+}

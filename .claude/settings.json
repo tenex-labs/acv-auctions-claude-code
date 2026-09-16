@@ -2,12 +2,12 @@
   "hooks": {
     "PostToolUse": [
       {
-        "matcher": "Edit|Write|MultiEdit",
+        "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-report-change.mjs\"",
-            "timeout": 150
+            "command": "node .claude/hooks/check-change.mjs",
+            "timeout": 60
           }
         ]
       }

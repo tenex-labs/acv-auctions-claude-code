@@ -1,0 +1,36 @@
+{
+  "id": "RPT-001-R1",
+  "inspectionId": "insp-001",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-001",
+    "stockNumber": "STK-20811",
+    "year": 2021,
+    "make": "Toyota",
+    "model": "RAV4",
+    "mileage": 42310,
+    "exteriorColor": "Silver"
+  },
+  "inspectedAt": "2026-08-20T14:00:00.000Z",
+  "inspectorLabel": "D. Okafor",
+  "findings": [
+    {
+      "id": "finding-001",
+      "area": "Exterior",
+      "severity": "minor",
+      "description": "Small scratch on the left rear door."
+    },
+    {
+      "id": "finding-002",
+      "area": "Interior",
+      "severity": "info",
+      "description": "Seats and controls inspected."
+    }
+  ],
+  "severityCounts": {
+    "major": 0,
+    "minor": 1,
+    "info": 1
+  },
+  "needsAttention": false
+}

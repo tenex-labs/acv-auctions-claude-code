@@ -1,29 +1,19 @@
 # Inspection Desk
 
-Fictional vehicle-inspection report workbench. TypeScript, React + Vite (client), Express (server),
-Vitest + Playwright (checks). Node 24. In-memory sample data; restarting the API resets it.
+Node 24.21.0; Next.js 16.3.5 App Router; TypeScript. Read-only fixtures are under data/. Only Comparison Reports write under INSPECTION_DESK_DATA_DIR, default .data/.
 
-## Commands
+Keep notes and check results locally. Record the completed work in workshop/FINAL.md and use docs/SELF-REVIEW-PROMPT.md to review its evidence.
 
-- `npm ci` then `npm run prepare:local` once. `npm run dev` starts API (4100) and UI (5173).
-- `npm run check -- --stage <baseline|fast|m1|m2|m3|m4|m5|m6|evidence>`; add `--json <path>` for a result file.
-- M6 order: commit code → `--stage m6 --json workshop/evidence/m6-check.json` → write the M6 evidence entry from that result → `--stage evidence` → commit.
-- `fast` has no browser and is what the PostToolUse hook runs after edits to report source files.
+Read [the interface](docs/INTERFACE-CONTRACT.md), [preservation requirements](docs/PRESERVATION-CONTRACT.md) before implementation. For task 2, read product/comparison/ and ask product questions. Wait for answers before installing the separate Comparison requirements pack from Build. Reconcile its contract with those answers. No product answers or completed feature are included in this starter. Loading and formatting helpers are supplied. Joins, search, numeric sorting, summary and report rules are participant work.
 
-## Where things are
+Run npm run check:foundation before work. Use npm run check:increment -- task1 PB-04 (or task2 CMP-03) for named changes; check:task1 or check:task2 for a completed task; npm run check for final local verification. Every source file has 500 lines maximum. The edit hook runs type and size checks only.
 
-- Learner area: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
-  `src/server/routes/reports.ts`, new tests under `tests/acceptance/` (new files only).
-- Prepared, read but do not change: `src/server/reports/reportJobs.ts` (job service: start/retry/get/list,
-  one active run per inspection, retry rules), `buildReport.ts`, `reportStore.ts`, `scheduler.ts`,
-  `legacyGenerate.ts`, `src/shared/reportTypes.ts`, `fixtures/`, `tests/service/`, `scripts/check.mjs`.
-- Assignment: `workshop/ticket.md`, `workshop/product-decisions.md`, `workshop/acceptance.md`, briefs in `workshop/briefs/`.
-- Your work record: `SPEC.md`, `PLAN.md`, `EVIDENCE.md` (keep the assignment there, not here).
+Save specifications and plans in workshop/. Plan Mode proposes; save the approved plan through the editor or after approving edits. Use legacy-investigator and contract-investigator for two bounded questions, with explicit file limits. Verify material findings before relying on them.
 
-## Rules
+After modernization, develop /spec-to-stacked-pr from that completed process. It reads a spec, asks useful questions and waits for answers, respects the agreed review preference, checks hook setup, then plans dependent branches, builds, tests and reviews. Hook construction and verification are a separate action. Apply it to the comparison spec. Its review-only branch uses explicit requirements, source and results without changing files or configuration. No supported findings is valid. The complete self-assessment prompt supplies its own requirements and controls its permitted verification.
 
-- Report contents must not change. `buildReport.ts` defines them; `fixtures/expected-reports.json` is the oracle.
-- New route handlers call the job service. They never import `buildReport` or `ReportStore` (SYS-02).
-- Do not edit protected files (SYS-03). Add new test files instead of changing supplied ones.
-- Validate HTTP input at the boundary; a TypeScript cast is not validation.
-- Prefer small, reviewable changes; explain any change outside the learner area in PLAN.md.
+When a check catches a mistake, correct it and add a regression test. Then propose a scoped project instruction, review it as a person, save it under .claude/rules/, and inspect fresh-session loading and code behavior separately. Loading instructions is not proof they were applied correctly. Auto memory is local; shared project instructions travel with this folder.
+
+Do not call the hosted legacy service from the application or tests. Keep credentials and session transcripts out of shared project files. Run npm run package -- --recovery before applying checkpoint C1.
+
+Plan manageable PRs before implementation. Read workshop/review-criteria.md and reuse the selected review preference. Run check:pr against each layer's actual base, counting additions, deletions, new files and generated text across the complete proposed layer. A local branch is not a hosted PR. See .claude/skills/spec-to-stacked-pr/references/stack.md. Ask questions about all four fictional PM inputs before consulting CLARIFICATIONS.md.

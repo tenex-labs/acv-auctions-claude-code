@@ -1,0 +1,30 @@
+{
+  "id": "RPT-008-R1",
+  "inspectionId": "insp-008",
+  "inspectionRevision": 1,
+  "vehicle": {
+    "id": "veh-008",
+    "stockNumber": "STK-20860",
+    "year": 2016,
+    "make": "Ford",
+    "model": "F-150",
+    "mileage": 154900,
+    "exteriorColor": "White"
+  },
+  "inspectedAt": "2026-09-02T02:30:00.000Z",
+  "inspectorLabel": "R. Ahmed",
+  "findings": [
+    {
+      "id": "finding-016",
+      "area": "Frame",
+      "severity": "major",
+      "description": "Rust perforation on the rear frame crossmember."
+    }
+  ],
+  "severityCounts": {
+    "major": 1,
+    "minor": 0,
+    "info": 0
+  },
+  "needsAttention": true
+}

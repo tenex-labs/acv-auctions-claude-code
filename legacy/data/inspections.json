@@ -1,0 +1,52 @@
+[
+  {
+    "id": "insp-001", "vehicleId": "veh-001", "revision": 1, "inspectedAt": "2026-08-20T14:00:00.000Z", "inspectorLabel": "D. Okafor",
+    "findings": [
+      { "id": "finding-001", "area": "Exterior", "severity": "minor", "description": "Small scratch on the left rear door." },
+      { "id": "finding-002", "area": "Interior", "severity": "info", "description": "Seats and controls inspected." }
+    ]
+  },
+  {
+    "id": "insp-002", "vehicleId": "veh-002", "revision": 1, "inspectedAt": "2026-08-20T15:00:00.000Z", "inspectorLabel": "L. Whitfield",
+    "findings": [
+      { "id": "finding-003", "area": "Exterior", "severity": "minor", "description": "Paint chip on the front bumper." },
+      { "id": "finding-004", "area": "Tires", "severity": "major", "description": "Rear tires require replacement." }
+    ]
+  },
+  {
+    "id": "insp-003", "vehicleId": "veh-003", "revision": 1, "inspectedAt": "2026-08-24T13:15:00.000Z", "inspectorLabel": "M. Castellano",
+    "findings": []
+  },
+  {
+    "id": "insp-004", "vehicleId": "veh-004", "revision": 2, "inspectedAt": "2026-08-26T16:45:00.000Z", "inspectorLabel": "D. Okafor",
+    "findings": [
+      { "id": "finding-005", "area": "Exterior", "severity": "minor", "description": "Dent on the tailgate below the handle." },
+      { "id": "finding-006", "area": "Interior", "severity": "minor", "description": "Tear in the driver seat bolster." },
+      { "id": "finding-007", "area": "Brakes", "severity": "major", "description": "Front brake pads worn below the service limit." },
+      { "id": "finding-008", "area": "Under hood", "severity": "info", "description": "Fluids topped up during inspection." },
+      { "id": "finding-009", "area": "Glass", "severity": "minor", "description": "Chip in the windshield on the passenger side." }
+    ]
+  },
+  {
+    "id": "insp-005", "vehicleId": "veh-005", "revision": 1, "inspectedAt": "2026-08-28T14:30:00.000Z", "inspectorLabel": "L. Whitfield",
+    "findings": [
+      { "id": "finding-010", "area": "Exterior", "severity": "minor", "description": "Curb rash on the front left wheel." },
+      { "id": "finding-011", "area": "Interior", "severity": "minor", "description": "Stain on the rear bench seat." },
+      { "id": "finding-012", "area": "Lights", "severity": "minor", "description": "Right rear turn signal lens cracked." }
+    ]
+  },
+  {
+    "id": "insp-006", "vehicleId": "veh-006", "revision": 1, "inspectedAt": "2026-08-31T15:00:00.000Z", "inspectorLabel": "M. Castellano",
+    "findings": [
+      { "id": "finding-013", "area": "Exterior", "severity": "minor", "description": "Faded clear coat on the roof." },
+      { "id": "finding-014", "area": "Interior", "severity": "info", "description": "Cargo area inspected." },
+      { "id": "finding-015", "area": "Tires", "severity": "minor", "description": "Front tires at 4/32 inch tread." }
+    ]
+  },
+  {
+    "id": "insp-008", "vehicleId": "veh-008", "revision": 1, "inspectedAt": "2026-09-02T02:30:00.000Z", "inspectorLabel": "R. Ahmed",
+    "findings": [
+      { "id": "finding-016", "area": "Frame", "severity": "major", "description": "Rust perforation on the rear frame crossmember." }
+    ]
+  }
+]

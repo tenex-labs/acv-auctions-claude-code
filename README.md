@@ -1,64 +1,77 @@
 # Inspection Desk
 
-A small, fictional vehicle-inspection report workbench. It exists so engineers can practice advanced
-Claude Code work on a real codebase: investigate a defect, specify the change, plan it, implement two
-reviewable increments, verify them, and review a peer's work.
+This repository is the prepared Next.js reference and the source for its compatibility starter. The current portal starts participants with a separate legacy-only ZIP and lets them choose a replacement stack. Use the portal’s staged instructions for that route. The commands below apply to this prepared Next.js project and its C1 recovery.
 
-Everything in here is fictional training data. There are no real vehicles, people or business rules.
+Modernize the existing application, then add Comparison Reports. The starter leaves both tasks unfinished; the C1 checkpoint provides the completed modernization so you can begin the Vehicle comparison feature.
 
-## Quick start
+## Start the project
+
+Use Node **24.21.0**, Claude Code and a browser. Extract the download and open a terminal inside its `inspection-desk/` folder.
 
 ```sh
-npm ci
-npm run prepare:local        # checks Node 24, ports, and installs the pinned Chromium once
-npm run dev                  # API http://127.0.0.1:4100, UI http://127.0.0.1:5173
-npm run check -- --stage baseline
+node --version
+npm run setup
+npm run preflight
+npm run check:foundation
+npm run dev
 ```
 
-The baseline stage must be green before you begin. `BASE-02-STRONG` is a diagnostic and is expected to
-fail on the unmodified starter: that is the defect you will fix.
+Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; Git is not required. Accept the Claude Code workspace trust dialog to use project hooks.
 
-## The assignment
+## From requirements to reviewed changes
 
-Read, in order: `workshop/ticket.md`, `workshop/product-decisions.md`, `workshop/acceptance.md`, then the
-six briefs in `workshop/briefs/`. Record your work in `SPEC.md`, `PLAN.md` and `EVIDENCE.md`.
+Read the legacy application and agree on the modernization specification. Choose review criteria, construct the checks, then modernize one branch at a time. Review the results and capture the procedure in spec-to-stacked-pr.
 
-## Commands
+Use the fictional product request to clarify the Vehicle comparison feature. Agree on its engineering specification, apply the saved skill, then evaluate the review against the same criteria.
 
-| Command | What it does |
+The starter and C1 include a skill scaffold. Complete it using the observed modernization before applying it to the feature.
+
+Loading, data types and formatting helpers are prepared under `src/server/`. Foundation checks pass initially. Completed-task checks deliberately fail while the corresponding behavior or participant tests remain unfinished.
+
+## Local checks
+
+| Command | When to use it |
 | --- | --- |
-| `npm run dev` | Starts API and UI together; Ctrl+C stops both. Ports via `.env` (see `.env.example`). |
-| `npm run build` / `npm run start` | Builds to `dist/` and serves app + API from one port (`INSPECTION_DESK_API_PORT`, default 4100). |
-| `npm run check -- --stage <stage>` | `baseline`, `fast`, `m1`…`m6`, `evidence`. `--json <path>` writes a result file. Exit 0 pass, 1 failed check, 2 tooling problem. |
-| `npm run test:unit` / `npm run test:e2e` | Raw Vitest / Playwright runs (the staged command is the documented path). |
+| `npm run check:foundation` | Before starting; prepared modules, types and file size. |
+| `npm run check:increment -- task1 PB-04` | One named modernization change; builds saved source once. |
+| `npm run check:task1` | The modernization is complete. |
+| `npm run check:increment -- task2 CMP-03` | One named comparison change. |
+| `npm run check:task2` | The Vehicle comparison feature is complete. |
+| `npm run check` | Final local verification: one fresh build, all checks and your regression tests. |
+| `npm run hook:probe` | Direct type, size and irrelevant-file probes; actual Claude session events are separate evidence. |
+| `npm run package -- --recovery` | Save a new local backup before switching to a checkpoint. |
+| `npm run reset:data` | Clear only Comparison Report state. |
 
-Browser checks use ports 4190/5190 so they do not collide with `npm run dev`.
+[Behavior checklist](docs/CHECKS.md) · [Interface](docs/INTERFACE-CONTRACT.md) · [Local backups](docs/PACKAGING.md) · [Regression tests](tests/participant/README.md).
 
-## What is prepared and what is yours
+`npm run test:participant` uses a running app at `INSPECTION_DESK_BASE_URL` (default port 3000). After editing production code, run `npm run build` and restart it before testing. The completed-task commands manage their own server on port 4310; stop anything using that port first.
 
-Prepared and protected: the job service (`src/server/reports/reportJobs.ts`), report builder, runtime
-store, scheduler, legacy route, shared types, fixtures, service tests and the check runner.
+## Continue from C1
 
-Yours: `src/client/reports/ReportPanel.tsx`, `src/client/reports/reportApi.ts`,
-`src/server/routes/reports.ts` (three handlers that currently return 501) and new tests under
-`tests/acceptance/`. A justified change elsewhere is allowed if you explain it in `PLAN.md`.
+C1 is available whenever you want to begin the Vehicle comparison feature. Save your current work first:
 
-## Claude Code configuration in this repository
+```sh
+npm run package -- --recovery
+```
 
-- `CLAUDE.md`: project guidance. `.claude/rules/report-generation.md`: a rule loaded only when report
-  source files are read.
-- `.claude/agents/report-investigator.md`: a read-only investigator (Read, Grep, Glob; no shell).
-- `.claude/skills/workshop-review/SKILL.md`: `/workshop-review <context file>` reviews a change in a
-  separate context using that agent. Used on your own increment in M4 and a peer's in M6.
-- `.claude/settings.json` + `.claude/hooks/check-report-change.mjs`: a `PostToolUse` hook that runs the
-  fast checks after Claude edits report source files and reports failures back.
+After it succeeds, extract `inspection-desk-task1-migrated.zip` into a new folder. Keep the original project and printed recovery ZIP. Copy your own workshop notes, complete spec-to-stacked-pr directory, review-criteria.md and reviewed rules into the new project. Run `npm run setup` and `npm run preflight` there. C1 completes task 1 and leaves task 2 unfinished.
 
-## Limits of this teaching app
+## Keep the useful parts
 
-State is in memory; restarting the API resets it. There is no persistence, no multi-process safety,
-no authentication, no PDF output and no deployment path. The **Workshop controls** panel is a test
-fixture, not a product feature.
+Record completed behavior, executed checks, limitations and the next useful change in `workshop/FINAL.md`. Keep the full `.claude/skills/spec-to-stacked-pr/` directory, including its questions, hook instructions, examples, evaluations and references. The complete assessment prompt contains the complete requirements and gives an advisory review across 20 checks, with 100 possible points. It may use installed local tools and disposable copies while preserving your working files and existing data. The report returns in chat; inspect its evidence and unverified items before deciding what to change.
 
-## License
+The application and tests use local records after setup. They must work without calling the hosted legacy service. The build downloads no external fonts or assets.
 
-MIT. See `LICENSE`.
+## Branch stacks and review size
+
+Use Git for local branches. Create hosted PRs when you have an individually permitted GitHub repository; otherwise use a local branch stack. If starting from the ZIP, initialize a repository and commit the unchanged starting state. Plan each branch against its preceding branch before implementation. Read `.claude/skills/spec-to-stacked-pr/references/stack.md` for commands and permitted-repository setup. Never open workshop PRs into the Tenex starter.
+
+Choose the PR changed-line limit before building the checks. Run `npm run check:pr -- --base <preceding-branch> --limit <selected-limit>` for the complete layer, including saved work and new files; `npm run test:pr` verifies the counting rule. This is separate from the 500-line source-file limit. No numeric ACV-wide PR policy has been set.
+
+## Fictional PM inputs
+
+The feature request includes `product/comparison/REQUEST.md`, `PRODUCT-SPEC.md`, `JOURNEY.md` and `comparison.html`. Read all four and ask the presenter about missing decisions. After that discussion, download the separate Comparison requirements pack from Build. Extract it, then run `node /path/to/comparison-requirements/install.mjs` in this project folder. The installer adds only new requirement and test files; it refuses to overwrite existing files. Reconcile its answers with the presenter before implementation. The prototype uses page memory and leaves decisions open. It is fictional training material.
+
+## Evaluate your review criteria
+
+Read `.claude/skills/spec-to-stacked-pr/evals/review-criteria.md`. The supplied `scripts/prepare-review-evals.mjs` creates actual Git size-check records at your chosen limit and one line above it. Include these packets and agreed cases for your additional criteria when evaluating the skill’s review.
