@@ -6,7 +6,7 @@ Use this checklist when reviewing the application. The IDs connect requirements 
 
 - **BUILD-01**: `npm ci --ignore-scripts` from the saved `package-lock.json` exits 0 (dependency downloads need network access)
 - **BUILD-02**: `npm run build` exits 0 within 10 minutes with no network
-- **BUILD-03**: `npm run start` with `PORT=4310` answers `GET /api/health` 200 within 90 s, body `contractVersion` equals `inspection-desk-2task-1.1` and `fixtureDir`/`dataDir` echo the configured directories (PB-00)
+- **BUILD-03**: `npm run start` with `PORT=4310` answers `GET /api/health` 200 within 90 s, body `contractVersion` equals `inspection-desk-2task-1.2` and `fixtureDir`/`dataDir` echo the configured directories (PB-00)
 - **BUILD-04**: `GET /api/vehicles` returns 200 with `vehicles.length`, `matched` and `total` all equal to the dataset's vehicle count
 
 ## Source-file size
@@ -40,34 +40,9 @@ Use this checklist when reviewing the application. The IDs connect requirements 
 - **SELECT-04**: Recorded-report links and absence (PB-20, PB-22): an inspection with a recorded file shows `Generate report` → `/inspections/<id>/report` and `Open recorded report` → `/reports/<reportId>`; an inspection without one shows `no-recorded-report` `No recorded report for this inspection.` and no `Open recorded report` link; `/reports/RPT-006-R1` → 404 `record-missing` `That recorded report was not found.`; API 404 `REPORT_NOT_FOUND`; `recordedReportExists` correct in `GET /api/inspections/<id>`
 - **SELECT-05**: Older-revision recorded report readable by id (PB-19): `/reports/RPT-004-R1` renders `report-page[data-report-source="recorded"]` from the file (three findings, counts `1/2/0`), `Back to inspection` → `/inspections/insp-004`; API returns the file verbatim
 
-## Follow-up creation and validation
+## Part 2 checks
 
-- **FU-CREATE-01**: `POST /api/inspections/<id>/findings/<findingId>/follow-ups` `{"note":"…"}` → 201 `{ followUp }` with an id matching `^fu-[A-Za-z0-9-]{8,40}$`, correct `inspectionId`, `findingId`, `status: "open"`, `resolvedAt: null`, ISO `createdAt`; browser: `Flag for follow-up` → `follow-up-note` → `Save follow-up` → `follow-up-<id>[data-follow-up-status="open"]` appears inside the finding region with `follow-up-note-text`, and `follow-up-status` reads `Follow-up saved.`
-- **FU-CREATE-02**: Trimming: `"  Check tread depth  "` is saved and returned as `Check tread depth`
-- **FU-CREATE-03**: Empty and whitespace-only notes → 400 `INVALID_NOTE`; the list is unchanged; browser: saving an empty note shows `role="alert"` `Add a note before saving.` and creates nothing
-- **FU-CREATE-04**: Length: 281 characters after trimming → 400 `INVALID_NOTE`, nothing saved; exactly 280 → 201
-- **FU-CREATE-05**: Wrong targets and bodies: unknown inspection → 404 `INSPECTION_NOT_FOUND`; unknown finding → 404 `FINDING_NOT_FOUND`; body that is not a JSON object → 400 `INVALID_REQUEST`; nothing saved in each case
-
-## Follow-up persistence
-
-- **FU-PERSIST-01**: Immediately after creation the record is returned by `GET /api/inspections/<id>/follow-ups` (oldest first) and by `GET /api/follow-ups/<followUpId>`, and the inspection page shows it
-- **FU-PERSIST-02**: Page reload: after creating through the browser, `page.reload()` still shows `follow-up-<id>`
-- **FU-PERSIST-03**: Server restart: stop the process and start it again with the same `INSPECTION_DESK_DATA_DIR`, and the list and read routes return the record with the same id and `createdAt`
-- **FU-PERSIST-04**: Resolve: `POST /api/follow-ups/<id>/resolve` → 200 with `status: "resolved"` and ISO `resolvedAt`; the record stays readable; `GET /api/inspections/<id>` (findings, revision) and `GET /api/inspections/<id>/report` are deep-equal before and after; browser: `Mark resolved` → `follow-up-resolved` contains `Resolved` and `follow-up-status` reads `Follow-up resolved.`
-
-## Duplicate handling and isolation
-
-- **FU-DUP-01**: Second create for a finding with an open follow-up → 409 with `error.code` `FOLLOW_UP_EXISTS` and `followUp` equal to the existing record; list count unchanged; browser alert `This finding already has an open follow-up.`
-- **FU-DUP-02**: Resolving an already resolved follow-up → 200 with the **same** `resolvedAt`
-- **FU-DUP-03**: After resolution a new open follow-up for the same finding → 201 (interface contract section 4.2 rule)
-- **FU-DUP-04**: Isolation by list: follow-ups for inspection A never appear under inspection B and vice versa (two inspections, two follow-ups each); the inspection page for A renders only A's
-- **FU-DUP-05**: Isolation by target: a finding id that belongs to inspection A posted to inspection B → 404 `FINDING_NOT_FOUND`, nothing saved
-
-## Participant regression test
-
-- **REG-01**: The unchanged test fails after a deliberate duplicate-handling defect (a second open follow-up for the same finding is accepted) with at least one assertion failure, no timeout, no import error
-- **REG-02**: The unchanged test fails after a deliberate validation defect that accepts a whitespace-only note.
-- **REG-03**: The unchanged test fails after a deliberate isolation defect that lists follow-ups under the wrong inspection.
+After the product discussion, install the Comparison requirements pack linked in Build. Read docs/COMPARISON-CONTRACT.md. The initial starter deliberately excludes the agreed product answers and Part 2 checks.
 
 ## Checking hook
 

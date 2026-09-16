@@ -1,1 +1,4 @@
-{"version":1,"regressionTest":"tests/participant/follow-up.test.ts"}
+{
+  "version": 2,
+  "regressionTest": "tests/participant/comparison.test.ts"
+}

@@ -10,7 +10,7 @@ The command prints the backup path under `.workshop-private/recovery/`. Each run
 
 ## What the backup contains
 
-The backup includes saved source, tests, public documentation, specifications and plans under `workshop/`, and the complete `.claude/skills/spec-to-stacked-pr/` directory. It includes the supplied `legacy/` and `product/` references so links survive extraction. Recovery mode also saves the configured follow-up state as `.data/`.
+The backup includes saved source, tests, public documentation, specifications and plans under `workshop/`, and the complete `.claude/skills/spec-to-stacked-pr/` directory. It includes the supplied `legacy/` and `product/` references so links survive extraction. Recovery mode also saves the configured Comparison Report state as `.data/`.
 
 Dependencies, build output, Git history, local Claude settings, transcripts, caches, existing archives and real `.env` files are excluded. `.env.example` is included. The command refuses linked files and likely credentials, naming the path rather than printing a secret. Keep the original project as well as the backup.
 

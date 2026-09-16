@@ -2,7 +2,7 @@
 
 ## Completed behavior
 
-What works in the modernization and follow-up feature? Compare it with the demonstration.
+What works in the modernization and Vehicle comparison feature? Compare it with the demonstration.
 
 ## Executed local checks
 

@@ -6,7 +6,7 @@ argument-hint: "<spec path> | review-only <packet path>"
 
 # Spec to stacked PR
 
-This is the workshop's starting procedure, version 0.2 scaffold. After modernization, develop it from the work you actually completed; then apply it to the follow-up feature. Creating this skill later does not mean it performed the earlier modernization.
+This is the workshop's starting procedure, version 0.2 scaffold. After modernization, develop it from the work you actually completed; then apply it to the Vehicle comparison feature. Creating this skill later does not mean it performed the earlier modernization.
 
 Work in the main session so the user can answer questions. Use the session's model, effort and permission settings. The skill does not grant tools or change permissions.
 
@@ -44,9 +44,9 @@ Confirm the actual base before creating each branch. Implement one coherent laye
 
 Follow the agreed review preference. For increment review, show the change and its checks, then wait before the next increment. For completed-task review, continue through the approved plan. Ask and wait whenever a new product decision affects the next change.
 
-Use the project’s existing commands. In Inspection Desk: `npm run check:foundation` before work, `npm run check:increment -- task1 PB-04` or `-- task2 FU-04` for a relevant named behavior, and `npm run check:task1` or `npm run check:task2` for the completed task. Read `docs/CHECKS.md` for the applicable cases. Use `npm run check` for a finished application. Unfinished starters need only the checks for their current state. Preserve supplied tests and requirements; never weaken them to obtain a pass.
+Use the project’s existing commands. In Inspection Desk: `npm run check:foundation` before work, `npm run check:increment -- task1 PB-04` or `-- task2 CMP-03` for a relevant named behavior, and `npm run check:task1` or `npm run check:task2` for the completed task. Read `docs/CHECKS.md` for the applicable cases. Use `npm run check` for a finished application. Unfinished starters need only the checks for their current state. Preserve supplied tests and requirements; never weaken them to obtain a pass.
 
-Fix failures, write meaningful regression tests and preserve existing data. For follow-ups include whitespace-note, duplicate-open-follow-up and inspection-separation tests. Check reload and server-restart persistence as required by the spec. Report the command, result and evidence; a suggested command is not an execution.
+Fix failures, write meaningful regression tests and preserve existing data. For Comparison Reports include name validation, duplicate selection and saved-record isolation tests from the agreed specification. Check reload and server-restart persistence as required by the spec. Report the command, result and evidence; a suggested command is not an execution.
 
 When a mistake suggests a reusable instruction: correct it → add a test → propose a rule → obtain human review → save it → verify use in a later task. Loaded guidance alone does not prove compliance.
 

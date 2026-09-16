@@ -1,5 +1,5 @@
 {
-  "contractVersion": "inspection-desk-2task-1.1",
+  "contractVersion": "inspection-desk-2task-1.2",
   "schemaVersion": 1,
   "nodeVersion": "24.21.0",
   "workshopId": "advanced-claude-code-2026-09-17",
@@ -63,51 +63,6 @@
       ]
     },
     {
-      "id": 6,
-      "name": "Follow-up creation and validation",
-      "points": 10,
-      "checks": [
-        "FU-CREATE-01",
-        "FU-CREATE-02",
-        "FU-CREATE-03",
-        "FU-CREATE-04",
-        "FU-CREATE-05"
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Follow-up persistence",
-      "points": 10,
-      "checks": [
-        "FU-PERSIST-01",
-        "FU-PERSIST-02",
-        "FU-PERSIST-03",
-        "FU-PERSIST-04"
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Duplicate handling and isolation",
-      "points": 10,
-      "checks": [
-        "FU-DUP-01",
-        "FU-DUP-02",
-        "FU-DUP-03",
-        "FU-DUP-04",
-        "FU-DUP-05"
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Participant regression test",
-      "points": 15,
-      "checks": [
-        "REG-01",
-        "REG-02",
-        "REG-03"
-      ]
-    },
-    {
       "id": 10,
       "name": "Checking hook",
       "points": 5,
@@ -136,7 +91,7 @@
     {
       "id": "BUILD-03",
       "criterion": 1,
-      "requirement": "`npm run start` with `PORT=4310` answers `GET /api/health` 200 within 90 s, body `contractVersion` equals `inspection-desk-2task-1.1` and `fixtureDir`/`dataDir` echo the directories the checker set (PB-00)",
+      "requirement": "`npm run start` with `PORT=4310` answers `GET /api/health` 200 within 90 s, body `contractVersion` equals `inspection-desk-2task-1.2` and `fixtureDir`/`dataDir` echo the directories the checker set (PB-00)",
       "points": 3
     },
     {
@@ -166,13 +121,13 @@
     {
       "id": "DISC-02",
       "criterion": 3,
-      "requirement": "Case-insensitive substring match on make and model (PB-02): `q=honda` → veh-002, veh-005; `q=ESCAPE` → veh-003; `results-count` `Showing 2 of 8 vehicles`",
+      "requirement": "Case-insensitive substring match on make and model (PB-02): `q=honda` \u2192 veh-002, veh-005; `q=ESCAPE` \u2192 veh-003; `results-count` `Showing 2 of 8 vehicles`",
       "points": 2
     },
     {
       "id": "DISC-03",
       "criterion": 3,
-      "requirement": "Substring match on stock number and defect DF-01 fixed (PB-03): `q=STK-2083` → veh-003, veh-004; `q=stk-20811` → veh-001",
+      "requirement": "Substring match on stock number and defect DF-01 fixed (PB-03): `q=STK-2083` \u2192 veh-003, veh-004; `q=stk-20811` \u2192 veh-001",
       "points": 2
     },
     {
@@ -190,7 +145,7 @@
     {
       "id": "DISC-06",
       "criterion": 3,
-      "requirement": "Filter before sort and sort links keep the query (PB-06): `q=ford&sort=desc` → veh-008, veh-003; on that page `sort-asc` `href` contains `q=ford` and `sort=asc`",
+      "requirement": "Filter before sort and sort links keep the query (PB-06): `q=ford&sort=desc` \u2192 veh-008, veh-003; on that page `sort-asc` `href` contains `q=ford` and `sort=asc`",
       "points": 1
     },
     {
@@ -208,7 +163,7 @@
     {
       "id": "REPORT-03",
       "criterion": 4,
-      "requirement": "Severity counts and the needs-attention rule on both branches (PB-14) including the zero-finding inspection (PB-15): `count-*` and `report-count-*` digits equal the reference; `needs-attention`/`report-needs-attention` present exactly when major ≥ 1 or minor ≥ 3; `findings-empty`/`report-findings-empty` `No findings recorded.` for zero findings; `severityCounts` in the API",
+      "requirement": "Severity counts and the needs-attention rule on both branches (PB-14) including the zero-finding inspection (PB-15): `count-*` and `report-count-*` digits equal the reference; `needs-attention`/`report-needs-attention` present exactly when major \u2265 1 or minor \u2265 3; `findings-empty`/`report-findings-empty` `No findings recorded.` for zero findings; `severityCounts` in the API",
       "points": 3
     },
     {
@@ -232,7 +187,7 @@
     {
       "id": "SELECT-01",
       "criterion": 5,
-      "requirement": "Empty results and query handling (PB-09, PB-10): `q=zzz` → `Showing 0 of 8 vehicles`, `results-empty` `No vehicles match \"zzz\".`, no rows, API `matched: 0`; `q=%20civic%20` → veh-002 and `search-input` shows `civic`; `sort=up` keeps saved order",
+      "requirement": "Empty results and query handling (PB-09, PB-10): `q=zzz` \u2192 `Showing 0 of 8 vehicles`, `results-empty` `No vehicles match \"zzz\".`, no rows, API `matched: 0`; `q=%20civic%20` \u2192 veh-002 and `search-input` shows `civic`; `sort=up` keeps saved order",
       "points": 2
     },
     {
@@ -250,116 +205,14 @@
     {
       "id": "SELECT-04",
       "criterion": 5,
-      "requirement": "Recorded-report links and absence (PB-20, PB-22): an inspection with a recorded file shows `Generate report` → `/inspections/<id>/report` and `Open recorded report` → `/reports/<reportId>`; an inspection without one shows `no-recorded-report` `No recorded report for this inspection.` and no `Open recorded report` link; `/reports/RPT-006-R1` → 404 `record-missing` `That recorded report was not found.`; API 404 `REPORT_NOT_FOUND`; `recordedReportExists` correct in `GET /api/inspections/<id>`",
+      "requirement": "Recorded-report links and absence (PB-20, PB-22): an inspection with a recorded file shows `Generate report` \u2192 `/inspections/<id>/report` and `Open recorded report` \u2192 `/reports/<reportId>`; an inspection without one shows `no-recorded-report` `No recorded report for this inspection.` and no `Open recorded report` link; `/reports/RPT-006-R1` \u2192 404 `record-missing` `That recorded report was not found.`; API 404 `REPORT_NOT_FOUND`; `recordedReportExists` correct in `GET /api/inspections/<id>`",
       "points": 2
     },
     {
       "id": "SELECT-05",
       "criterion": 5,
-      "requirement": "Older-revision recorded report readable by id (PB-19): `/reports/RPT-004-R1` renders `report-page[data-report-source=\"recorded\"]` from the file (three findings, counts `1/2/0`), `Back to inspection` → `/inspections/insp-004`; API returns the file verbatim",
+      "requirement": "Older-revision recorded report readable by id (PB-19): `/reports/RPT-004-R1` renders `report-page[data-report-source=\"recorded\"]` from the file (three findings, counts `1/2/0`), `Back to inspection` \u2192 `/inspections/insp-004`; API returns the file verbatim",
       "points": 1
-    },
-    {
-      "id": "FU-CREATE-01",
-      "criterion": 6,
-      "requirement": "`POST /api/inspections/<id>/findings/<findingId>/follow-ups` `{\"note\":\"…\"}` → 201 `{ followUp }` with an id matching `^fu-[A-Za-z0-9-]{8,40}$`, correct `inspectionId`, `findingId`, `status: \"open\"`, `resolvedAt: null`, ISO `createdAt`; browser: `Flag for follow-up` → `follow-up-note` → `Save follow-up` → `follow-up-<id>[data-follow-up-status=\"open\"]` appears inside the finding region with `follow-up-note-text`, and `follow-up-status` reads `Follow-up saved.`",
-      "points": 3
-    },
-    {
-      "id": "FU-CREATE-02",
-      "criterion": 6,
-      "requirement": "Trimming: `\"  Check tread depth  \"` is saved and returned as `Check tread depth`",
-      "points": 1
-    },
-    {
-      "id": "FU-CREATE-03",
-      "criterion": 6,
-      "requirement": "Empty and whitespace-only notes → 400 `INVALID_NOTE`; the list is unchanged; browser: saving an empty note shows `role=\"alert\"` `Add a note before saving.` and creates nothing",
-      "points": 2
-    },
-    {
-      "id": "FU-CREATE-04",
-      "criterion": 6,
-      "requirement": "Length: 281 characters after trimming → 400 `INVALID_NOTE`, nothing saved; exactly 280 → 201",
-      "points": 2
-    },
-    {
-      "id": "FU-CREATE-05",
-      "criterion": 6,
-      "requirement": "Wrong targets and bodies: unknown inspection → 404 `INSPECTION_NOT_FOUND`; unknown finding → 404 `FINDING_NOT_FOUND`; body that is not a JSON object → 400 `INVALID_REQUEST`; nothing saved in each case",
-      "points": 2
-    },
-    {
-      "id": "FU-PERSIST-01",
-      "criterion": 7,
-      "requirement": "Immediately after creation the record is returned by `GET /api/inspections/<id>/follow-ups` (oldest first) and by `GET /api/follow-ups/<followUpId>`, and the inspection page shows it",
-      "points": 2
-    },
-    {
-      "id": "FU-PERSIST-02",
-      "criterion": 7,
-      "requirement": "Page reload: after creating through the browser, `page.reload()` still shows `follow-up-<id>`",
-      "points": 2
-    },
-    {
-      "id": "FU-PERSIST-03",
-      "criterion": 7,
-      "requirement": "Server restart: the checker stops the process (SIGTERM, SIGKILL after 10 s), starts it again with the same `INSPECTION_DESK_DATA_DIR`, and the list and read routes return the record with the same id and `createdAt`",
-      "points": 4
-    },
-    {
-      "id": "FU-PERSIST-04",
-      "criterion": 7,
-      "requirement": "Resolve: `POST /api/follow-ups/<id>/resolve` → 200 with `status: \"resolved\"` and ISO `resolvedAt`; the record stays readable; `GET /api/inspections/<id>` (findings, revision) and `GET /api/inspections/<id>/report` are deep-equal before and after (S1 in `FAULTS-AND-CASES.md` is the model of what fails here); browser: `Mark resolved` → `follow-up-resolved` contains `Resolved` and `follow-up-status` reads `Follow-up resolved.`",
-      "points": 2
-    },
-    {
-      "id": "FU-DUP-01",
-      "criterion": 8,
-      "requirement": "Second create for a finding with an open follow-up → 409 with `error.code` `FOLLOW_UP_EXISTS` and `followUp` equal to the existing record; list count unchanged; browser alert `This finding already has an open follow-up.` (F1 is the model of what fails here)",
-      "points": 3
-    },
-    {
-      "id": "FU-DUP-02",
-      "criterion": 8,
-      "requirement": "Resolving an already resolved follow-up → 200 with the **same** `resolvedAt`",
-      "points": 2
-    },
-    {
-      "id": "FU-DUP-03",
-      "criterion": 8,
-      "requirement": "After resolution a new open follow-up for the same finding → 201 (interface contract section 4.2 rule)",
-      "points": 1
-    },
-    {
-      "id": "FU-DUP-04",
-      "criterion": 8,
-      "requirement": "Isolation by list: follow-ups for inspection A never appear under inspection B and vice versa (two inspections, two follow-ups each); the inspection page for A renders only A's",
-      "points": 2
-    },
-    {
-      "id": "FU-DUP-05",
-      "criterion": 8,
-      "requirement": "Isolation by target: a finding id that belongs to inspection A posted to inspection B → 404 `FINDING_NOT_FOUND`, nothing saved",
-      "points": 2
-    },
-    {
-      "id": "REG-01",
-      "criterion": 9,
-      "requirement": "Fails against faulty service F1 (a second open follow-up for the same finding is accepted) with at least one assertion failure, no timeout, no import error",
-      "points": 5
-    },
-    {
-      "id": "REG-02",
-      "criterion": 9,
-      "requirement": "Fails against faulty service F2 (a whitespace-only note is accepted) likewise",
-      "points": 5
-    },
-    {
-      "id": "REG-03",
-      "criterion": 9,
-      "requirement": "Fails against faulty service F3 (follow-ups listed under the wrong inspection) likewise",
-      "points": 5
     },
     {
       "id": "HOOK-01",
@@ -392,19 +245,6 @@
       "points": 1
     }
   ],
-  "totalPoints": 100,
-  "regressionGate": {
-    "required": [
-      "loaded",
-      "ownPassed",
-      "referencePassed"
-    ],
-    "gatedChecks": [
-      "REG-01",
-      "REG-02",
-      "REG-03"
-    ]
-  },
   "hookGate": {
     "requiredPass": [
       "HOOK-02",
@@ -579,7 +419,7 @@
     "check:foundation": "preflight, typecheck, size and supplied unit tests; must pass initially",
     "check:increment": "npm run check:increment -- <task1|task2> <test-name-pattern>; build current source once, then selected named checks only",
     "check:task1": "foundation, build current source once, all modernization HTTP and browser checks",
-    "check:task2": "build current source once, all follow-up HTTP and browser checks; only expected after the feature is complete",
+    "check:task2": "build current source once, all comparison HTTP and browser checks; only expected after the feature is complete",
     "check": "foundation, build current source once, all tests including participant regression against running app; reuse that exact build",
     "test": "Build current source once, run unit and HTTP tests",
     "test:e2e": "Build current source once, run browser tests",
@@ -587,7 +427,5 @@
     "package": "Package exact saved bytes; detect concurrent changes; hash stable content separately from ZIP bytes",
     "package -- --recovery": "Save timestamped backup ZIP without requiring completed feature checks; do not overwrite a prior recovery archive"
   },
-  "submissionOpenAt": "2026-09-17T14:30:00.000Z",
-  "checkpointAvailableAt": "2026-09-17T13:45:00.000Z",
-  "retentionDays": 30
+  "assessmentNote": "Final advisory assessment is supplied after product clarification. This record retains Part 1 and packaging requirements; it is not the final scoring rubric."
 }

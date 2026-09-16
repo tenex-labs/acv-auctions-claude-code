@@ -4,7 +4,7 @@ These are authored examples of expected interaction. They are not observed model
 
 ## Build from a spec
 
-User: `/spec-to-stacked-pr workshop/follow-up-spec.md`
+User: `/spec-to-stacked-pr workshop/comparison-spec.md`
 
 Expected opening when the spec omits duplicate behavior: “The spec says to save notes but does not say whether a second open note replaces the first or is rejected. Which behavior do you want? Do you want to review each increment or the completed task? I’ll still ask whenever a product decision is unresolved.”
 

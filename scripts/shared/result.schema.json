@@ -50,7 +50,7 @@
           "pattern": "^[a-f0-9]{64}$"
         },
         "contractVersion": {
-          "const": "inspection-desk-2task-1.1"
+          "const": "inspection-desk-2task-1.2"
         },
         "checkerBundleHash": {
           "type": "string",
@@ -101,23 +101,6 @@
               "SELECT-03",
               "SELECT-04",
               "SELECT-05",
-              "FU-CREATE-01",
-              "FU-CREATE-02",
-              "FU-CREATE-03",
-              "FU-CREATE-04",
-              "FU-CREATE-05",
-              "FU-PERSIST-01",
-              "FU-PERSIST-02",
-              "FU-PERSIST-03",
-              "FU-PERSIST-04",
-              "FU-DUP-01",
-              "FU-DUP-02",
-              "FU-DUP-03",
-              "FU-DUP-04",
-              "FU-DUP-05",
-              "REG-01",
-              "REG-02",
-              "REG-03",
               "HOOK-01",
               "HOOK-02",
               "HOOK-03",

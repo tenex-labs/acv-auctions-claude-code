@@ -6,7 +6,7 @@ September 15, 2026. Behavior contract 1.1 for the modernization walkthrough. Exp
 
 | ID | Behavior | Check |
 | --- | --- | --- |
-| PB-00 | `npm run build` succeeds; `npm run start` with `PORT`, `INSPECTION_DESK_FIXTURE_DIR`, `INSPECTION_DESK_DATA_DIR` set serves `GET /api/health` → 200 with `contractVersion` `inspection-desk-2task-1.1` and the two directories echoed. The process makes no outbound network request after setup. | HTTP |
+| PB-00 | `npm run build` succeeds; `npm run start` with `PORT`, `INSPECTION_DESK_FIXTURE_DIR`, `INSPECTION_DESK_DATA_DIR` set serves `GET /api/health` → 200 with `contractVersion` `inspection-desk-2task-1.2` and the two directories echoed. The process makes no outbound network request after setup. | HTTP |
 
 ## Vehicle discovery
 

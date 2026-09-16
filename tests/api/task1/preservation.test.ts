@@ -4,7 +4,7 @@ const base=process.env.INSPECTION_DESK_BASE_URL||'http://127.0.0.1:4310';
 const get=async(path:string)=>{const r=await fetch(base+path);expect(r.status).toBe(200);return r.json();};
 const ids=(data:any)=>data.vehicles.map((v:any)=>v.id);
 const asc=['veh-003','veh-007','veh-001','veh-002','veh-005','veh-004','veh-006','veh-008'];
-test('PB-00 health',async()=>{expect((await get('/api/health')).contractVersion).toBe('inspection-desk-2task-1.1');});
+test('PB-00 health',async()=>{expect((await get('/api/health')).contractVersion).toBe('inspection-desk-2task-1.2');});
 test('PB-01 saved order and counts',async()=>{const d=await get('/api/vehicles');expect(d.total).toBe(8);expect(d.matched).toBe(8);expect(ids(d)).toEqual(['veh-001','veh-002','veh-003','veh-004','veh-005','veh-006','veh-007','veh-008']);});
 test('PB-02 mixed-case make and model',async()=>{expect(ids(await get('/api/vehicles?q=honda'))).toEqual(['veh-002','veh-005']);expect(ids(await get('/api/vehicles?q=ESCAPE'))).toEqual(['veh-003']);});
 test('PB-03 stock prefix and DF-01 fix',async()=>{expect(ids(await get('/api/vehicles?q=STK-2083'))).toEqual(['veh-003','veh-004']);expect(ids(await get('/api/vehicles?q=stk-20811'))).toEqual(['veh-001']);});

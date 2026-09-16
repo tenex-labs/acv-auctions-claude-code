@@ -50,4 +50,4 @@ for (const name of protectedFolders) {
 if (fs.existsSync(target) && !fs.statSync(target).isDirectory()) throw Error(refusal);
 
 fs.rmSync(target, { recursive: true, force: true });
-console.log(`Reset follow-up data: ${target}`);
+console.log(`Reset Comparison Report data: ${target}`);

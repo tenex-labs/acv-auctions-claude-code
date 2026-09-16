@@ -1,6 +1,8 @@
 # Inspection Desk
 
-Modernize the existing application, then add follow-up notes. The starter leaves both tasks unfinished; the C1 checkpoint provides the completed modernization so you can begin the follow-up feature.
+This repository is the prepared Next.js reference and the source for its compatibility starter. The current portal starts participants with a separate legacy-only ZIP and lets them choose a replacement stack. Use the portal’s staged instructions for that route. The commands below apply to this prepared Next.js project and its C1 recovery.
+
+Modernize the existing application, then add Comparison Reports. The starter leaves both tasks unfinished; the C1 checkpoint provides the completed modernization so you can begin the Vehicle comparison feature.
 
 ## Start the project
 
@@ -20,7 +22,7 @@ Open http://127.0.0.1:3000. Setup installs the locked packages and Chromium; Git
 
 Read the legacy application and agree on the modernization specification. Choose review criteria, construct the checks, then modernize one branch at a time. Review the results and capture the procedure in spec-to-stacked-pr.
 
-Use the fictional product request to clarify the follow-up feature. Agree on its engineering specification, apply the saved skill, then evaluate the review against the same criteria.
+Use the fictional product request to clarify the Vehicle comparison feature. Agree on its engineering specification, apply the saved skill, then evaluate the review against the same criteria.
 
 The starter and C1 include a skill scaffold. Complete it using the observed modernization before applying it to the feature.
 
@@ -33,12 +35,12 @@ Loading, data types and formatting helpers are prepared under `src/server/`. Fou
 | `npm run check:foundation` | Before starting; prepared modules, types and file size. |
 | `npm run check:increment -- task1 PB-04` | One named modernization change; builds saved source once. |
 | `npm run check:task1` | The modernization is complete. |
-| `npm run check:increment -- task2 FU-04` | One named follow-up change. |
-| `npm run check:task2` | The follow-up feature is complete. |
+| `npm run check:increment -- task2 CMP-03` | One named comparison change. |
+| `npm run check:task2` | The Vehicle comparison feature is complete. |
 | `npm run check` | Final local verification: one fresh build, all checks and your regression tests. |
 | `npm run hook:probe` | Direct type, size and irrelevant-file probes; actual Claude session events are separate evidence. |
 | `npm run package -- --recovery` | Save a new local backup before switching to a checkpoint. |
-| `npm run reset:data` | Clear only follow-up state. |
+| `npm run reset:data` | Clear only Comparison Report state. |
 
 [Behavior checklist](docs/CHECKS.md) · [Interface](docs/INTERFACE-CONTRACT.md) · [Local backups](docs/PACKAGING.md) · [Regression tests](tests/participant/README.md).
 
@@ -46,7 +48,7 @@ Loading, data types and formatting helpers are prepared under `src/server/`. Fou
 
 ## Continue from C1
 
-C1 is available whenever you want to begin the follow-up feature. Save your current work first:
+C1 is available whenever you want to begin the Vehicle comparison feature. Save your current work first:
 
 ```sh
 npm run package -- --recovery
@@ -68,7 +70,7 @@ Choose the PR changed-line limit before building the checks. Run `npm run check:
 
 ## Fictional PM inputs
 
-The feature request includes `product/follow-up/REQUEST.md`, `PRODUCT-SPEC.md`, `JOURNEY.md` and `follow-up.html`. Ask product questions before reading CLARIFICATIONS.md. The prototype keeps notes only in page memory and deliberately leaves decisions open. It is fictional training material.
+The feature request includes `product/comparison/REQUEST.md`, `PRODUCT-SPEC.md`, `JOURNEY.md` and `comparison.html`. Read all four and ask the presenter about missing decisions. After that discussion, download the separate Comparison requirements pack from Build. Extract it, then run `node /path/to/comparison-requirements/install.mjs` in this project folder. The installer adds only new requirement and test files; it refuses to overwrite existing files. Reconcile its answers with the presenter before implementation. The prototype uses page memory and leaves decisions open. It is fictional training material.
 
 ## Evaluate your review criteria
 

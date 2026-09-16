@@ -6,11 +6,11 @@ For each question, state the choice and what depends on it. Group related questi
 
 Examples of useful questions:
 
-- Does a second open note replace the first, or should it be rejected? This changes saving and the duplicate test.
-- Should notes survive server restart? This determines whether storage must be persistent.
-- Where should a note appear: its inspection only, or also the recorded report? This changes which views and records may change.
+- How many records can a comparison include? This changes selection validation and the layout.
+- Should saved reports survive server restart? This determines whether storage must be persistent.
+- Should a saved report be a snapshot or use live data? This changes what must be saved and how reads behave.
 
-These are examples of missing decisions, not permission to override an existing specification. In the workshop, the presenter answers from `product/follow-up/CLARIFICATIONS.md`. During Module 05, ask before reading that answer record; wait, then reconcile answers with it and return conflicts to the user.
+These are examples of missing decisions, not permission to override an existing specification. In the workshop, ask before receiving the separate Comparison requirements pack. Wait for answers, then reconcile them with the supplied contract and return conflicts to the user.
 
 Before implementation ask: “Do you want to review each increment or the completed task? I’ll still ask whenever a product decision is unresolved.” An answer in the current conversation persists. Do not ask again merely because the skill or a new step begins.
 

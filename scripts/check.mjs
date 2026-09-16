@@ -19,6 +19,9 @@ async function server() {
 }
 let stop;
 try {
+ if (['check:task2','check','test','test:e2e'].includes(mode) || (mode==='check:increment' && task==='task2')) {
+  if (!fs.existsSync('docs/COMPARISON-CONTRACT.md')) throw Error('Part 2 requirements are not installed. Ask the product questions, then follow the Comparison requirements pack instructions in Build.');
+ }
  if(mode==='check:increment'&&(!['task1','task2'].includes(task)||!pattern))throw Error('Usage: npm run check:increment -- <task1|task2> <test-name-pattern>');
  if(['check:foundation','check:task1','check'].includes(mode)) {for(const script of ['preflight','typecheck','check:size','test:unit'])run(['run',script]);}
  if(mode!=='check:foundation') {
@@ -31,5 +34,6 @@ try {
   else if(mode==='test:e2e')browser('');
   else if(mode==='check') {api('');browser('');await stop();stop=await server();run(['run','test:participant']);}
   else throw Error('Unknown check mode');
+  if (mode==='check:task2' || mode==='check') run(['exec','--','node','scripts/comparison-restart.mjs']);
  }
 } catch(error) {console.error(error.message);process.exitCode=1;} finally {if(stop)await stop();}

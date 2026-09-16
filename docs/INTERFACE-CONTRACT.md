@@ -2,9 +2,9 @@
 
 September 15, 2026. Behavior and interface reference for the two-task walkthrough.
 
-Contract version string: `inspection-desk-2task-1.1`.
+Contract version string: `inspection-desk-2task-1.2`.
 
-Scope: the local Next.js application demonstrated in the walkthrough. It replaces the hosted Lucee (CFML) application (task 1) and adds the follow-up feature (task 2). It must run with no network access and must never call the hosted legacy application after setup.
+Scope: the local Next.js application demonstrated in the walkthrough. It replaces the hosted Lucee (CFML) application (task 1) and adds the comparison feature (task 2). It must run with no network access and must never call the hosted legacy application after setup.
 
 ## 1. Data shapes
 
@@ -35,14 +35,7 @@ Report (generated or recorded; identical shape, no timestamps, no random values)
   "needsAttention": false }
 ```
 
-Follow-up (task 2; the only writable record):
-
-```json
-{ "id": "fu-3f9c1b2a-…", "inspectionId": "insp-002", "findingId": "finding-004", "note": "Confirm tire brand before sale.",
-  "status": "open", "createdAt": "2026-09-17T14:02:11.000Z", "resolvedAt": null }
-```
-
-`id` is server-generated and opaque; it matches `^fu-[A-Za-z0-9-]{8,40}$`. Checks never predict it.
+Part 2 requirements arrive in the Comparison requirements pack after the product discussion.
 
 ## 2. Business rules (the legacy behavior to preserve; PB numbers refer to PRESERVATION-CONTRACT.md)
 
@@ -62,7 +55,7 @@ Follow-up (task 2; the only writable record):
 | R-GENERATED | A generated report is a deterministic render from the current inspection and vehicle records. Generating never writes anything. |
 | R-RECORDED | A recorded report is a saved file `data/reports/<reportId>.json`, read back verbatim. For an inspection's **current** revision, the generated report must deep-equal the recorded report when a recorded file exists. Some inspections deliberately have no recorded report (empty state). A recorded file may exist for an older revision (e.g. `RPT-004-R1` while the inspection is at revision 2); it is readable by id and is not compared with the current generated report. |
 | R-EMPTY | Zero-result search, zero-finding inspection, inspection without recorded report, vehicle without inspection each have a defined visible state (section 3). |
-| R-MISSING | Unknown inspection id, unknown report id, unknown follow-up id → HTTP 404 with the defined page or JSON error. |
+| R-MISSING | Unknown inspection id, unknown report id, unknown Comparison Report id → HTTP 404 with the defined page or JSON error. |
 
 ## 3. Pages (App Router) and the elements the browser checks read
 
@@ -132,24 +125,9 @@ Unknown inspection id: 404 and `record-missing` with text `That inspection was n
 
 Same elements as 3.3 with `data-report-source="recorded"`, rendered from the recorded file. `Back to inspection` links to the recorded report's `inspectionId`. Unknown report id: 404 and `record-missing` with text `That recorded report was not found.`
 
-### 3.5 Follow-ups on `/inspections/[id]` (task 2)
+### 3.5 Vehicle comparison (Part 2)
 
-Inside each `finding-<findingId>` region:
-
-| Element | Requirement |
-| --- | --- |
-| Button, accessible name `Flag for follow-up` | Shown when the finding has no open follow-up. Reveals the note form. |
-| `data-testid="follow-up-note"`, accessible name `Follow-up note` | Multiline text input. |
-| Button, accessible name `Save follow-up` | Sends the create request. |
-| Button, accessible name `Cancel` | Hides the form; nothing saved. |
-| `role="alert"` inside the finding region | Validation text: `Add a note before saving.` (empty or whitespace-only), `Keep the note to 280 characters.` (over 280 after trimming), `This finding already has an open follow-up.` (server 409). |
-| `data-testid="follow-up-<followUpId>"` with `data-follow-up-status="open"` or `"resolved"` | One per follow-up of that finding, oldest first. Appears after save and after reload. |
-| inside a follow-up: `data-testid="follow-up-note-text"` | The trimmed note. |
-| inside an open follow-up: button, accessible name `Mark resolved` | Sends the resolve request. |
-| inside a resolved follow-up: `data-testid="follow-up-resolved"` | Contains the text `Resolved`. |
-| `data-testid="follow-up-status"` with `role="status"` (once per page) | `Follow-up saved.` after a successful save; `Follow-up resolved.` after resolve. |
-
-Follow-ups for other inspections never render on this page. Report pages show no follow-ups.
+See the separately supplied `COMPARISON-CONTRACT.md` after clarification.
 
 ## 4. JSON API
 
@@ -159,7 +137,7 @@ All responses are JSON. Errors use the envelope `{"error":{"code":"…","message
 
 | Method and path | Success | Errors |
 | --- | --- | --- |
-| `GET /api/health` | 200 `{"status":"ok","contractVersion":"inspection-desk-2task-1.1","fixtureDir":"<abs path>","dataDir":"<abs path>"}` | — |
+| `GET /api/health` | 200 `{"status":"ok","contractVersion":"inspection-desk-2task-1.2","fixtureDir":"<abs path>","dataDir":"<abs path>"}` | — |
 | `GET /api/vehicles?q=&sort=` | 200 `{"vehicles":[{…vehicle,"inspectionId":"insp-001" or null}],"matched":8,"total":8}` after R-SEARCH and R-SORT | — |
 | `GET /api/inspections/:id` | 200 `{"inspection":{…},"vehicle":{…},"summary":{"severityCounts":{"major":0,"minor":1,"info":1},"needsAttention":false},"reportId":"RPT-001-R1","recordedReportExists":true}` | 404 `INSPECTION_NOT_FOUND` |
 | `GET /api/inspections/:id/report` | 200 `{"report":{…generated}}` | 404 `INSPECTION_NOT_FOUND` |
@@ -180,52 +158,21 @@ GET /api/inspections/insp-999        → 404 {"error":{"code":"INSPECTION_NOT_FO
 GET /api/reports/RPT-006-R1          → 404 {"error":{"code":"REPORT_NOT_FOUND","message":"Report RPT-006-R1 was not found."}}
 ```
 
-### 4.2 Follow-up endpoints (task 2)
+### 4.2 Comparison API (Part 2)
 
-| Method and path | Body | Success | Errors |
-| --- | --- | --- | --- |
-| `POST /api/inspections/:id/findings/:findingId/follow-ups` | `{"note":"…"}` | 201 `{"followUp":{…}}` with `status:"open"`, `resolvedAt:null` | 400 `INVALID_REQUEST` (body not a JSON object); 400 `INVALID_NOTE` (note missing, not a string, empty or whitespace-only after trimming, or longer than 280 after trimming) — nothing saved; 404 `INSPECTION_NOT_FOUND`; 404 `FINDING_NOT_FOUND` (finding absent **from that inspection**); 409 `FOLLOW_UP_EXISTS` when an open follow-up already exists for that finding — body `{"error":{"code":"FOLLOW_UP_EXISTS","message":"…"},"followUp":{…existing open record}}`, nothing saved |
-| `GET /api/inspections/:id/follow-ups` | — | 200 `{"followUps":[…]}` only this inspection's records, open and resolved, oldest first | 404 `INSPECTION_NOT_FOUND` |
-| `GET /api/follow-ups/:followUpId` | — | 200 `{"followUp":{…}}` | 404 `FOLLOW_UP_NOT_FOUND` |
-| `POST /api/follow-ups/:followUpId/resolve` | `{}` or empty | 200 `{"followUp":{…}}` with `status:"resolved"`, `resolvedAt` ISO string; repeating returns 200 with the **same** `resolvedAt` | 404 `FOLLOW_UP_NOT_FOUND` |
-
-Rules the checks apply:
-
-- The saved `note` is the trimmed input. Create request with `"  Check tread depth  "` saves `Check tread depth`.
-- After a follow-up is resolved, a new open follow-up for the same finding is allowed (201).
-- Resolving changes nothing in `GET /api/inspections/:id` (findings, revision) or in `GET /api/inspections/:id/report`.
-- Records survive a server stop and start with the same `INSPECTION_DESK_DATA_DIR`.
-
-Example:
-
-```
-POST /api/inspections/insp-002/findings/finding-004/follow-ups   {"note":"Confirm tire brand before sale."}
-201 {"followUp":{"id":"fu-…","inspectionId":"insp-002","findingId":"finding-004","note":"Confirm tire brand before sale.","status":"open","createdAt":"2026-09-17T14:02:11.000Z","resolvedAt":null}}
-
-POST (same again)
-409 {"error":{"code":"FOLLOW_UP_EXISTS","message":"Finding finding-004 already has an open follow-up."},"followUp":{…the record above}}
-
-POST /api/inspections/insp-001/findings/finding-004/follow-ups   {"note":"x"}
-404 {"error":{"code":"FINDING_NOT_FOUND","message":"Finding finding-004 is not part of inspection insp-001."}}
-
-POST /api/inspections/insp-002/findings/finding-004/follow-ups   {"note":"   "}
-400 {"error":{"code":"INVALID_NOTE","message":"Add a note of 1 to 280 characters."}}
-
-POST /api/follow-ups/fu-…/resolve
-200 {"followUp":{…,"status":"resolved","resolvedAt":"2026-09-17T14:05:40.000Z"}}
-```
+See the separately supplied `COMPARISON-CONTRACT.md` after clarification.
 
 ## 5. Storage and environment
 
 | Variable | Meaning | Default |
 | --- | --- | --- |
 | `INSPECTION_DESK_FIXTURE_DIR` | Directory containing `vehicles.json`, `inspections.json` and `reports/*.json`. Read-only; the app never writes here. | `<project>/data` |
-| `INSPECTION_DESK_DATA_DIR` | Writable directory for follow-ups (the only writable state). Created on first write. | `<project>/.data` |
+| `INSPECTION_DESK_DATA_DIR` | Writable directory for Comparison Reports (the only writable state). Created on first write. | `<project>/.data` |
 | `PORT` | Port for `npm run start` (`next start` reads `PORT`; installed docs `01-app/03-api-reference/06-cli/next.md`, line 121). | `3000` |
 | `NEXT_TELEMETRY_DISABLED` | Set to `1` by the local check command and recommended in `.env.example`. | — |
 | `TZ` | The local check command sets `UTC`. Date rendering must not depend on it (R-DATE uses the UTC date explicitly). | — |
 
-Follow-up storage: the reference writes `<INSPECTION_DESK_DATA_DIR>/follow-ups.json` (an array) with write-to-temp-then-rename; any layout inside the directory is acceptable. Loading happens on first request after start. `npm run reset:data` deletes the directory's contents.
+Comparison storage is defined after the product clarification discussion. Initial source fixtures stay read-only.
 
 ## 6. Commands
 
@@ -236,7 +183,7 @@ The installed Node version is pinned to **24.21.0**, verified on this laptop on 
 | `check:foundation` | preflight, typecheck, size and supplied unit tests; must pass initially |
 | `check:increment` | npm run check:increment -- <task1|task2> <test-name-pattern>; build current source once, then selected named checks only |
 | `check:task1` | foundation, build current source once, all modernization HTTP and browser checks |
-| `check:task2` | build current source once, all follow-up HTTP and browser checks; only expected after the feature is complete |
+| `check:task2` | build current source once, all comparison HTTP and browser checks; only expected after the feature is complete |
 | `check` | foundation, build current source once, all tests including participant regression against running app; reuse that exact build |
 | `test` | Build current source once, run unit and HTTP tests |
 | `test:e2e` | Build current source once, run browser tests |
@@ -244,7 +191,7 @@ The installed Node version is pinned to **24.21.0**, verified on this laptop on 
 | `package` | Package exact saved bytes; detect concurrent changes; hash stable content separately from ZIP bytes |
 | `package -- --recovery` | Save timestamped backup ZIP without requiring completed feature checks; do not overwrite a prior recovery archive |
 
-`setup` installs locked dependencies and Chromium. `preflight` checks the exact Node patch, dependencies and browser. `dev` uses port 3000; `start` respects PORT. `reset:data` resets only the configured follow-up data directory, with checks against deleting the project or fixtures. Targeted increment checks use a required task and test-name pattern; an empty selection is an error. A completed-feature suite is never described as an increment gate.
+`setup` installs locked dependencies and Chromium. `preflight` checks the exact Node patch, dependencies and browser. `dev` uses port 3000; `start` respects PORT. `reset:data` resets only the configured comparison data directory, with checks against deleting the project or fixtures. Targeted increment checks use a required task and test-name pattern; an empty selection is an error. A completed-feature suite is never described as an increment gate.
 
 ## 7. Source-file size rule
 
@@ -266,6 +213,6 @@ The local backup contents, exclusions, limits and file-hash rules are in `PACKAG
 
 Run `npm run check:foundation` before work. After each saved increment, use `npm run check:increment -- task1 <test-name-pattern>` or `task2`. Run `check:task1` or `check:task2` when that task is complete, then `npm run check` for the complete local application.
 
-The completed-task commands build saved source once and manage a local production server with fresh follow-up state. To verify persistence separately, stop and restart a server using the same `INSPECTION_DESK_DATA_DIR`, then confirm the saved record remains. To verify a temporary defect, use a disposable copy, rebuild and restart after each change, and keep the test unchanged through pass/fail/pass.
+The completed-task commands build saved source once and manage a local production server with fresh comparison state. To verify persistence separately, stop and restart a server using the same `INSPECTION_DESK_DATA_DIR`, then confirm the saved record remains. To verify a temporary defect, use a disposable copy, rebuild and restart after each change, and keep the test unchanged through pass/fail/pass.
 
 Use `npm run hook:probe` for direct hook checks. Observe an actual Claude Code edit separately before claiming that its PostToolUse event ran the hook. Save the command, result and source version in `workshop/EVALUATION.md` or `workshop/FINAL.md`.

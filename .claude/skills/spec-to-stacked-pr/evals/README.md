@@ -1,6 +1,6 @@
 # Evaluate spec-to-stacked-pr
 
-The four fixed packets evaluate the read-only review branch. They do not establish that the full implementation procedure works. Their check blocks are supplied teaching records, not live application results.
+The Comparison requirements pack adds the Task 2 packets, expectations and replay definition after product clarification. The four fixed packets evaluate the read-only review branch. They do not establish that the full implementation procedure works. Their check blocks are supplied teaching records, not live application results.
 
 ## Fixed review protocol
 
